@@ -21,7 +21,6 @@ class MovimientoController {
     }
 
     def guardarEntrada() {
-        println params
         def equipo = Equipo.findById(params.equipo as long)
         def movimiento = new Movimiento()
 
