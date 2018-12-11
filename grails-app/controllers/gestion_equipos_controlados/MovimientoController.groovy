@@ -24,13 +24,13 @@ class MovimientoController {
         def equipo = Equipo.findById(params.equipo as long)
         def movimiento = new Movimiento()
 
-        if(equipo != null){
+        if (equipo != null) {
             movimiento.equipo = equipo
             movimiento.cantidad = params.cantidad as int
             movimiento.tipoMovimiento = Movimiento.TipoMovimiento.ENTRADA
-            if(params.serial != null){
+            if (equipo.serial && params.serial != null) {
                 params.serial.each {
-                    new EquipoSerial(equipo: equipo, serial: it).save(flush:true, failOnError: true)
+                    new EquipoSerial(equipo: equipo, serial: it).save(flush: true, failOnError: true)
                 }
             }
         }
