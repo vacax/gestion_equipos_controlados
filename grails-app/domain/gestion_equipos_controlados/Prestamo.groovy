@@ -8,7 +8,7 @@ class Prestamo {
     Date fechaEntrega
     EstadoPrestamo estadoPrestamo
     Prestamo prestamoRenovado
-    boolean habilitado
+    boolean habilitado = true
 
     static hasMany = [listaPrestamoDetalle: PrestamoDetalle]
 

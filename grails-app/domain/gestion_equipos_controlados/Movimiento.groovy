@@ -9,7 +9,7 @@ class Movimiento {
     int cantidad
     Equipo equipo
     TipoMovimiento tipoMovimiento
-    boolean habilitado
+    boolean habilitado = true
 
     Date dateCreated
     Date lastUpdated

@@ -8,7 +8,7 @@ class PrestamoDetalle {
     int cantidadPrestado
     EquipoSerial equipoSerial
     boolean entregado
-    boolean habilitado
+    boolean habilitado = true
 
     Date dateCreated
     Date lastUpdated

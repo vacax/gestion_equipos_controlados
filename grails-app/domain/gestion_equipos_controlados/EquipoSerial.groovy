@@ -5,7 +5,7 @@ class EquipoSerial {
     Equipo equipo
     String serial
     boolean prestado
-    boolean habilitado
+    boolean habilitado = true
 
     Date dateCreated
     Date lastUpdated

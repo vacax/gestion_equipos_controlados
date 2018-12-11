@@ -6,6 +6,7 @@ class Equipo {
     long cantidadTotal
     long cantidadDisponible
     CategoriaEquipo categoriaEquipo
+    boolean serial = false
     boolean habilitado = true
 
     Date dateCreated
