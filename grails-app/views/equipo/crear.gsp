@@ -55,6 +55,13 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <div class="checkbox checkbox-success">
+                            <label for="serial"> Serial </label>
+                            <input id="serial" type="checkbox" name="serial">
+                        </div>
+                    </div>
+
                     <div class="form-row">
                         <div class="col-md-12">
                             <label for="equipo">Categoría</label>
@@ -66,6 +73,7 @@
                             </select>
                         </div>
                     </div>
+
                 </g:form>
                 <br>
                 <button id="aceptarBtn" class="btn btn-primary">Aceptar</button>

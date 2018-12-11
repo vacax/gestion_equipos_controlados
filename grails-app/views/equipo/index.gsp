@@ -33,6 +33,7 @@
                                 <th class="border-top-0">Categoría</th>
                                 <th class="border-top-0">Cantidad de Equipos Disponibles</th>
                                 <th class="border-top-0">Cantidad de Equipos Total</th>
+                                <th class="border-top-0">Serial</th>
                                 <th class="border-top-0">Habilitado</th>
                                 <th class="border-top-0">Acciones</th>
                             </tr>
@@ -50,6 +51,12 @@
                                 <td>${equipo.categoriaEquipo.categoria}</td>
                                 <td>${equipo.cantidadDisponible}</td>
                                 <td>${equipo.cantidadTotal}</td>
+                                <td><g:if test="${equipo.serial}">
+                                    Si
+                                </g:if>
+                                    <g:else>
+                                        No
+                                    </g:else></td>
                                 <td><g:if test="${equipo.habilitado}">
                                     <label class="label label-success">Habilitado</label>
                                 </g:if>
@@ -66,6 +73,7 @@
                                 <th class="border-top-0">Categoría</th>
                                 <th class="border-top-0">Cantidad de Equipos Disponibles</th>
                                 <th class="border-top-0">Cantidad de Equipos Total</th>
+                                <th class="border-top-0">Serial</th>
                                 <th class="border-top-0">Habilitado</th>
                                 <th class="border-top-0">Acciones</th>
                             </tr>

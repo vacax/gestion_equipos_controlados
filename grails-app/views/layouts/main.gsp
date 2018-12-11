@@ -362,13 +362,17 @@
                                         class="mdi mdi-playlist-plus"></i> <span class="hide-menu">Movimientos</span>
                             </a>
                                 <ul aria-expanded="false" class="collapse second-level">
-                                    <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i
-                                            class="mdi mdi-octagram"></i><span class="hide-menu">Nuevo Movimiento</span>
+                                    <li class="sidebar-item"><a href="/movimiento/index" class="sidebar-link"><i
+                                            class="mdi mdi-octagram"></i><span class="hide-menu">Movimientos Hechos</span>
                                     </a>
                                     </li>
-                                    <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i
+                                    <li class="sidebar-item"><a href="/movimiento/crearEntrada" class="sidebar-link"><i
                                             class="mdi mdi-octagram"></i><span
-                                            class="hide-menu">Movimientos Hechos</span></a>
+                                            class="hide-menu">Registrar Entrada</span></a>
+                                    </li>
+                                    <li class="sidebar-item"><a href="/movimiento/crearEntrada" class="sidebar-link"><i
+                                            class="mdi mdi-octagram"></i><span
+                                            class="hide-menu">Registrar Salida</span></a>
                                     </li>
                                 </ul>
                             </li>
