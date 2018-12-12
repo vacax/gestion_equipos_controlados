@@ -12,7 +12,9 @@ class CategoriaEquipoController {
 
     def save(CategoriaEquipo categoriaEquipo) {
         try {
-            categoriaEquipo.habilitado = params.habilitado == 'on'
+            if (categoriaEquipo.id != null){
+                categoriaEquipo.habilitado = params.habilitado == 'on'
+            }
             categoriaEquipo.save(flush: true, failOnError: true)
             redirect(controller: 'categoriaEquipo', action: 'index')
         } catch (ValidationException e) {
