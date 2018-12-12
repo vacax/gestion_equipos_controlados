@@ -28,11 +28,13 @@
                                 </g:each>
                             </select>
                         </div>
+
                         <div class="col-md-4">
                             <label for="cantidad">Cantidad</label>
                             <input type="number" min="0" step="1" class="form-control" id="cantidad" name="cantidad"
                                    placeholder="Cantidad" value="0" required>
                         </div>
+
                         <div class="col-md-2">
                             <button id="procesarBtn" style="margin-top: 28px;" class="btn btn-info">Procesar</button>
                         </div>
@@ -103,7 +105,7 @@
             });
 
             $("#registrarBtn").on('click', function (event) {
-                if($(this).hasClass('disabled')){
+                if ($(this).hasClass('disabled')) {
                     event.preventDefault();
                 }
             })
@@ -111,6 +113,7 @@
     </script>
     <script>
         var numero = 0;
+
         function camposSeriales() {
             numero++;
             var objTo = document.getElementById('camposSeriales');
@@ -146,9 +149,6 @@
                 $("#registrarBtn").addClass('disabled');
             }
         }
-    </script>
-    <script>
-
     </script>
 </content>
 </body>

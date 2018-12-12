@@ -2,8 +2,6 @@ package gestion_equipos_controlados
 
 class MovimientoController {
 
-    def movimientoService
-
     def index() {
         def listadoMovimientos = Movimiento.findAll()
 
