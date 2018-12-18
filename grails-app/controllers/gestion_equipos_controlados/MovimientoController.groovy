@@ -1,7 +1,5 @@
 package gestion_equipos_controlados
 
-import sun.rmi.runtime.Log
-
 class MovimientoController {
 
     def movimientoService
