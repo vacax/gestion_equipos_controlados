@@ -370,7 +370,7 @@
                                             class="mdi mdi-octagram"></i><span
                                             class="hide-menu">Registrar Entrada</span></a>
                                     </li>
-                                    <li class="sidebar-item"><a href="/movimiento/crearEntrada" class="sidebar-link"><i
+                                    <li class="sidebar-item"><a href="/movimiento/crearSalida" class="sidebar-link"><i
                                             class="mdi mdi-octagram"></i><span
                                             class="hide-menu">Registrar Salida</span></a>
                                     </li>

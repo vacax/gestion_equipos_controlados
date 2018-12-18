@@ -1,80 +1,99 @@
-<%@ page import="gestion_equipos_controlados.Movimiento" %>
+<%@ page import="gestion_equipos_controlados.Equipo;" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" name="layout" content="main"/>
-    <title></title>
     <content tag="title">Movimientos</content>
     <content tag="css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+        <asset:stylesheet src="datatables.net-bs4/css/dataTables.bootstrap4.css"/>
     </content>
 </head>
 
 <body>
-<content tag="content_title">Registro de Movimientos</content>
+<content tag="content_title">Movimientos</content>
 <content tag="content">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Nuevo Movimiento</h4>
-                <g:form class="needs-validation form" controller="movimiento" action="save" method="post">
-                    <div class="form-row">
-                        <div class="col-md-6">
-                            <label for="equipo">Equipo</label>
-                            <select class="select" style="width: 100%" id="equipo" name="equipo">
-                                <option></option>
-                                <g:each in="${listadoEquipos}" var="equipo">
-                                    <option value="${equipo.id}">${equipo.nombre}</option>
-                                </g:each>
-                            </select>
-                        </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Registrar Nueva Salida</h4>
+                    <h5 class="card-subtitle">Listado de Equipos</h5>
+                    <div class="table-responsive">
+                        <table id="zero_config" class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th class="border-top-0">Nombre</th>
+                                <th class="border-top-0">Serial</th>
+                                <th class="border-top-0">Habilitado</th>
+                                <th class="border-top-0">Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                            <g:each in="${listadoEquipos}" var="equipo">
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="">
+                                            <h4 class="m-b-0 font-16">${equipo.equipo.nombre}</h4>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>${equipo.serial}</td>
+                                <td><g:if test="${equipo.habilitado}">
+                                    <label class="label label-success">Habilitado</label>
+                                </g:if>
+                                    <g:else>
+                                        <label class="label label-danger">Deshabilitado</label>
+                                    </g:else></td>
+                                <td><button
+                                        onclick="seleccionarEquipo(${equipo.id}, '${equipo.equipo.nombre}', '${equipo.serial}');"
+                                        class="btn btn-danger">Seleccionar</button></td>
+                                </tr>
+                            </g:each>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th class="border-top-0">Nombre</th>
+                                <th class="border-top-0">Serial</th>
+                                <th class="border-top-0">Habilitado</th>
+                                <th class="border-top-0">Acciones</th>
+                            </tr>
+                            </tfoot>
+                        </table>
                     </div>
-                    <br>
-                    <div class="form-row">
-                        <div class="col-md-6">
-                            <label for="tipoMovimiento">Tipo de Movimiento</label>
-                            <select class="selectes" style="width: 100%" id="tipoMovimiento" name="tipoMovimiento">
-                                <option></option>
-                                <option value="${Movimiento.TipoMovimiento.ENTRADA}">${Movimiento.TipoMovimiento.ENTRADA}</option>
-                                <option value="${Movimiento.TipoMovimiento.SALIDA}">${Movimiento.TipoMovimiento.SALIDA}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-row">
-                        <div class="col-md-6">
-                            <label for="cantidad">Cantidad</label>
-                            <input type="number" min="0" class="form-control" id="cantidad" name="cantidad"
-                                   placeholder="Cantidad" value="" required>
-                        </div>
-                    </div>
-                    <br>
-                    <g:link action="save">
-                        <button id="aceptarBtn" class="btn btn-primary" type="submit">Registrar</button>
-                    </g:link>
-                </g:form>
-
+                </div>
             </div>
         </div>
     </div>
 </content>
 <content tag="js">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <!--This page plugins -->
+    <asset:javascript src="DataTables/datatables.min.js"/>
+    <asset:javascript src="dist/js/pages/datatable/datatable-basic.init.js"/>
+
     <script type="text/javascript">
         $(document).ready(function () {
-
-            $(".select").select2({
-                placeholder: "Seleccione un Equipo",
-                allowClear: true,
-                minimumResultsForSearch: 1
-            });
-
-            $(".selectes").select2({
-                placeholder: "Seleccione Tipo Movimiento",
-                allowClear: true,
-                minimumResultsForSearch: 1
-            });
+            $(".table").DataTable();
         })
+    </script>
+    <script>
+        function seleccionarEquipo(id, nombre, serial) {
+            var equipo = id;
+
+            var aceptar = confirm("Seguro de Eliminar el " + nombre + " con serial: " + serial);
+            if (aceptar == true){
+                $.ajax({
+                    type: "post",
+                    url: "/movimiento/guardarSalida/",
+                    data: {data: equipo},
+                    success: function () {
+                        window.location = "/movimiento/index/"
+                    }
+                });
+            }
+
+
+        }
     </script>
 </content>
 </body>
