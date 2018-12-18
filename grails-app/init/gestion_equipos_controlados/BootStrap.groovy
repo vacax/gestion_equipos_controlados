@@ -13,6 +13,9 @@ class BootStrap {
         EstadoPrestamo.findOrSaveWhere(codigo: EstadoPrestamo.COMPLETADO, estado: "COMPLETADO")
         EstadoPrestamo.findOrSaveWhere(codigo: EstadoPrestamo.PENDIENTE, estado: "PENDIENTE")
 
+        EstadoEquipo.findOrSaveWhere(codigo: EstadoEquipo.BUENO, estado: "BUENO")
+        EstadoEquipo.findOrSaveWhere(codigo: EstadoEquipo.PERDIDO, estado: "PERDIDO")
+        EstadoEquipo.findOrSaveWhere(codigo: EstadoEquipo.DANADO, estado: "DAÑADO")
     }
     def destroy = {
     }
