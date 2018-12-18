@@ -4,6 +4,7 @@ class EquipoSerial {
 
     Equipo equipo
     String serial
+    EstadoEquipo estadoEquipo
     boolean generado = false
     boolean prestado = false
     boolean habilitado = true
