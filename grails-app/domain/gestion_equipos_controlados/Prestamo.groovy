@@ -4,8 +4,8 @@ class Prestamo {
 
     String nombreEstudiante
     String matriculaStudiante
-    Date fechaSolicitud
-    Date fechaEntrega
+    Date fechaSolicitud = new Date()
+    Date fechaEntrega =  new Date()
     EstadoPrestamo estadoPrestamo
     Prestamo prestamoRenovado
     boolean habilitado = true
@@ -16,5 +16,6 @@ class Prestamo {
     Date lastUpdated
 
     static constraints = {
+        prestamoRenovado nullable: true
     }
 }

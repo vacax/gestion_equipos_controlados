@@ -343,11 +343,11 @@
                                                 href="javascript:void(0)" aria-expanded="false"><i
                                 class="icon-Car-Wheel"></i><span class="hide-menu">Prestamos</span></a>
                         <ul aria-expanded="false" class="collapse  first-level">
-                            <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i
+                            <li class="sidebar-item"><a href="/prestamo/crear" class="sidebar-link"><i
                                     class="mdi mdi-adjust"></i><span class="hide-menu">Nuevo Prestamo</span></a></li>
-                            <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i
+                            <li class="sidebar-item"><a href="/prestamo/index" class="sidebar-link"><i
                                     class="mdi mdi-adjust"></i><span class="hide-menu">Prestamos Activos</span></a></li>
-                            <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i
+                            <li class="sidebar-item"><a href="/prestamo/historial" class="sidebar-link"><i
                                     class="mdi mdi-adjust"></i><span class="hide-menu">Historial Prestamos</span></a>
                             </li>
                         </ul>

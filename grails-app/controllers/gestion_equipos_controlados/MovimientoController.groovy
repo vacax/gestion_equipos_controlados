@@ -5,7 +5,6 @@ class MovimientoController {
     def index() {
         def listadoMovimientos = Movimiento.findAllByHabilitado(true)
         def listadoEquipos = Equipo.findAllByHabilitado(true)
-
         [listadoMovimientos: listadoMovimientos, listadoEquipos: listadoEquipos]
     }
 
@@ -16,7 +15,6 @@ class MovimientoController {
 
     def crearSalida() {
         def listadoEquipos = EquipoSerial.findAllByHabilitadoAndPrestado(true, false)
-
         [listadoEquipos: listadoEquipos]
     }
 
@@ -35,13 +33,13 @@ class MovimientoController {
                 }
             }*/
 
-            cantidad.times{
-                new EquipoSerial(equipo: equipo, serial: params.serial).save(flush: true, failOnError: true)
+            cantidad.times {
+                new EquipoSerial(equipo: equipo, serial: params.serial).save(flush: true, failOnError: true).save(flush: true, failOnError: true)
             }
 
             equipo.cantidadDisponible += cantidad
             equipo.cantidadTotal += cantidad
-            equipo.save(flush:true, failOnError: true)
+            equipo.save(flush: true, failOnError: true)
         }
 
         try {
@@ -68,8 +66,8 @@ class MovimientoController {
         equipoSerial.habilitado = false
 
         try {
-            equipoSerial.save(flush:true, failOnError:true)
-            equipo.save(flush:true, failOnError: true)
+            equipoSerial.save(flush: true, failOnError: true)
+            equipo.save(flush: true, failOnError: true)
             movimiento.save(flush: true, failOnError: true)
             redirect(controller: 'movimiento', action: 'index')
         }
