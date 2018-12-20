@@ -1,9 +1,11 @@
 package gestion_equipos_controlados
 
 import grails.converters.JSON
+import org.springframework.security.access.annotation.Secured
 
 import java.text.SimpleDateFormat
 
+@Secured(['ROLE_ADMIN'])
 class PrestamoController {
 
     SimpleDateFormat sdf = new SimpleDateFormat('dd/MM/yyyy')
@@ -39,7 +41,7 @@ class PrestamoController {
                     equipoSerial.equipo.cantidadDisponible--
                     equipoSerial.prestado = true
 
-                    equipoSerial.save(flush:true, failOnError: true)
+                    equipoSerial.save(flush: true, failOnError: true)
                     equipoSerial.equipo.save(flush: true, failOnError: true)
                     detalle.save(flush: true, failOnError: true)
 
@@ -61,7 +63,7 @@ class PrestamoController {
         render resp
     }
 
-    def historial(){
+    def historial() {
         ['prestamos': Prestamo.findAll()]
     }
 }

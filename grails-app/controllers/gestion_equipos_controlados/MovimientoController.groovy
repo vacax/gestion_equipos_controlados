@@ -1,5 +1,8 @@
 package gestion_equipos_controlados
 
+import grails.plugin.springsecurity.annotation.Secured
+
+@Secured(['ROLE_ADMIN'])
 class MovimientoController {
 
     def index() {

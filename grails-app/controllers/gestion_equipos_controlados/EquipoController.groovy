@@ -1,7 +1,9 @@
 package gestion_equipos_controlados
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 
+@Secured(['ROLE_ADMIN'])
 class EquipoController {
 
     def index() {}

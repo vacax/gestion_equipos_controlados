@@ -1,7 +1,9 @@
 package gestion_equipos_controlados
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 
+@Secured(['ROLE_ADMIN'])
 class EquipoSerialController {
 
     def index() {}

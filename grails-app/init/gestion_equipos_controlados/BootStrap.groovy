@@ -1,5 +1,9 @@
 package gestion_equipos_controlados
 
+import gestion_equipos_controlados.auth.Role
+import gestion_equipos_controlados.auth.User
+import gestion_equipos_controlados.auth.UserRole
+
 class BootStrap {
 
     def init = { servletContext ->
@@ -12,6 +16,11 @@ class BootStrap {
 
         EstadoPrestamo.findOrSaveWhere(codigo: EstadoPrestamo.DEVUELTO, estado: "DEVUELTO")
         EstadoPrestamo.findOrSaveWhere(codigo: EstadoPrestamo.PRESTADO, estado: "PRESTADO")
+
+        def user = User.findOrSaveWhere(username: 'admin', password: 'admin', email: 'admin@admin.com')
+        def role = Role.findOrSaveWhere(authority: 'ROLE_ADMIN')
+
+        UserRole.findOrSaveWhere(user: user, role: role)
 
     }
     def destroy = {

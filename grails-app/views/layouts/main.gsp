@@ -1,4 +1,4 @@
-<%@ page import="gestion_equipos_controlados.Prestamo" %>
+<%@ page import="gestion_equipos_controlados.auth.User; gestion_equipos_controlados.Prestamo" %>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -174,16 +174,18 @@
                                 </div>
 
                                 <div class="m-l-10">
-                                    <h4 class="m-b-0">Steave Jobs</h4>
+                                    <sec:ifLoggedIn>
+                                        <h4 class="m-b-0">${((User) applicationContext.springSecurityService.getCurrentUser()).username}</h4>
 
-                                    <p class=" m-b-0">varun@gmail.com</p>
+                                        <p class=" m-b-0">${((User) applicationContext.springSecurityService.getCurrentUser()).email}</p>
+                                    </sec:ifLoggedIn>
                                 </div>
                             </div>
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                <i class="ti-user m-r-5 m-l-5"></i> Mi Perfil</a>
+                            %{--<a class="dropdown-item" href="javascript:void(0)">
+                                <i class="ti-user m-r-5 m-l-5"></i> Mi Perfil</a>--}%
 
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="javascript:void(0)">
+                            <a class="dropdown-item" href="/logout">
                                 <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
 
                             <div class="dropdown-divider"></div>
