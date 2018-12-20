@@ -24,7 +24,7 @@ class PrestamoController {
             def prestamo = new Prestamo()
             def dataEstudiante = JSON.parse(params.estudiante)
             prestamo.nombreEstudiante = dataEstudiante['nombre']
-            prestamo.matriculaStudiante = dataEstudiante['matricula']
+            prestamo.matriculaEstudiante = dataEstudiante['matricula']
             prestamo.fechaEntrega = sdf.parse(dataEstudiante['fechaEntrega'] as String)
 
             prestamo.estadoPrestamo = EstadoPrestamo.findByCodigo(EstadoPrestamo.PRESTADO)

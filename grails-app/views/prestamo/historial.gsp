@@ -44,7 +44,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>${prestamo.matriculaStudiante}</td>
+                                <td>${prestamo.matriculaEstudiante}</td>
                                 <td>${prestamo.fechaEntrega}</td>
                                 <td>${prestamo.fechaSolicitud}</td>
                                 <td>${prestamo.estadoPrestamo.estado}</td>

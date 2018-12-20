@@ -51,7 +51,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>${prestamo.matriculaStudiante}</td>
+                                <td>${prestamo.matriculaEstudiante}</td>
                                 <td>${prestamo.fechaEntrega}</td>
                                 <td>${prestamo.fechaSolicitud}</td>
                                 <td>${prestamo.estadoPrestamo.estado}</td>
@@ -72,7 +72,7 @@
                                         <label class="label label-danger">Deshabilitado</label>
                                     </g:else>
                                 </td>
-                                <td><a class="btn btn-info" href="#">Editar</a></td>
+                                <td><a class="btn btn-info" href="/prestamo/recibir/?prestamo=${prestamo.id}">Recibir</a></td>
                                 </tr>
                             </g:each>
                             </tbody>

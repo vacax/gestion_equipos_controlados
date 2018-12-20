@@ -311,7 +311,7 @@
             var fechaEntrega = $("#fechaEntrega").val();
             var dataEstudiante = {nombre: nombreEstudiante, matricula: matriculaEstudiante, fechaEntrega: fechaEntrega};
 
-            if(nombre && matriculaEstudiante && fechaEntrega && dataEstudiante){
+            if(nombreEstudiante && matriculaEstudiante && fechaEntrega && dataEstudiante){
                 $.ajax({
                     url: "/prestamo/save/",
                     type: 'POST',

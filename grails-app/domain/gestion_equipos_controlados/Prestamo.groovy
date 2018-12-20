@@ -3,9 +3,9 @@ package gestion_equipos_controlados
 class Prestamo {
 
     String nombreEstudiante
-    String matriculaStudiante
+    String matriculaEstudiante
     Date fechaSolicitud = new Date()
-    Date fechaEntrega =  new Date()
+    Date fechaEntrega = new Date()
     EstadoPrestamo estadoPrestamo
     Prestamo prestamoRenovado
     boolean habilitado = true
@@ -17,5 +17,15 @@ class Prestamo {
 
     static constraints = {
         prestamoRenovado nullable: true
+    }
+
+    static prestamosVenciendo() {
+        def prestamos = findAllByEstadoPrestamoNotEqual(EstadoPrestamo.findByCodigo(EstadoPrestamo.DEVUELTO))
+        def prestamosVen = []
+        prestamos.each {
+            if (it.fechaEntrega >= new Date() - 7)
+                prestamosVen.add(it)
+        }
+        return prestamosVen
     }
 }
