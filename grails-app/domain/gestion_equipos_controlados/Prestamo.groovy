@@ -16,5 +16,6 @@ class Prestamo {
     Date lastUpdated
 
     static constraints = {
+        prestamoRenovado nullable: true
     }
 }

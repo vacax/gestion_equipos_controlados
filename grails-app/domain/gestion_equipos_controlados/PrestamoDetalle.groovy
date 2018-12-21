@@ -5,12 +5,11 @@ class PrestamoDetalle {
     Prestamo prestamo
     int cantidadPrestado
     EquipoSerial equipoSerial
-    boolean entregado
+    boolean entregado = false
     boolean habilitado = true
 
     Date dateCreated
     Date lastUpdated
 
-    static constraints = {
-    }
+    static constraints = {}
 }
