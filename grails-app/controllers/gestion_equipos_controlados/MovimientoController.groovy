@@ -43,7 +43,8 @@ class MovimientoController {
                     new EquipoSerial(equipo: equipo, serial: params.serial, estadoEquipo: estadoEquipo).save(flush: true, failOnError: true)
                 }
                 else {
-                    new EquipoSerial(equipo: equipo, serial: "Generado", generado: true, estadoEquipo: estadoEquipo).save(flush: true, failOnError: true)
+                    def serialGenerado = "GECP-"+ equipo.nombre.toUpperCase().take(4) + "-" + EquipoSerial.last().id
+                    new EquipoSerial(equipo: equipo, serial: serialGenerado, generado: true, estadoEquipo: estadoEquipo).save(flush: true, failOnError: true)
                 }
             }
 
