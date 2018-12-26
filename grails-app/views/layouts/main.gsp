@@ -1,3 +1,4 @@
+<%@ page import="gestion_equipos_controlados.auth.User; gestion_equipos_controlados.Prestamo" %>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -109,7 +110,6 @@
                         <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
                             <i class="ti-bell font-20"></i>
-
                         </a>
 
                         <div class="dropdown-menu mailbox animated bounceInDown">
@@ -119,166 +119,35 @@
                             <ul class="list-style-none">
                                 <li>
                                     <div class="drop-title bg-primary text-white">
-                                        <h4 class="m-b-0 m-t-5">4 New</h4>
-                                        <span class="font-light">Notifications</span>
+                                        <h4 class="m-b-0 m-t-5">Préstamos a Vencer</h4>
+                                        <span class="font-light">Préstamos que se vencerán en la próxima semana</span>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="message-center notifications">
-                                        <!-- Message -->
-                                        <a href="javascript:void(0)" class="message-item">
-                                            <span class="btn btn-danger btn-circle">
-                                                <i class="fa fa-link"></i>
-                                            </span>
 
-                                            <div class="mail-contnet">
-                                                <h5 class="message-title">Luanch Admin</h5>
-                                                <span class="mail-desc">Just see the my new admin!</span>
-                                                <span class="time">9:30 AM</span>
-                                            </div>
-                                        </a>
-                                        <!-- Message -->
-                                        <a href="javascript:void(0)" class="message-item">
-                                            <span class="btn btn-success btn-circle">
-                                                <i class="ti-calendar"></i>
-                                            </span>
+                                        <g:each in="${Prestamo.prestamosVenciendo()}"
+                                                var="prestamo">
+                                            <a href="/prestamo/recibir/?prestamo=${prestamo.id}" class="message-item">
+                                                <span class="btn btn-primary btn-circle">
+                                                    <i class="ti-user"></i>
+                                                </span>
 
-                                            <div class="mail-contnet">
-                                                <h5 class="message-title">Event today</h5>
-                                                <span class="mail-desc">Just a reminder that you have event</span>
-                                                <span class="time">9:10 AM</span>
-                                            </div>
-                                        </a>
-                                        <!-- Message -->
-                                        <a href="javascript:void(0)" class="message-item">
-                                            <span class="btn btn-info btn-circle">
-                                                <i class="ti-settings"></i>
-                                            </span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">${prestamo.nombreEstudiante}</h5>
+                                                    <h5 class="mail-desc">${prestamo.matriculaEstudiante}</h5>
 
-                                            <div class="mail-contnet">
-                                                <h5 class="message-title">Settings</h5>
-                                                <span class="mail-desc">You can customize this template as you want</span>
-                                                <span class="time">9:08 AM</span>
-                                            </div>
-                                        </a>
-                                        <!-- Message -->
-                                        <a href="javascript:void(0)" class="message-item">
-                                            <span class="btn btn-primary btn-circle">
-                                                <i class="ti-user"></i>
-                                            </span>
-
-                                            <div class="mail-contnet">
-                                                <h5 class="message-title">Pavan kumar</h5>
-                                                <span class="mail-desc">Just see the my admin!</span>
-                                                <span class="time">9:02 AM</span>
-                                            </div>
-                                        </a>
+                                                    <h2 class="time">${prestamo.fechaEntrega}</h2>
+                                                </div>
+                                            </a>
+                                        </g:each>
                                     </div>
-                                </li>
-                                <li>
-                                    <a class="nav-link text-center m-b-5" href="javascript:void(0);">
-                                        <strong>Check all notifications</strong>
-                                        <i class="fa fa-angle-right"></i>
-                                    </a>
                                 </li>
                             </ul>
                         </div>
                     </li>
                     <!-- ============================================================== -->
                     <!-- End Comment -->
-                    <!-- ============================================================== -->
-                    <!-- ============================================================== -->
-                    <!-- Messages -->
-                    <!-- ============================================================== -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="font-20 ti-email"></i>
-
-                        </a>
-
-                        <div class="dropdown-menu mailbox animated bounceInDown" aria-labelledby="2">
-                            <span class="with-arrow">
-                                <span class="bg-danger"></span>
-                            </span>
-                            <ul class="list-style-none">
-                                <li>
-                                    <div class="drop-title bg-danger text-white">
-                                        <h4 class="m-b-0 m-t-5">5 New</h4>
-                                        <span class="font-light">Messages</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="message-center message-body">
-                                        <!-- Message -->
-                                        <a href="javascript:void(0)" class="message-item">
-                                            <span class="user-img">
-                                                <img src="../../assets/images/users/1.jpg" alt="user"
-                                                     class="rounded-circle">
-                                                <span class="profile-status online pull-right"></span>
-                                            </span>
-
-                                            <div class="mail-contnet">
-                                                <h5 class="message-title">Pavan kumar</h5>
-                                                <span class="mail-desc">Just see the my admin!</span>
-                                                <span class="time">9:30 AM</span>
-                                            </div>
-                                        </a>
-                                        <!-- Message -->
-                                        <a href="javascript:void(0)" class="message-item">
-                                            <span class="user-img">
-                                                <img src="../../assets/images/users/2.jpg" alt="user"
-                                                     class="rounded-circle">
-                                                <span class="profile-status busy pull-right"></span>
-                                            </span>
-
-                                            <div class="mail-contnet">
-                                                <h5 class="message-title">Sonu Nigam</h5>
-                                                <span class="mail-desc">I've sung a song! See you at</span>
-                                                <span class="time">9:10 AM</span>
-                                            </div>
-                                        </a>
-                                        <!-- Message -->
-                                        <a href="javascript:void(0)" class="message-item">
-                                            <span class="user-img">
-                                                <img src="../../assets/images/users/3.jpg" alt="user"
-                                                     class="rounded-circle">
-                                                <span class="profile-status away pull-right"></span>
-                                            </span>
-
-                                            <div class="mail-contnet">
-                                                <h5 class="message-title">Arijit Sinh</h5>
-                                                <span class="mail-desc">I am a singer!</span>
-                                                <span class="time">9:08 AM</span>
-                                            </div>
-                                        </a>
-                                        <!-- Message -->
-                                        <a href="javascript:void(0)" class="message-item">
-                                            <span class="user-img">
-                                                <img src="../../assets/images/users/4.jpg" alt="user"
-                                                     class="rounded-circle">
-                                                <span class="profile-status offline pull-right"></span>
-                                            </span>
-
-                                            <div class="mail-contnet">
-                                                <h5 class="message-title">Pavan kumar</h5>
-                                                <span class="mail-desc">Just see the my admin!</span>
-                                                <span class="time">9:02 AM</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="nav-link text-center link" href="javascript:void(0);">
-                                        <b>See all e-Mails</b>
-                                        <i class="fa fa-angle-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <!-- ============================================================== -->
-                    <!-- End Messages -->
                     <!-- ============================================================== -->
                 </ul>
                 <!-- ============================================================== -->
@@ -305,16 +174,18 @@
                                 </div>
 
                                 <div class="m-l-10">
-                                    <h4 class="m-b-0">Steave Jobs</h4>
+                                    <sec:ifLoggedIn>
+                                        <h4 class="m-b-0">${((User) applicationContext.springSecurityService.getCurrentUser()).username}</h4>
 
-                                    <p class=" m-b-0">varun@gmail.com</p>
+                                        <p class=" m-b-0">${((User) applicationContext.springSecurityService.getCurrentUser()).email}</p>
+                                    </sec:ifLoggedIn>
                                 </div>
                             </div>
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                <i class="ti-user m-r-5 m-l-5"></i> Mi Perfil</a>
+                            %{--<a class="dropdown-item" href="javascript:void(0)">
+                                <i class="ti-user m-r-5 m-l-5"></i> Mi Perfil</a>--}%
 
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="javascript:void(0)">
+                            <a class="dropdown-item" href="/logout">
                                 <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
 
                             <div class="dropdown-divider"></div>
@@ -343,11 +214,11 @@
                                                 href="javascript:void(0)" aria-expanded="false"><i
                                 class="icon-Car-Wheel"></i><span class="hide-menu">Prestamos</span></a>
                         <ul aria-expanded="false" class="collapse  first-level">
-                            <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i
+                            <li class="sidebar-item"><a href="/prestamo/crear" class="sidebar-link"><i
                                     class="mdi mdi-adjust"></i><span class="hide-menu">Nuevo Prestamo</span></a></li>
-                            <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i
+                            <li class="sidebar-item"><a href="/prestamo/index" class="sidebar-link"><i
                                     class="mdi mdi-adjust"></i><span class="hide-menu">Prestamos Activos</span></a></li>
-                            <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i
+                            <li class="sidebar-item"><a href="/prestamo/historial" class="sidebar-link"><i
                                     class="mdi mdi-adjust"></i><span class="hide-menu">Historial Prestamos</span></a>
                             </li>
                         </ul>
@@ -363,7 +234,8 @@
                             </a>
                                 <ul aria-expanded="false" class="collapse second-level">
                                     <li class="sidebar-item"><a href="/movimiento/index" class="sidebar-link"><i
-                                            class="mdi mdi-octagram"></i><span class="hide-menu">Movimientos Hechos</span>
+                                            class="mdi mdi-octagram"></i><span
+                                            class="hide-menu">Movimientos Hechos</span>
                                     </a>
                                     </li>
                                     <li class="sidebar-item"><a href="/movimiento/crearEntrada" class="sidebar-link"><i
@@ -397,7 +269,8 @@
                                         class="mdi mdi-playlist-plus"></i> <span class="hide-menu">Prestamos</span></a>
                                 <ul aria-expanded="false" class="collapse second-level">
                                     <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i
-                                            class="mdi mdi-octagram"></i><span class="hide-menu">Estados Prestamos</span></a>
+                                            class="mdi mdi-octagram"></i><span
+                                            class="hide-menu">Estados Prestamos</span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -416,9 +289,7 @@
     <!-- Page wrapper  -->
     <!-- ============================================================== -->
     <div class="page-wrapper">
-        <!-- ============================================================== -->
-        <!-- Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
+
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-5 align-self-center">
@@ -432,9 +303,6 @@
             </div>
         </div>
         <!-- ============================================================== -->
-        <!-- End Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
         <!-- Container fluid  -->
         <!-- ============================================================== -->
         <div class="container-fluid">
@@ -447,8 +315,8 @@
         <!-- footer -->
         <!-- ============================================================== -->
         <footer class="footer text-center">
-            All Rights Reserved by AdminBite admin. Designed and Developed by
-            <a href="https://wrappixel.com">WrapPixel</a>.
+            %{--All Rights Reserved by AdminBite admin. Designed and Developed by
+            <a href="https://wrappixel.com">WrapPixel</a>.--}%
         </footer>
         <!-- ============================================================== -->
         <!-- End footer -->
