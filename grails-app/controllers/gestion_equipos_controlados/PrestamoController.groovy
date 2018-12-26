@@ -7,11 +7,11 @@ import java.text.SimpleDateFormat
 
 @Secured(['ROLE_ADMIN'])
 class PrestamoController {
-  
-  SimpleDateFormat sdf = new SimpleDateFormat('dd/MM/yyyy')
-  
-  def recibir(){
-        def prestamo = Prestamo.findByNombreEstudiante("Stanley De Moya")
+
+    SimpleDateFormat sdf = new SimpleDateFormat('dd/MM/yyyy')
+
+    def recibir() {
+        def prestamo = Prestamo.findById(params.prestamo as long)
         /*
         prestamo.estadoPrestamo = EstadoPrestamo.findByCodigo(EstadoPrestamo.PENDIENTE)
         prestamo.listaPrestamoDetalle.each {
@@ -20,10 +20,10 @@ class PrestamoController {
         }
         prestamo.save(flush:true, failOnError:true)
         */
-        [prestamo : prestamo]
-  }
+        [prestamo: prestamo]
+    }
 
-    def recibirTodo(long prestamo){
+    def recibirTodo(long prestamo) {
 
         def prestamoTmp = Prestamo.findById(prestamo)
         prestamoTmp.listaPrestamoDetalle.each {
@@ -32,35 +32,35 @@ class PrestamoController {
             it.save(flush: true, failOnError: true)
         }
         prestamoTmp.estadoPrestamo = EstadoPrestamo.findByCodigo(EstadoPrestamo.DEVUELTO)
-        prestamoTmp.save(flush:true, failOnError:true)
+        prestamoTmp.save(flush: true, failOnError: true)
         // redirect(uri: "prestamo/recibir?prestamo=" + prestamo.id)
-        redirect(controller: 'prestamo', action: 'recibir')
+        redirect(controller: 'prestamo', action: 'recibir', params: [prestamo: prestamoTmp.id])
     }
 
-    def recibirParcial(long prestamoDetalle){
+    def recibirParcial() {
 
 
-            def prestamoDetalleTmp = PrestamoDetalle.findById(prestamoDetalle)
-            def equipoSerialTmp = EquipoSerial.findById(prestamoDetalleTmp.equipoSerial.id)
-            def prestamo = Prestamo.findById(prestamoDetalleTmp.prestamo.id)
-            equipoSerialTmp.prestado = false
-            prestamoDetalleTmp.entregado = true
-            equipoSerialTmp.save(flush: true, failOnError: true)
-            prestamoDetalleTmp.save(flush: true, failOnError: true)
+        def prestamoDetalleTmp = PrestamoDetalle.findById(params.prestamoDetalle as long)
+        def equipoSerialTmp = EquipoSerial.findById(prestamoDetalleTmp.equipoSerial.id)
+        def prestamo = Prestamo.findById(prestamoDetalleTmp.prestamo.id)
+        equipoSerialTmp.prestado = false
+        prestamoDetalleTmp.entregado = true
+        equipoSerialTmp.save(flush: true, failOnError: true)
+        prestamoDetalleTmp.save(flush: true, failOnError: true)
 
-            def prestamoCompleto = prestamo.listaPrestamoDetalle.every{ it.entregado }
-            if(prestamoCompleto){
-                prestamo.estadoPrestamo = EstadoPrestamo.findByCodigo(EstadoPrestamo.DEVUELTO)
-                prestamo.save(flush: true, failOnError: true)
-            }
-            // redirect(uri: "prestamo/recibir?prestamo=" + prestamo.id)
-            redirect(controller: 'prestamo', action: 'recibir')
+        def prestamoCompleto = prestamo.listaPrestamoDetalle.every { it.entregado }
+        if (prestamoCompleto) {
+            prestamo.estadoPrestamo = EstadoPrestamo.findByCodigo(EstadoPrestamo.DEVUELTO)
+            prestamo.save(flush: true, failOnError: true)
+        }
+        // redirect(uri: "prestamo/recibir?prestamo=" + prestamo.id)
+        redirect(controller: 'prestamo', action: 'recibir', params: [prestamo: prestamoDetalleTmp.prestamo.id])
 
     }
 
-    def recibirParcialProblema(long prestamoDetalle){
+    def recibirParcialProblema(long prestamoDetalle) {
 
-        try{
+        try {
             def prestamoDetalleTmp = PrestamoDetalle.findById(prestamoDetalle)
             def equipoSerialTmp = EquipoSerial.findById(prestamoDetalleTmp.equipoSerial.id)
             def equipo = Equipo.findById(equipoSerialTmp.equipo.id)
@@ -80,22 +80,21 @@ class PrestamoController {
 
             equipo.cantidadTotal -= 1
             equipo.cantidadDisponible -= 1
-            equipo.save(flush: true, failOnError:true)
+            equipo.save(flush: true, failOnError: true)
 
-            def prestamoCompleto = prestamo.listaPrestamoDetalle.every{it.entregado}
-            if(prestamoCompleto){
+            def prestamoCompleto = prestamo.listaPrestamoDetalle.every { it.entregado }
+            if (prestamoCompleto) {
                 prestamo.estadoPrestamo = EstadoPrestamo.findByCodigo(EstadoPrestamo.DEVUELTO)
                 prestamo.save(flush: true, failOnError: true)
             }
 
             redirect(controller: 'prestamo', action: 'recibir')
         }
-        catch (Exception e){
-
+        catch (Exception e) {
+            println e.message
         }
     }
 
-    
 
     def index() {
         ['prestamos': Prestamo.findAllByEstadoPrestamo(EstadoPrestamo.findByCodigo(EstadoPrestamo.PRESTADO))]
