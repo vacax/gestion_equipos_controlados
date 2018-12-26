@@ -140,6 +140,7 @@
                             $("#campoSerial").css('display', 'block');
                             $('#cantidad').prop('readonly', true);
                             $("#cantidad").val(1);
+                            $("#serial").prop('required', true);
                             $("#serial").val('');
 
                         } else if (data === 'false') {
@@ -147,7 +148,8 @@
                             $("#campoSerial").css('display', 'none');
                             $('#cantidad').prop('readonly', false);
                             $("#cantidad").val(1);
-                            $("#serial").val("GEC-");
+                            $("#serial").prop('required', false);
+                            $("#serial").val('');
 
                         } else {
                             alert('No existe el equipo que se quiere procesar.');

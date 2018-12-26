@@ -24,6 +24,7 @@ class MovimientoController {
     def guardarEntrada() {
         def equipo = Equipo.findById(params.equipo as long)
         def movimiento = new Movimiento()
+        def estadoEquipo = EstadoEquipo.findByCodigo(EstadoEquipo.BUENO)
 
         if (equipo != null) {
             def cantidad = params.cantidad as int
@@ -35,9 +36,15 @@ class MovimientoController {
                     new EquipoSerial(equipo: equipo, serial: it).save(flush: true, failOnError: true)
                 }
             }*/
-
-            cantidad.times {
-                new EquipoSerial(equipo: equipo, serial: params.serial).save(flush: true, failOnError: true).save(flush: true, failOnError: true)
+          
+            cantidad.times{
+                if (params.serial != ''){
+                    new EquipoSerial(equipo: equipo, serial: params.serial, estadoEquipo: estadoEquipo).save(flush: true, failOnError: true)
+                }
+                else {
+                    def serialGenerado = "GECP-"+ equipo.nombre.toUpperCase().take(4) + "-" + EquipoSerial.last().id
+                    new EquipoSerial(equipo: equipo, serial: serialGenerado, generado: true, estadoEquipo: estadoEquipo).save(flush: true, failOnError: true)
+                }
             }
 
             equipo.cantidadDisponible += cantidad
