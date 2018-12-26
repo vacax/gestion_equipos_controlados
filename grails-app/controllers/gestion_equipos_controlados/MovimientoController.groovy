@@ -1,13 +1,13 @@
 package gestion_equipos_controlados
 
-class MovimientoController {
+import grails.plugin.springsecurity.annotation.Secured
 
-    def movimientoService
+@Secured(['ROLE_ADMIN'])
+class MovimientoController {
 
     def index() {
         def listadoMovimientos = Movimiento.findAllByHabilitado(true)
         def listadoEquipos = Equipo.findAllByHabilitado(true)
-
         [listadoMovimientos: listadoMovimientos, listadoEquipos: listadoEquipos]
     }
 
@@ -18,7 +18,6 @@ class MovimientoController {
 
     def crearSalida() {
         def listadoEquipos = EquipoSerial.findAllByHabilitadoAndPrestado(true, false)
-
         [listadoEquipos: listadoEquipos]
     }
 
@@ -37,7 +36,7 @@ class MovimientoController {
                     new EquipoSerial(equipo: equipo, serial: it).save(flush: true, failOnError: true)
                 }
             }*/
-
+          
             cantidad.times{
                 if (params.serial != ''){
                     new EquipoSerial(equipo: equipo, serial: params.serial, estadoEquipo: estadoEquipo).save(flush: true, failOnError: true)
@@ -50,7 +49,7 @@ class MovimientoController {
 
             equipo.cantidadDisponible += cantidad
             equipo.cantidadTotal += cantidad
-            equipo.save(flush:true, failOnError: true)
+            equipo.save(flush: true, failOnError: true)
         }
 
         try {
@@ -77,8 +76,8 @@ class MovimientoController {
         equipoSerial.habilitado = false
 
         try {
-            equipoSerial.save(flush:true, failOnError:true)
-            equipo.save(flush:true, failOnError: true)
+            equipoSerial.save(flush: true, failOnError: true)
+            equipo.save(flush: true, failOnError: true)
             movimiento.save(flush: true, failOnError: true)
             redirect(controller: 'movimiento', action: 'index')
         }
