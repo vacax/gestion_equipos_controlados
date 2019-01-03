@@ -264,13 +264,18 @@
                                     </li>
                                 </ul>
                             </li>
+
                             <li class="sidebar-item"><a class="has-arrow sidebar-link" href="javascript:void(0)"
                                                         aria-expanded="false"><i
-                                        class="mdi mdi-playlist-plus"></i> <span class="hide-menu">Prestamos</span></a>
+                                        class="mdi mdi-playlist-plus"></i> <span class="hide-menu">Usuarios</span></a>
                                 <ul aria-expanded="false" class="collapse second-level">
-                                    <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i
+                                    <li class="sidebar-item"><a href="/usuario/index" class="sidebar-link"><i
                                             class="mdi mdi-octagram"></i><span
-                                            class="hide-menu">Estados Prestamos</span></a>
+                                            class="hide-menu">Ver Usuarios</span></a>
+                                    </li>
+                                    <li class="sidebar-item"><a href="/usuario/crear" class="sidebar-link"><i
+                                            class="mdi mdi-octagram"></i><span
+                                            class="hide-menu">Crear Usuario</span></a>
                                     </li>
                                 </ul>
                             </li>

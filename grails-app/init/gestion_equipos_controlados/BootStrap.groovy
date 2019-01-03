@@ -17,7 +17,7 @@ class BootStrap {
         EstadoPrestamo.findOrSaveWhere(codigo: EstadoPrestamo.DEVUELTO, estado: "DEVUELTO")
         EstadoPrestamo.findOrSaveWhere(codigo: EstadoPrestamo.PRESTADO, estado: "PRESTADO")
 
-        def user = User.findOrSaveWhere(username: 'admin', password: 'admin', email: 'admin@admin.com')
+        def user = User.findOrSaveWhere(username: 'admin', name: 'Admin', password: 'admin', email: 'admin@admin.com')
         def role = Role.findOrSaveWhere(authority: 'ROLE_ADMIN')
 
         UserRole.findOrSaveWhere(user: user, role: role)

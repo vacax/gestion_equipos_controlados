@@ -12,6 +12,7 @@ class User implements Serializable {
     private static final long serialVersionUID = 1
 
     String username
+    String name
     String password
     String email
     boolean enabled = true
