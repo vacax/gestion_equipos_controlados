@@ -73,6 +73,13 @@
                             <br>
                         </div>
                     </div>
+
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <label for="enabled">Habilitado</label>
+                            <input id="enabled" name="enabled" type="checkbox" <g:if test="${user.enabled}">checked >                                       </g:if>
+                        </div>
+                    </div>
                 </g:form>
                 <button id="aceptarBtn" class="btn btn-primary">Aceptar</button>
             </div>

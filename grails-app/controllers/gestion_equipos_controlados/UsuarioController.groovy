@@ -32,12 +32,13 @@ class UsuarioController {
     }
 
     def update(User user){
+
         try {
             def storedUser = User.findByUsername(params.old_username as String)
             storedUser.username = user.username
-            storedUser.name = user.name;
+            storedUser.name = user.name
             storedUser.email = user.email
-            storedUser.enabled = user.enabled
+            storedUser.enabled = params.enabled as boolean
             if (user.password){
                 storedUser.password = user.password
             }
