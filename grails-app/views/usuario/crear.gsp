@@ -1,8 +1,9 @@
+<%@ page import="gestion_equipos_controlados.auth.Role" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" name="layout" content="main"/>
-    <content tag="title">Categorias Equipos</content>
+    <content tag="title">Crear Usuario</content>
 </head>
 
 <body>
@@ -40,7 +41,7 @@
 
                     <div class="form-row">
                         <div class="col-md-12">
-                            <label for="email">Username</label>
+                            <label for="email">Correo Electrónico</label>
                             <input type="email" class="form-control" id="email" name="email"
                                    placeholder="Correo Electrónico" value="" required>
 
@@ -69,6 +70,21 @@
                             <br>
                         </div>
                     </div>
+
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <label for="role">Rol</label>
+                            <select class="form-control" id="role" name="role">
+                                <g:each in="${Role.list()}" var="rol">
+                                    <option value="${rol.id}">${rol.authority}</option>
+                                </g:each>
+                            </select>
+                            <div id="role-valido" style="color: red; display: none;">
+                                * Las contraseñas no son las mismas!
+                            </div>
+                            <br>
+                        </div>
+                    </div>
                 </g:form>
                 <button id="aceptarBtn" class="btn btn-primary">Aceptar</button>
             </div>
@@ -80,7 +96,7 @@
         $(document).ready(function () {
             $("#aceptarBtn").on('click', function (event) {
 
-                if ($("#password").val() === $("#verify-pass").val()) {
+                if ($("#password").val() && $("#password").val() === $("#verify-pass").val()) {
                     $("#pass-valido").css('display', 'none');
                     var username = $("#username").val();
                     $.ajax({

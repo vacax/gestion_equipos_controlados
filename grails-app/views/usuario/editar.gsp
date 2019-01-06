@@ -1,23 +1,26 @@
+<%@ page import="gestion_equipos_controlados.auth.Role" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" name="layout" content="main"/>
-    <content tag="title">Categorias Equipos</content>
+    <content tag="title">Editando Usuarios</content>
 </head>
 
 <body>
-<content tag="content_title">Crear Usuario</content>
+<content tag="content_title">Editar Usuario</content>
 <content tag="content">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Creando nuevo usuario</h4>
-                <g:form class="needs-validation form" controller="usuario" action="save" method="post">
+                <h4 class="card-title">Editando usuario ${user.username}</h4>
+                <g:form class="needs-validation form" controller="usuario" action="update" method="post">
                     <div class="form-row">
                         <div class="col-md-6">
                             <label for="username">Username</label>
+                            <input type="text" class="form-control" id="old_username" name="old_username"
+                                   placeholder="Username" value="${user.username}" hidden>
                             <input type="text" class="form-control" id="username" name="username"
-                                   placeholder="Username" value="" required>
+                                   placeholder="Username" value="${user.username}" required>
 
                             <div id="username-valido" style="color: red; display: none;">
                                 * Username no disponible!
@@ -28,7 +31,7 @@
                         <div class="col-md-6">
                             <label for="name">Nombre Usuario</label>
                             <input type="text" class="form-control" id="name" name="name"
-                                   placeholder="Nombre Usuario" value="" required>
+                                   placeholder="Nombre Usuario" value="${user.name}" required>
 
                             <div id="nombre-valido" style="color: red; display: none;">
                                 * Nombre no disponible!
@@ -42,7 +45,7 @@
                         <div class="col-md-12">
                             <label for="email">Username</label>
                             <input type="email" class="form-control" id="email" name="email"
-                                   placeholder="Correo Electrónico" value="" required>
+                                   placeholder="Correo Electrónico" value="${user.email}" required>
 
                             <div id="email-valido" style="color: red; display: none;">
                                 * Correo no disponible!
@@ -56,6 +59,7 @@
                             <label for="password">Contraseña</label>
                             <input type="password" class="form-control" id="password" name="password"
                                    placeholder="Contraseña" value="" required>
+
                             <div id="pass-valido" style="color: red; display: none;">
                                 * Las contraseñas no son las mismas!
                             </div>
