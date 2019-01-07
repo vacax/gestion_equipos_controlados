@@ -27,9 +27,14 @@ class PrestamoController {
 
         def prestamoTmp = Prestamo.findById(prestamo)
         prestamoTmp.listaPrestamoDetalle.each {
-            it.entregado = true
-            it.equipoSerial.prestado = false
-            it.save(flush: true, failOnError: true)
+            if(!it.entregado){
+                def equipo = Equipo.findById(it.equipoSerial.equipo.id)
+                equipo.cantidadDisponible +=1
+                it.entregado = true
+                it.equipoSerial.prestado = false
+                equipo.save(flush: true, failOnError: true)
+                it.save(flush: true, failOnError: true)
+            }
         }
         prestamoTmp.estadoPrestamo = EstadoPrestamo.findByCodigo(EstadoPrestamo.DEVUELTO)
         prestamoTmp.save(flush: true, failOnError: true)
@@ -42,9 +47,12 @@ class PrestamoController {
 
         def prestamoDetalleTmp = PrestamoDetalle.findById(params.prestamoDetalle as long)
         def equipoSerialTmp = EquipoSerial.findById(prestamoDetalleTmp.equipoSerial.id)
+        def equipo = Equipo.findById(equipoSerialTmp.equipo.id)
         def prestamo = Prestamo.findById(prestamoDetalleTmp.prestamo.id)
+        equipo.cantidadDisponible += 1
         equipoSerialTmp.prestado = false
         prestamoDetalleTmp.entregado = true
+        equipo.save(flush: true, failOnError: true)
         equipoSerialTmp.save(flush: true, failOnError: true)
         prestamoDetalleTmp.save(flush: true, failOnError: true)
 
@@ -116,6 +124,7 @@ class PrestamoController {
             prestamo.fechaEntrega = sdf.parse(dataEstudiante['fechaEntrega'] as String)
 
             prestamo.estadoPrestamo = EstadoPrestamo.findByCodigo(EstadoPrestamo.PRESTADO)
+            prestamo.save(flush:true, failOnError: true)
             prestamo.listaPrestamoDetalle = new HashSet<>()
             def dataPrestamo = JSON.parse(params.dataPrestamo)
             dataPrestamo.each {
@@ -124,6 +133,7 @@ class PrestamoController {
                 def equipoSerial = EquipoSerial.findBySerial(it['serial'] as String)
                 if (!equipoSerial.prestado) {
                     detalle.equipoSerial = equipoSerial
+                    detalle.prestamo = prestamo
                     equipoSerial.equipo.cantidadDisponible--
                     equipoSerial.prestado = true
 
