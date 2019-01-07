@@ -36,4 +36,27 @@ class EquipoController {
     def verificarNombreEquipo() {
         render Equipo.findByNombre(params.data as String) ? true : false
     }
+
+    def edit(long equipo){
+        def equipoTmp = Equipo.findById(equipo)
+        [equipo: equipoTmp]
+    }
+
+    def modificarEquipo(long idEquipo, String nombre, long categoriaEquipo){
+
+        withForm {
+            def equipoTmp = Equipo.findById(idEquipo)
+            def categoriaTmp = CategoriaEquipo.findById(categoriaEquipo)
+            equipoTmp.nombre = nombre
+            equipoTmp.categoriaEquipo = categoriaTmp
+
+            equipoTmp.save(flush: true, failsOnError: true)
+
+
+        }.invalidToken {
+            println("Doble posteo detectado...")
+        }
+
+        redirect(action: "index")
+    }
 }
