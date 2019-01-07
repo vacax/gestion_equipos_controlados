@@ -34,7 +34,7 @@
                     <div class="col-md-12">
                         <label for="equipo">Categoría</label>
                         <select class="select" style="width: 100%" id="categoriaEquipo" name="categoriaEquipo">
-                            <option value="${equipo.categoriaEquipo.id}">${equipo.categoriaEquipo.categoria}</option>
+                            <option></option>
                             <g:each in="${CategoriaEquipo.findAllByHabilitado(true)}" var="cat">
                                 <option value="${cat.id}">${cat.categoria}</option>
                             </g:each>
@@ -45,6 +45,7 @@
             </div>
         </div>
         <button id="aceptarBtn" class="btn btn-primary" type="submit">Guardar</button>
+        <a class="btn btn-info" href="/equipo/index">Atrás</a>
     </g:form>
 
 
@@ -56,9 +57,11 @@
 
             $(".select").select2({
                 allowClear: true,
-                minimumResultsForSearch: 1
+                minimumResultsForSearch: 1,
+                placeholder: 'Seleccionar Categoria'
             });
 
+            $('select').prop('selectedIndex', ${equipo.categoriaEquipo.id}).change();
         })
     </script>
 </content>
