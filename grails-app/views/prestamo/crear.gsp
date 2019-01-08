@@ -278,7 +278,7 @@
                     if (data.ok == true) {
                         refrescarData({
                             idEquipo: data.equipo.id,
-                            idEquipoSerial: data.equipoSerial.id,
+                            idEquipoSerial: null,
                             nombre: data.equipo.nombre,
                             cantidad: data.cantidad,
                             serial: 'N/A'

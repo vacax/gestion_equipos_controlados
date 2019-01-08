@@ -31,14 +31,15 @@ class EquipoSerialController {
         def resp = [:]
         def ok = false
         try {
-            def es = EquipoSerial.findBySerial(params.data as String)
-            if (es && es.equipo.cantidadDisponible > 0) {
-                resp['equipoSerial'] = es
-                resp['equipo'] = es.equipo
+            def eq = Equipo.findById(params.equipoId as long)
+            if (eq && eq.cantidadDisponible > 0) {
+                resp['equipoSerial'] = 'N/A'
+                resp['equipo'] = eq
                 resp['cantidad'] = params.cantidadEquipo as long
                 ok = true
             }
         } catch (Exception e) {
+            println e.message
             ok = false
         }
         resp['ok'] = ok
