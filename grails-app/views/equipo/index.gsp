@@ -63,7 +63,7 @@
                                     <g:else>
                                         <label class="label label-danger">Deshabilitado</label>
                                     </g:else></td>
-                                <td><a class="btn btn-info" href="#">Editar</a></td>
+                                <td><a class="btn btn-info" href="/equipo/edit/?equipo=${equipo.id}">Editar</a></td>
                                 </tr>
                             </g:each>
                             </tbody>

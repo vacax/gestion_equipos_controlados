@@ -17,202 +17,202 @@
 <body>
 <content tag="content_title">Crear Préstamo</content>
 <content tag="content">
-    <g:form class="needs-validation form" controller="equipo" action="save" method="post">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Creando nuevo préstamo</h4>
 
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Creando nuevo préstamo</h4>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label for="nombreEstudiante">Nombre del Estudiante</label>
+                    <input type="text" class="form-control" id="nombreEstudiante" name="nombreEstudiante"
+                           placeholder="Nombre del Estudiante" value="" required>
 
-                <div class="form-row">
-                    <div class="col-md-6">
-                        <label for="nombreEstudiante">Nombre del Estudiante</label>
-                        <input type="text" class="form-control" id="nombreEstudiante" name="nombreEstudiante"
-                               placeholder="Nombre del Estudiante" value="" required>
-
-                        <div id="nombre-valido" style="color: red; display: none;">
-                            * No disponible!
-                        </div>
-                        <br>
+                    <div id="nombre-valido" style="color: red; display: none;">
+                        * No disponible!
                     </div>
-
-                    <div class="col-md-6">
-                        <label for="matriculaEstudiante">Matrícula del Estudiante</label>
-                        <input type="text" class="form-control" id="matriculaEstudiante" name="matriculaEstudiante"
-                               placeholder="Matrícula del Estudiante" value="" required>
-
-                        <div id="matricula-valido" style="color: red; display: none;">
-                            * No disponible!
-                        </div>
-                        <br>
-                    </div>
+                    <br>
                 </div>
 
-                <div class="form-row">
-                    <div class="col-md-12">
-                        <label for="fechaEntrega">Fecha Entrega</label>
-                        <input class="form-control pickadate" placeholder="Seleccione una fecha" id="fechaEntrega" name="fechaEntrega" required>
+                <div class="col-md-6">
+                    <label for="matriculaEstudiante">Matrícula del Estudiante</label>
+                    <input type="text" class="form-control" id="matriculaEstudiante" name="matriculaEstudiante"
+                           placeholder="Matrícula del Estudiante" value="" required>
+
+                    <div id="matricula-valido" style="color: red; display: none;">
+                        * No disponible!
                     </div>
+                    <br>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-12">
+                    <label for="fechaEntrega">Fecha Entrega</label>
+                    <input class="form-control pickadate" placeholder="Seleccione una fecha" id="fechaEntrega"
+                           name="fechaEntrega" required>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Lista de Equipos</h4>
-                        <h5 class="card-subtitle">Listado de todos los equipos</h5>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Lista de Equipos</h4>
+                    <h5 class="card-subtitle">Listado de todos los equipos</h5>
 
-                        <div class="table-responsive">
-                            <input value="0" id="equipoSeleccionado" hidden>
-                            <table id="zero_config" class="table table-striped table-bordered">
-                                <thead>
-                                <tr>
-                                    <th class="border-top-0">Nombre</th>
-                                    <th class="border-top-0">Categoría</th>
-                                    <th class="border-top-0">Cantidad Disponible</th>
-                                    <th class="border-top-0">Serial</th>
-                                    <th class="border-top-0">Acciones</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                <g:each in="${Equipo.findAllByHabilitado(true)}" var="equipo">
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="">
-                                                <h4 class="m-b-0 font-16">${equipo.nombre}</h4>
-                                            </div>
+                    <div class="table-responsive">
+                        <input value="0" id="equipoSeleccionado" hidden>
+                        <table id="zero_config" class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th class="border-top-0">Nombre</th>
+                                <th class="border-top-0">Categoría</th>
+                                <th class="border-top-0">Cantidad Disponible</th>
+                                <th class="border-top-0">Serial</th>
+                                <th class="border-top-0">Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                            <g:each in="${Equipo.findAllByHabilitado(true)}" var="equipo">
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="">
+                                            <h4 class="m-b-0 font-16">${equipo.nombre}</h4>
                                         </div>
-                                    </td>
-                                    <td>${equipo.categoriaEquipo.categoria}</td>
-                                    <td>${equipo.cantidadDisponible}</td>
-                                    <td>
-                                        <g:if test="${equipo.serial}">
-                                            Si
-                                        </g:if>
-                                        <g:else>
-                                            No
-                                        </g:else>
-                                    </td>
-                                    <td>
-                                        <g:if test="${equipo.serial}">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#modal"
-                                                    data-whatever="${equipo.id}">Agregar</button>
-                                        </g:if>
-                                        <g:else>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#modalNoSerial"
-                                                    onclick="cambiarEquipoSeleccionado(${equipo.id})"
-                                                    data-whatever="${equipo.id}">Agregar</button>
-                                        </g:else>
-                                    </td>
-                                    </tr>
-                                </g:each>
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th class="border-top-0">Nombre</th>
-                                    <th class="border-top-0">Categoría</th>
-                                    <th class="border-top-0">Cantidad Disponible</th>
-                                    <th class="border-top-0">Serial</th>
-                                    <th class="border-top-0">Acciones</th>
+                                    </div>
+                                </td>
+                                <td>${equipo.categoriaEquipo.categoria}</td>
+                                <td>${equipo.cantidadDisponible}</td>
+                                <td>
+                                    <g:if test="${equipo.serial}">
+                                        Si
+                                    </g:if>
+                                    <g:else>
+                                        No
+                                    </g:else>
+                                </td>
+                                <td>
+                                    <g:if test="${equipo.serial}">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                data-target="#modal"
+                                                data-whatever="${equipo.id}">Agregar</button>
+                                    </g:if>
+                                    <g:else>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                data-target="#modalNoSerial"
+                                                onclick="cambiarEquipoSeleccionado(${equipo.id})"
+                                                data-whatever="${equipo.id}">Agregar</button>
+                                    </g:else>
+                                </td>
                                 </tr>
-                                </tfoot>
-                            </table>
-                        </div>
+                            </g:each>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th class="border-top-0">Nombre</th>
+                                <th class="border-top-0">Categoría</th>
+                                <th class="border-top-0">Cantidad Disponible</th>
+                                <th class="border-top-0">Serial</th>
+                                <th class="border-top-0">Acciones</th>
+                            </tr>
+                            </tfoot>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="form-row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Equipos a Prestar</h4>
+    <div class="form-row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Equipos a Prestar</h4>
 
-                        <div class="table-responsive">
-                            <table id="equiposPrestar" class="table table-striped table-bordered">
-                                <thead>
-                                <tr>
-                                    <th class="border-top-0">Nombre</th>
-                                    <th class="border-top-0">Cantidad</th>
-                                    <th class="border-top-0">Serial</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th class="border-top-0">Nombre</th>
-                                    <th class="border-top-0">Cantidad</th>
-                                    <th class="border-top-0">Serial</th>
-                                </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-
+                    <div class="table-responsive">
+                        <table id="equiposPrestar" class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th class="border-top-0">Nombre</th>
+                                <th class="border-top-0">Cantidad</th>
+                                <th class="border-top-0">Serial</th>
+                                <th class="border-top-0">Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th class="border-top-0">Nombre</th>
+                                <th class="border-top-0">Cantidad</th>
+                                <th class="border-top-0">Serial</th>
+                                <th class="border-top-0">Acciones</th>
+                            </tr>
+                            </tfoot>
+                        </table>
                     </div>
+
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="modal fade" id="modal" tabindex="-1" role="dialog"
-             aria-labelledby="modalLabel1">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="modalLabel1">Buscar Equipo Serial</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    </div>
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog"
+         aria-labelledby="modalLabel1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modalLabel1">Buscar Equipo Serial</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
 
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="equipoSerialInput" class="control-label">Serial:</label>
-                            <input type="text" class="form-control" id="equipoSerialInput">
-                        </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="equipoSerialInput" class="control-label">Serial:</label>
+                        <input type="text" class="form-control" id="equipoSerialInput">
                     </div>
+                </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button type="button" id="BuscarBtn" onclick="buscarEquipoSerial()"
-                                class="btn btn-primary">Buscar</button>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" id="BuscarBtn" onclick="buscarEquipoSerial()"
+                            class="btn btn-primary">Buscar</button>
                 </div>
             </div>
         </div>
-        <!-- /.modal -->
+    </div>
+    <!-- /.modal -->
 
-        <div class="modal fade" id="modalNoSerial" tabindex="-1" role="dialog"
-             aria-labelledby="modalLabel1">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="modalNoSerialLabel1">Cantidad a Agregar</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    </div>
+    <div class="modal fade" id="modalNoSerial" tabindex="-1" role="dialog"
+         aria-labelledby="modalLabel1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modalNoSerialLabel1">Cantidad a Agregar</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
 
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="cantidadEquipoNoSerial" class="control-label">Cantidad:</label>
-                            <input type="text" class="form-control" id="cantidadEquipoNoSerial">
-                        </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="cantidadEquipoNoSerial" class="control-label">Cantidad:</label>
+                        <input type="text" class="form-control" id="cantidadEquipoNoSerial">
                     </div>
+                </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button type="button" id="Aceptar" onclick="agregarEquipoNoSerial()"
-                                class="btn btn-primary">Buscar</button>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" id="Aceptar" onclick="agregarEquipoNoSerial()"
+                            class="btn btn-primary">Buscar</button>
                 </div>
             </div>
         </div>
-        <!-- /.modal -->
-    </g:form>
+    </div>
+    <!-- /.modal -->
     <button id="aceptarBtn" class="btn btn-primary">Aceptar</button>
 
 </content>
@@ -234,7 +234,7 @@
                 allowClear: true,
                 minimumResultsForSearch: 1
             });
-            $("table").DataTable();
+            $("#zero_config").DataTable();
             $("#fechaEntrega").pickadate({
                 format: 'dd/mm/yyyy'
             });
@@ -278,7 +278,7 @@
                     if (data.ok == true) {
                         refrescarData({
                             idEquipo: data.equipo.id,
-                            idEquipoSerial: data.equipoSerial.id,
+                            idEquipoSerial: null,
                             nombre: data.equipo.nombre,
                             cantidad: data.cantidad,
                             serial: 'N/A'
@@ -291,10 +291,13 @@
             })
         }
 
+
         function refrescarData(nuevaData) {
             dataPrestamo.push(nuevaData);
 
-            $('#equiposPrestar').DataTable({
+            agregarFilaTablaPrestamos(nuevaData)
+
+            /*$('#equiposPrestar').DataTable({
                 "data": dataPrestamo,
                 "columns": [
                     {"data": "nombre"},
@@ -302,8 +305,36 @@
                     {"data": "serial"}
                 ],
                 "destroy": true
-            });
+            });*/
         }
+
+        function eliminarRow(id) {
+            for (var i = 0; i < dataPrestamo.length; i++) {
+                if (dataPrestamo[i].idEquipo === id) {
+                    dataPrestamo.splice(i, 1);
+                }
+            }
+
+            $("#equiposPrestar tbody").html('');
+            for (var i = 0; i < dataPrestamo.length; i++) {
+                agregarFilaTablaPrestamos(dataPrestamo[i])
+            }
+        }
+
+        function agregarFilaTablaPrestamos(data) {
+            var newRow = $("<tr>");
+            var cols = "";
+
+            cols += '<td>' + data.nombre + '</td>';
+            cols += '<td>' + data.cantidad + '</td>';
+            cols += '<td>' + data.serial + '</td>';
+            cols += '<td><button class="btn btn-primary ibtnDel" id="btn_' + data.idEquipo + '" ' +
+                'onclick="eliminarRow(' + data.idEquipo + ')">Eliminar</button></td>';
+
+            newRow.append(cols);
+            $("#equiposPrestar").append(newRow);
+        }
+
 
         $("#aceptarBtn").on('click', function (event) {
             var nombreEstudiante = $("#nombreEstudiante").val();
@@ -311,28 +342,52 @@
             var fechaEntrega = $("#fechaEntrega").val();
             var dataEstudiante = {nombre: nombreEstudiante, matricula: matriculaEstudiante, fechaEntrega: fechaEntrega};
 
-            if(nombreEstudiante && matriculaEstudiante && fechaEntrega && dataEstudiante){
-                $.ajax({
-                    url: "/prestamo/save/",
-                    type: 'POST',
-                    data: {
-                        estudiante: JSON.stringify(dataEstudiante),
-                        dataPrestamo: JSON.stringify(dataPrestamo)
-                    },
-                    dataType: "json",
-                    success: function (result) {
-                        console.log(result);
-                        if (result == true) {
-                            window.location.href = "/prestamo/index";
-                        } else {
-                            alert('¡Ha habido un problema al procesar su solicitud!')
+            if (nombreEstudiante && matriculaEstudiante && fechaEntrega && dataEstudiante) {
+                if (dataPrestamo.length > 0) {
+                    $.ajax({
+                        url: "/prestamo/save/",
+                        type: 'POST',
+                        data: {
+                            estudiante: JSON.stringify(dataEstudiante),
+                            dataPrestamo: JSON.stringify(dataPrestamo)
+                        },
+                        dataType: "json",
+                        success: function (result) {
+                            console.log(result);
+                            if (result == true) {
+                                window.location.href = "/prestamo/index";
+                            } else {
+                                alert('¡Ha habido un problema al procesar su solicitud!')
+                            }
                         }
-                    }
-                })
+                    })
+                } else {
+                    alert('¡Debe agregar al menos un equipo al préstamo!');
+                }
             } else {
-                alert('!Hay datos que no estan completos!');
+                alert('¡Hay datos que no estan completos!');
             }
         })
+    </script>
+    <script type="text/javascript">
+        (function ($) {
+            $.fn.inputFilter = function (inputFilter) {
+                return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function () {
+                    if (inputFilter(this.value)) {
+                        this.oldValue = this.value;
+                        this.oldSelectionStart = this.selectionStart;
+                        this.oldSelectionEnd = this.selectionEnd;
+                    } else if (this.hasOwnProperty("oldValue")) {
+                        this.value = this.oldValue;
+                        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                    }
+                });
+            };
+        }(jQuery));
+
+        $("#matriculaEstudiante").inputFilter(function (value) {
+            return /^-?\d*$/.test(value);
+        });
     </script>
 </content>
 </body>

@@ -10,6 +10,85 @@ class PrestamoController {
 
     SimpleDateFormat sdf = new SimpleDateFormat('dd/MM/yyyy')
 
+    def index() {
+        ['prestamos': Prestamo.findAllByEstadoPrestamo(EstadoPrestamo.findByCodigo(EstadoPrestamo.PRESTADO))]
+    }
+
+    def crear() {
+        respond new Prestamo(params)
+    }
+
+    def save() {
+
+        println params
+
+        def ok = false
+        def resp = false
+
+        try {
+            def prestamo = new Prestamo()
+            try {
+                def dataEstudiante = JSON.parse(params.estudiante)
+                prestamo.nombreEstudiante = dataEstudiante['nombre']
+                prestamo.matriculaEstudiante = dataEstudiante['matricula']
+                prestamo.fechaEntrega = sdf.parse(dataEstudiante['fechaEntrega'] as String)
+
+                prestamo.estadoPrestamo = EstadoPrestamo.findByCodigo(EstadoPrestamo.PRESTADO)
+                prestamo.save(flush: true, failOnError: true)
+                prestamo.listaPrestamoDetalle = new HashSet<>()
+                def dataPrestamo = JSON.parse(params.dataPrestamo)
+
+                dataPrestamo.each {
+                    if (it['idEquipoSerial'] != null) {
+                        def detalle = new PrestamoDetalle()
+                        def eqSerial = EquipoSerial.findById(it['idEquipoSerial'] as long)
+                        eqSerial.equipo.cantidadDisponible--
+                        eqSerial.prestado = true
+                        eqSerial.save(flush: true, failOnError: true)
+                        eqSerial.equipo.save(flush: true, failOnError: true)
+
+                        detalle.equipoSerial = eqSerial
+                        detalle.prestamo = prestamo
+                        detalle.cantidadPrestado = it['cantidad'] as int
+                        detalle.save(flush: true, failOnError: true)
+                        prestamo.listaPrestamoDetalle.add(detalle)
+                    } else {
+                        for (int i = 0; i < (it['cantidad'] as int); i++) {
+                            def detalle = new PrestamoDetalle()
+                            def eqSerialRandom = EquipoSerial.findByEquipoAndPrestado(Equipo.findById(it['idEquipo'] as long), false)
+                            eqSerialRandom.equipo.cantidadDisponible--
+                            eqSerialRandom.prestado = true
+                            eqSerialRandom.save(flush: true, failOnError: true)
+                            eqSerialRandom.equipo.save(flush: true, failOnError: true)
+
+                            detalle.equipoSerial = eqSerialRandom
+                            detalle.prestamo = prestamo
+                            detalle.cantidadPrestado = 1
+                            detalle.save(flush: true, failOnError: true)
+                            prestamo.listaPrestamoDetalle.add(detalle)
+                        }
+                    }
+                    ok = true
+                }
+                prestamo.save(flush: true, failOnError: true)
+            } catch (Exception e) {
+                println e.message
+                ok = false
+            }
+        } catch (Exception e) {
+            println e.message
+        }
+
+        if (ok) {
+            resp = true
+        }
+        render resp
+    }
+
+    def historial() {
+        ['prestamos': Prestamo.findAll()]
+    }
+
     def recibir() {
         def prestamo = Prestamo.findById(params.prestamo as long)
         /*
@@ -27,9 +106,14 @@ class PrestamoController {
 
         def prestamoTmp = Prestamo.findById(prestamo)
         prestamoTmp.listaPrestamoDetalle.each {
-            it.entregado = true
-            it.equipoSerial.prestado = false
-            it.save(flush: true, failOnError: true)
+            if (!it.entregado) {
+                def equipo = Equipo.findById(it.equipoSerial.equipo.id)
+                equipo.cantidadDisponible += 1
+                it.entregado = true
+                it.equipoSerial.prestado = false
+                equipo.save(flush: true, failOnError: true)
+                it.save(flush: true, failOnError: true)
+            }
         }
         prestamoTmp.estadoPrestamo = EstadoPrestamo.findByCodigo(EstadoPrestamo.DEVUELTO)
         prestamoTmp.save(flush: true, failOnError: true)
@@ -39,12 +123,14 @@ class PrestamoController {
 
     def recibirParcial() {
 
-
         def prestamoDetalleTmp = PrestamoDetalle.findById(params.prestamoDetalle as long)
         def equipoSerialTmp = EquipoSerial.findById(prestamoDetalleTmp.equipoSerial.id)
+        def equipo = Equipo.findById(equipoSerialTmp.equipo.id)
         def prestamo = Prestamo.findById(prestamoDetalleTmp.prestamo.id)
+        equipo.cantidadDisponible += 1
         equipoSerialTmp.prestado = false
         prestamoDetalleTmp.entregado = true
+        equipo.save(flush: true, failOnError: true)
         equipoSerialTmp.save(flush: true, failOnError: true)
         prestamoDetalleTmp.save(flush: true, failOnError: true)
 
@@ -93,63 +179,5 @@ class PrestamoController {
         catch (Exception e) {
             println e.message
         }
-    }
-
-
-    def index() {
-        ['prestamos': Prestamo.findAllByEstadoPrestamo(EstadoPrestamo.findByCodigo(EstadoPrestamo.PRESTADO))]
-    }
-
-    def crear() {
-        respond new Prestamo(params)
-    }
-
-    def save() {
-        def ok = false
-        def resp = false
-
-        try {
-            def prestamo = new Prestamo()
-            def dataEstudiante = JSON.parse(params.estudiante)
-            prestamo.nombreEstudiante = dataEstudiante['nombre']
-            prestamo.matriculaEstudiante = dataEstudiante['matricula']
-            prestamo.fechaEntrega = sdf.parse(dataEstudiante['fechaEntrega'] as String)
-
-            prestamo.estadoPrestamo = EstadoPrestamo.findByCodigo(EstadoPrestamo.PRESTADO)
-            prestamo.listaPrestamoDetalle = new HashSet<>()
-            def dataPrestamo = JSON.parse(params.dataPrestamo)
-            dataPrestamo.each {
-                def detalle = new PrestamoDetalle()
-                detalle.cantidadPrestado = it['cantidad'] as int
-                def equipoSerial = EquipoSerial.findBySerial(it['serial'] as String)
-                if (!equipoSerial.prestado) {
-                    detalle.equipoSerial = equipoSerial
-                    equipoSerial.equipo.cantidadDisponible--
-                    equipoSerial.prestado = true
-
-                    equipoSerial.save(flush: true, failOnError: true)
-                    equipoSerial.equipo.save(flush: true, failOnError: true)
-                    detalle.save(flush: true, failOnError: true)
-
-                    prestamo.listaPrestamoDetalle.add(detalle)
-                    ok = true
-                } else {
-                    ok = false
-                }
-            }
-
-            if (ok) {
-                prestamo.save(flush: true, failOnError: true)
-                resp = true
-            }
-
-        } catch (Exception e) {
-            println e.message
-        }
-        render resp
-    }
-
-    def historial() {
-        ['prestamos': Prestamo.findAll()]
     }
 }

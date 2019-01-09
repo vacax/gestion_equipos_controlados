@@ -14,7 +14,7 @@
 <content tag="content">
     <div class="row">
         <div class="col-md-12">
-            <a class="btn btn-info" href="/usuario/crear">Crear Equipo</a>
+            <a class="btn btn-info" href="/usuario/crear">Crear Usuario</a>
         </div>
     </div>
     <br>
