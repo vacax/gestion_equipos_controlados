@@ -28,11 +28,12 @@ class EquipoSerialController {
     }
 
     def agregarEquipoNoSerial() {
+
         def resp = [:]
         def ok = false
         try {
             def eq = Equipo.findById(params.equipoId as long)
-            if (eq && eq.cantidadDisponible > 0) {
+            if (eq && eq.cantidadDisponible > (params.cantidadEquipo as long)) {
                 resp['equipoSerial'] = 'N/A'
                 resp['equipo'] = eq
                 resp['cantidad'] = params.cantidadEquipo as long
