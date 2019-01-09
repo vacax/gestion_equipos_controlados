@@ -343,7 +343,7 @@
             var dataEstudiante = {nombre: nombreEstudiante, matricula: matriculaEstudiante, fechaEntrega: fechaEntrega};
 
             if (nombreEstudiante && matriculaEstudiante && fechaEntrega && dataEstudiante) {
-                if(dataPrestamo.length > 0){
+                if (dataPrestamo.length > 0) {
                     $.ajax({
                         url: "/prestamo/save/",
                         type: 'POST',
@@ -368,6 +368,26 @@
                 alert('¡Hay datos que no estan completos!');
             }
         })
+    </script>
+    <script type="text/javascript">
+        (function ($) {
+            $.fn.inputFilter = function (inputFilter) {
+                return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function () {
+                    if (inputFilter(this.value)) {
+                        this.oldValue = this.value;
+                        this.oldSelectionStart = this.selectionStart;
+                        this.oldSelectionEnd = this.selectionEnd;
+                    } else if (this.hasOwnProperty("oldValue")) {
+                        this.value = this.oldValue;
+                        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                    }
+                });
+            };
+        }(jQuery));
+
+        $("#matriculaEstudiante").inputFilter(function (value) {
+            return /^-?\d*$/.test(value);
+        });
     </script>
 </content>
 </body>
