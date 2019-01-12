@@ -90,8 +90,8 @@ class PrestamoController {
         ['prestamos': Prestamo.findAll()]
     }
 
-    def recibir() {
-        def prestamo = Prestamo.findById(params.prestamo as long)
+    def recibir(long prestamo) {
+        def prestamoTmp = Prestamo.findById(prestamo)
         /*
         prestamo.estadoPrestamo = EstadoPrestamo.findByCodigo(EstadoPrestamo.PENDIENTE)
         prestamo.listaPrestamoDetalle.each {
@@ -100,7 +100,7 @@ class PrestamoController {
         }
         prestamo.save(flush:true, failOnError:true)
         */
-        [prestamo: prestamo]
+        [prestamo: prestamoTmp]
     }
 
     def recibirTodo(long prestamo) {
@@ -181,7 +181,7 @@ class PrestamoController {
                 prestamo.save(flush: true, failOnError: true)
             }
 
-            redirect(controller: 'prestamo', action: 'recibir')
+            redirect(controller: 'prestamo', action: 'recibir', params: [prestamo: prestamoDetalleTmp.prestamo.id])
         }
         catch (Exception e) {
             println e.message
