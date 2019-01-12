@@ -11,6 +11,7 @@
         <asset:stylesheet src="pickadate/lib/themes/default.css"/>
         <asset:stylesheet src="pickadate/lib/themes/default.date.css"/>
         <asset:stylesheet src="pickadate/lib/themes/default.time.css"/>
+        <asset:stylesheet src="sweetalert2/dist/sweetalert2.min.css"/>
     </content>
 </head>
 
@@ -103,7 +104,7 @@
                                     <g:else>
                                         <button type="button" class="btn btn-primary" data-toggle="modal"
                                                 data-target="#modalNoSerial"
-                                                onclick="cambiarEquipoSeleccionado(${equipo.id})"
+                                                onclick="cambiarEquipoSeleccionado('${equipo.id}', '${equipo.nombre}')"
                                                 data-whatever="${equipo.id}">Agregar</button>
                                     </g:else>
                                 </td>
@@ -192,7 +193,8 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="modalNoSerialLabel1">Cantidad a Agregar</h4>
+                    <h4 class="modal-title" id="modalNoSerialLabel1">
+                        Cantidad de <span id="equipoSeleccionadoSpan">*aqui*</span> a agregar</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
@@ -225,6 +227,8 @@
     <asset:javascript src="pickadate/lib/compressed/picker.time.js"/>
     <asset:javascript src="pickadate/lib/compressed/legacy.js"/>
     <asset:javascript src="pickadate/lib/translations/es_ES.js"/>
+    <asset:javascript src="sweetalert2/dist/sweetalert2.all.min.js"/>
+    <asset:javascript src="sweetalert2/sweet-alert.init.js"/>
     <script type="text/javascript">
         var dataPrestamo = [];
 
@@ -240,8 +244,9 @@
             });
         });
 
-        function cambiarEquipoSeleccionado(id) {
+        function cambiarEquipoSeleccionado(id, nombre) {
             $("#equipoSeleccionado").val(id);
+            $("#equipoSeleccionadoSpan").text(nombre);
         }
 
         function buscarEquipoSerial() {
@@ -261,7 +266,12 @@
                         refrescarData(nuevaData);
                         $('#modal').modal('toggle');
                     } else {
-                        alert('¡El equipo no existe o ya esta prestado!')
+                        swal({
+                            title: "¡ATENCIÓN!",
+                            text: "¡El equipo no existe o ya esta prestado!",
+                            type: "warning",
+                            closeOnConfirm: false
+                        });
                     }
                 }
             });
@@ -283,29 +293,23 @@
                             cantidad: data.cantidad,
                             serial: 'N/A'
                         });
+                        //Cerrar el modal.
                         $('#modalNoSerial').modal('toggle');
                     } else {
-                        alert('No se pudo agregar este equipo.');
+                        swal({
+                            title: "¡ATENCIÓN!",
+                            text: "Hubo un problema al agregar el equipo. Puede que la cantidad requerida no este disponible.",
+                            type: "warning",
+                            closeOnConfirm: false
+                        });
                     }
                 }
             })
         }
 
-
         function refrescarData(nuevaData) {
             dataPrestamo.push(nuevaData);
-
             agregarFilaTablaPrestamos(nuevaData)
-
-            /*$('#equiposPrestar').DataTable({
-                "data": dataPrestamo,
-                "columns": [
-                    {"data": "nombre"},
-                    {"data": "cantidad"},
-                    {"data": "serial"}
-                ],
-                "destroy": true
-            });*/
         }
 
         function eliminarRow(id) {
@@ -357,15 +361,30 @@
                             if (result == true) {
                                 window.location.href = "/prestamo/index";
                             } else {
-                                alert('¡Ha habido un problema al procesar su solicitud!')
+                                swal({
+                                    title: "¡ATENCIÓN!",
+                                    text: "¡Ha habido un problema al procesar su solicitud!",
+                                    type: "warning",
+                                    closeOnConfirm: false
+                                });
                             }
                         }
                     })
                 } else {
-                    alert('¡Debe agregar al menos un equipo al préstamo!');
+                    swal({
+                        title: "ATENCIÓN",
+                        text: "¡Debe agregar al menos un equipo al préstamo!",
+                        type: "warning",
+                        closeOnConfirm: false
+                    });
                 }
             } else {
-                alert('¡Hay datos que no estan completos!');
+                swal({
+                    title: "ATENCIÓN",
+                    text: "¡Hay datos que no estan completos!",
+                    type: "warning",
+                    closeOnConfirm: false
+                });
             }
         })
     </script>

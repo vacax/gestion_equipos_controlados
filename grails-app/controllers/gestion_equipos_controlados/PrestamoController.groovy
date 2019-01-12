@@ -1,6 +1,8 @@
 package gestion_equipos_controlados
 
+import gestion_equipos_controlados.auth.User
 import grails.converters.JSON
+import grails.plugin.springsecurity.SpringSecurityService
 import org.springframework.security.access.annotation.Secured
 
 import java.text.SimpleDateFormat
@@ -8,6 +10,7 @@ import java.text.SimpleDateFormat
 @Secured(['ROLE_ADMIN'])
 class PrestamoController {
 
+    SpringSecurityService springSecurityService
     SimpleDateFormat sdf = new SimpleDateFormat('dd/MM/yyyy')
 
     def index() {
@@ -19,9 +22,6 @@ class PrestamoController {
     }
 
     def save() {
-
-        println params
-
         def ok = false
         def resp = false
 
@@ -32,7 +32,6 @@ class PrestamoController {
                 prestamo.nombreEstudiante = dataEstudiante['nombre']
                 prestamo.matriculaEstudiante = dataEstudiante['matricula']
                 prestamo.fechaEntrega = sdf.parse(dataEstudiante['fechaEntrega'] as String)
-
                 prestamo.estadoPrestamo = EstadoPrestamo.findByCodigo(EstadoPrestamo.PRESTADO)
                 prestamo.save(flush: true, failOnError: true)
                 prestamo.listaPrestamoDetalle = new HashSet<>()
@@ -50,6 +49,7 @@ class PrestamoController {
                         detalle.equipoSerial = eqSerial
                         detalle.prestamo = prestamo
                         detalle.cantidadPrestado = it['cantidad'] as int
+                        detalle.usuarioEntrega = (User) springSecurityService.getCurrentUser()
                         detalle.save(flush: true, failOnError: true)
                         prestamo.listaPrestamoDetalle.add(detalle)
                     } else {
@@ -64,6 +64,7 @@ class PrestamoController {
                             detalle.equipoSerial = eqSerialRandom
                             detalle.prestamo = prestamo
                             detalle.cantidadPrestado = 1
+                            detalle.usuarioEntrega = (User) springSecurityService.getCurrentUser()
                             detalle.save(flush: true, failOnError: true)
                             prestamo.listaPrestamoDetalle.add(detalle)
                         }
@@ -111,6 +112,8 @@ class PrestamoController {
                 equipo.cantidadDisponible += 1
                 it.entregado = true
                 it.equipoSerial.prestado = false
+                it.usuarioRecibo =  (User) springSecurityService.getCurrentUser();
+
                 equipo.save(flush: true, failOnError: true)
                 it.save(flush: true, failOnError: true)
             }
@@ -130,6 +133,8 @@ class PrestamoController {
         equipo.cantidadDisponible += 1
         equipoSerialTmp.prestado = false
         prestamoDetalleTmp.entregado = true
+        prestamoDetalleTmp.usuarioRecibo =  (User) springSecurityService.getCurrentUser()
+
         equipo.save(flush: true, failOnError: true)
         equipoSerialTmp.save(flush: true, failOnError: true)
         prestamoDetalleTmp.save(flush: true, failOnError: true)
@@ -156,6 +161,8 @@ class PrestamoController {
             equipoSerialTmp.prestado = false
             equipoSerialTmp.estadoEquipo = EstadoEquipo.findByCodigo(EstadoEquipo.DANADO)
             prestamoDetalleTmp.entregado = true
+            prestamoDetalleTmp.usuarioRecibo =  (User) springSecurityService.getCurrentUser()
+
             equipoSerialTmp.save(flush: true, failOnError: true)
             prestamoDetalleTmp.save(flush: true, failOnError: true)
 

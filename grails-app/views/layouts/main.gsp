@@ -58,7 +58,7 @@
                 <!-- ============================================================== -->
                 <!-- Logo -->
                 <!-- ============================================================== -->
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="/">
                     <!-- Logo icon -->
                     <b class="logo-icon">
                         <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -352,7 +352,7 @@
 <asset:javascript src="dist/js/app-style-switcher.horizontal.js"/>
 <!-- slimscrollbar scrollbar JavaScript -->
 <asset:javascript src="perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"/>
-<asset:javascript src="extra-libs/sparkline/sparkline.js"/>
+<asset:javascript src="sparkline/sparkline.js"/>
 <!--Wave Effects -->
 <asset:javascript src="dist/js/waves.js"/>
 <!--Menu sidebar -->

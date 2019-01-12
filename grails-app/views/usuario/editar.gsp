@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8" name="layout" content="main"/>
     <content tag="title">Editando Usuarios</content>
+    <content tag="css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+    </content>
 </head>
 
 <body>
@@ -13,16 +16,21 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Editando usuario ${user.username}</h4>
+                <g:hasErrors>
+                    <g:eachError><p><g:message error="${it}"/></p></g:eachError>
+                </g:hasErrors>
                 <g:form class="needs-validation form" controller="usuario" action="update" method="post">
                     <div class="form-row">
                         <div class="col-md-6">
                             <label for="username">Username</label>
+                            <input type="text" class="form-control" id="id_user" name="id_user"
+                                   placeholder="ID" value="${user.id}" hidden>
                             <input type="text" class="form-control" id="old_username" name="old_username"
                                    placeholder="Username" value="${user.username}" hidden>
                             <input type="text" class="form-control" id="username" name="username"
                                    placeholder="Username" value="${user.username}" required>
 
-                            <div id="username-valido" style="color: red; display: none;">
+                            <div id="username-valido" style="color: #ffc025; display: none;">
                                 * Username no disponible!
                             </div>
                             <br>
@@ -33,7 +41,7 @@
                             <input type="text" class="form-control" id="name" name="name"
                                    placeholder="Nombre Usuario" value="${user.name}" required>
 
-                            <div id="nombre-valido" style="color: red; display: none;">
+                            <div id="nombre-valido" style="color: #ffc025; display: none;">
                                 * Nombre no disponible!
                             </div>
                             <br>
@@ -43,11 +51,11 @@
 
                     <div class="form-row">
                         <div class="col-md-12">
-                            <label for="email">Username</label>
+                            <label for="email">Correo Electrónico</label>
                             <input type="email" class="form-control" id="email" name="email"
                                    placeholder="Correo Electrónico" value="${user.email}" required>
 
-                            <div id="email-valido" style="color: red; display: none;">
+                            <div id="email-valido" style="color: #ffc025; display: none;">
                                 * Correo no disponible!
                             </div>
                             <br>
@@ -60,7 +68,7 @@
                             <input type="password" class="form-control" id="password" name="password"
                                    placeholder="Contraseña" value="" required>
 
-                            <div id="pass-valido" style="color: red; display: none;">
+                            <div id="pass-valido" style="color: #ffc025; display: none;">
                                 * Las contraseñas no son las mismas!
                             </div>
                             <br>
@@ -76,10 +84,28 @@
 
                     <div class="form-row">
                         <div class="col-md-12">
-                            <label for="enabled">Habilitado</label>
-                            <input id="enabled" name="enabled" type="checkbox" <g:if test="${user.enabled}">checked >                                       </g:if>
+                            <label for="roles">Rol</label>
+                            <select id="roles" name="roles" multiple="multiple" class="form-control">
+                                <g:each in="${Role.list()}" var="role">
+                                    <option value="${role.id}"
+                                        <g:each in="${user.getAuthorities()}" var="auth">
+                                            <g:if test="${role.authority == auth.authority}">selected</g:if>
+                                        </g:each>>
+                                        ${role.authority}
+                                    </option>
+                                </g:each>
+                            </select>
                         </div>
                     </div>
+                    <br>
+
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <label for="enabled">Habilitado</label>
+                        <input id="enabled" name="enabled" type="checkbox" <g:if test="${user.enabled}">checked ></g:if>
+                        </div>
+                    </div>
+
                 </g:form>
                 <button id="aceptarBtn" class="btn btn-primary">Aceptar</button>
             </div>
@@ -87,18 +113,24 @@
     </div>
 </content>
 <content tag="js">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            $("#roles").select2({
+                    placeholder: 'Seleccione al menos un rol',
+                    theme: "classic",
+                }
+            );
             $("#aceptarBtn").on('click', function (event) {
 
                 if ($("#password").val() === $("#verify-pass").val()) {
                     $("#pass-valido").css('display', 'none');
                     var username = $("#username").val();
                     $.ajax({
-                        url: "/usuario/verificarUsernameDisponible/",
-                        data: {data: username},
+                        url: "/usuario/verificarUsernameEditadoDisponible/",
+                        data: {newUsername: username, id: $("#id_user").val()},
                         success: function (data) {
-                            if (data === 'false') {
+                            if (data === 'true') {
                                 $("#username-valido").css('display', 'none');
                                 $(".form").submit();
                             } else {

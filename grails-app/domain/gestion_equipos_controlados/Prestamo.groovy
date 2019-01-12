@@ -1,11 +1,14 @@
 package gestion_equipos_controlados
 
+import gestion_equipos_controlados.auth.User
+
 class Prestamo {
 
     String nombreEstudiante
     String matriculaEstudiante
     Date fechaSolicitud = new Date()
     Date fechaEntrega = new Date()
+
     EstadoPrestamo estadoPrestamo
     Prestamo prestamoRenovado
     boolean habilitado = true
