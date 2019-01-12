@@ -74,7 +74,7 @@
                                         <a class="btn btn-info"
                                            href="/prestamo/recibirParcial?prestamoDetalle=${prestamoDetalle.id}">Entregar</a>
                                         <a class="btn btn-danger"
-                                           href="/prestamo/recibirParcialProblema?prestamoDetalle=${prestamoDetalle.id}">Dañado</a>
+                                           href="#" onclick="recibirAnomalia('${prestamoDetalle.id}', '${prestamoDetalle.prestamo.id}')">Anomalía</a>
                                     </g:if>
                                 </td>
 
@@ -122,6 +122,36 @@
             }).then(function (result) {
                 if (result.value) {
                     $.get(path, function (data, status) {
+                        if (status === 'success') {
+                            window.location.href = '/prestamo/recibir/?prestamo=' + idPrestamo;
+                        }
+                    });
+                }
+            });
+        }
+
+        function recibirAnomalia(idPrestamoDetalle, idPrestamo) {
+            var path = '/prestamo/recibirParcialProblema?prestamoDetalle=' + idPrestamoDetalle + '&perdido=false';
+            var path_dano = '/prestamo/recibirParcialProblema?prestamoDetalle=' + idPrestamoDetalle + '&perdido=true';
+            swal({
+                title: 'REPORTAR ANOMALÍA',
+                text: "¿Que paso con el equipo?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Está Perdido',
+                cancelButtonText: 'Está Dañado'
+            }).then(function (result) {
+                if (result.value) {
+                    $.get(path, function (data, status) {
+                        if (status === 'success') {
+                            window.location.href = '/prestamo/recibir/?prestamo=' + idPrestamo;
+                        }
+                    });
+                }
+                else {
+                    $.get(path_dano, function (data, status) {
                         if (status === 'success') {
                             window.location.href = '/prestamo/recibir/?prestamo=' + idPrestamo;
                         }
