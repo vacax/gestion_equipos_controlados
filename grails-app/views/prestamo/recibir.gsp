@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" name="layout" content="main"/>
-    <content tag="title">Recibir</content>
+    <content tag="title">Prestamo</content>
     <content tag="css">
         <asset:stylesheet src="datatables.net-bs4/css/dataTables.bootstrap4.css"/>
         <asset:stylesheet src="sweetalert2/dist/sweetalert2.min.css"/>
@@ -11,7 +11,6 @@
 </head>
 
 <body>
-<content tag="content_title">Recibir Préstamo</content>
 <content tag="content">
     <g:if test="${prestamo.estadoPrestamo.codigo == EstadoPrestamo.DEVUELTO}">
         <div id="divPrestamoCompleto">
@@ -32,8 +31,11 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Prestamo del estudiante: ${prestamo.nombreEstudiante}</h4>
-                    <h5 class="card-subtitle">Detalles del Préstamo</h5>
-
+                    <h5 class="card-subtitle">Detalles</h5>
+                    <h5 class="card-title"><pre>Estado:         <b>${prestamo.estadoPrestamo.estado}</b></pre></h5>
+                    <h5 class="card-title"><pre>Fecha Solicitud:         <b>${prestamo.fechaSolicitud}</b></pre></h5>
+                    <h5 class="card-title"><pre>Fecha Límite:    <b>${prestamo.fechaEntrega}</b></pre></h5>
+                    <br>
                     <div class="row">
                         <div class="col-md-2">
                             <g:if test="${prestamo.estadoPrestamo.codigo != EstadoPrestamo.DEVUELTO}">
@@ -52,6 +54,8 @@
                                 <th class="border-top-0">Serial</th>
                                 <th class="border-top-0">Cantidad</th>
                                 <th class="border-top-0">Estado</th>
+                                <th class="border-top-0">Entregado Por:</th>
+                                <th class="border-top-0">Recibido Por:</th>
                                 <th class="border-top-0">Acciones</th>
                             </tr>
                             </thead>
@@ -69,6 +73,12 @@
                                         <label class="label label-danger">Pendiente</label>
                                     </g:else>
                                 </td>
+                                <td>${prestamoDetalle.usuarioEntrega.name}</td>
+                                <td>
+                                    <g:if test="${prestamoDetalle.usuarioRecibo}">
+                                        ${prestamoDetalle.usuarioRecibo.name}
+                                    </g:if>
+                                </td>
                                 <td>
                                     <g:if test="${!prestamoDetalle.entregado}">
                                         <a class="btn btn-info"
@@ -77,7 +87,6 @@
                                            href="#" onclick="recibirAnomalia('${prestamoDetalle.id}', '${prestamoDetalle.prestamo.id}')">Anomalía</a>
                                     </g:if>
                                 </td>
-
                                 </tr>
                             </g:each>
                             </tbody>
@@ -87,6 +96,8 @@
                                 <th class="border-top-0">Serial</th>
                                 <th class="border-top-0">Cantidad</th>
                                 <th class="border-top-0">Estado</th>
+                                <th class="border-top-0">Entregado Por:</th>
+                                <th class="border-top-0">Recibido Por:</th>
                                 <th class="border-top-0">Acciones</th>
                             </tr>
                             </tfoot>
@@ -150,7 +161,7 @@
                         }
                     });
                 }
-                else {
+                else if (result.dismiss === Swal.DismissReason.cancel){
                     $.get(path_dano, function (data, status) {
                         if (status === 'success') {
                             window.location.href = '/prestamo/recibir/?prestamo=' + idPrestamo;
