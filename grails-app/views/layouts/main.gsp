@@ -150,51 +150,6 @@
                     <!-- End Comment -->
                     <!-- ============================================================== -->
                 </ul>
-                <!-- ============================================================== -->
-                <!-- Right side toggle and nav items -->
-                <!-- ============================================================== -->
-                <ul class="navbar-nav float-right">
-                    <!-- ============================================================== -->
-                    <!-- User profile and search -->
-                    <!-- ============================================================== -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href=""
-                           data-toggle="dropdown" aria-haspopup="true"
-                           aria-expanded="false">
-                            <img src="../../assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31">
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                            <span class="with-arrow">
-                                <span class="bg-primary"></span>
-                            </span>
-
-                            <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
-                                <div class="">
-                                </div>
-
-                                <div class="m-l-10">
-                                    <sec:ifLoggedIn>
-                                        <h4 class="m-b-0">${((User) applicationContext.springSecurityService.getCurrentUser()).username}</h4>
-
-                                        <p class=" m-b-0">${((User) applicationContext.springSecurityService.getCurrentUser()).email}</p>
-                                    </sec:ifLoggedIn>
-                                </div>
-                            </div>
-                            %{--<a class="dropdown-item" href="javascript:void(0)">
-                                <i class="ti-user m-r-5 m-l-5"></i> Mi Perfil</a>--}%
-
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/logout">
-                                <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-
-                            <div class="dropdown-divider"></div>
-                        </div>
-                    </li>
-                    <!-- ============================================================== -->
-                    <!-- User profile and search -->
-                    <!-- ============================================================== -->
-                </ul>
             </div>
         </nav>
     </header>
@@ -210,6 +165,44 @@
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav">
                 <ul id="sidebarnav">
+                    <!-- User Profile-->
+                    <li>
+                        <hr>
+                        <!-- User Profile-->
+                        <div class="user-profile dropdown m-t-20">
+                            <div class="user-content hide-menu m-t-10">
+                                <sec:ifLoggedIn>
+                                    <h5 class="m-b-10 user-name font-medium">${((User) applicationContext.springSecurityService.getCurrentUser()).username}</h5>
+
+                                    <p class=" m-b-0">${((User) applicationContext.springSecurityService.getCurrentUser()).email}</p>
+                                </sec:ifLoggedIn>
+                                <br>
+                                <a href="/logout" title="Logout" class="btn btn-circle btn-sm">
+                                    <i class="ti-power-off"></i>
+                                </a>
+
+                                <div class="dropdown-menu animated flipInY" aria-labelledby="Userdd">
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
+
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
+
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End User Profile-->
+                    </li>
+                    <!-- User Profile-->
+                    <hr>
                     <li class="sidebar-item"><a class="sidebar-link has-arrow waves-effect waves-dark"
                                                 href="javascript:void(0)" aria-expanded="false"><i
                                 class="icon-Car-Wheel"></i><span class="hide-menu">Prestamos</span></a>
@@ -224,19 +217,22 @@
                         </ul>
                     </li>
 
-                    <li class="sidebar-item"><a class="sidebar-link has-arrow waves-effect waves-dark"
-                                                href="javascript:void(0)" aria-expanded="false"><i
-                                class="icon-Increase-Inedit"></i><span class="hide-menu">Gestión</span></a>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-effect waves-dark"
+                           href="javascript:void(0)" aria-expanded="false">
+                            <i class="icon-Increase-Inedit"></i><span class="hide-menu">Gestión</span>
+                        </a>
                         <ul aria-expanded="false" class="collapse first-level">
-                            <li class="sidebar-item"><a class="has-arrow sidebar-link" href="javascript:void(0)"
-                                                        aria-expanded="false"><i
-                                        class="mdi mdi-playlist-plus"></i> <span class="hide-menu">Movimientos</span>
-                            </a>
+                            <li class="sidebar-item">
+                                <a class="has-arrow sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                                    <i class="mdi mdi-playlist-plus"></i> <span class="hide-menu">Movimientos</span>
+                                </a>
                                 <ul aria-expanded="false" class="collapse second-level">
-                                    <li class="sidebar-item"><a href="/movimiento/index" class="sidebar-link"><i
-                                            class="mdi mdi-octagram"></i><span
-                                            class="hide-menu">Movimientos Hechos</span>
-                                    </a>
+                                    <li class="sidebar-item">
+                                        <a href="/movimiento/index" class="sidebar-link">
+                                            <i class="mdi mdi-octagram"></i>
+                                            <span class="hide-menu">Movimientos Hechos</span>
+                                        </a>
                                     </li>
                                     <li class="sidebar-item"><a href="/movimiento/crearEntrada" class="sidebar-link"><i
                                             class="mdi mdi-octagram"></i><span
@@ -348,8 +344,8 @@
 <asset:javascript src="bootstrap/dist/js/bootstrap.min.js"/>
 <!-- apps -->
 <asset:javascript src="dist/js/app.min.js"/>
-<asset:javascript src="dist/js/app.init.horizontal.js"/>
-<asset:javascript src="dist/js/app-style-switcher.horizontal.js"/>
+<asset:javascript src="dist/js/app.init.js"/>
+<asset:javascript src="dist/js/app-style-switcher.js"/>
 <!-- slimscrollbar scrollbar JavaScript -->
 <asset:javascript src="perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"/>
 <asset:javascript src="sparkline/sparkline.js"/>
@@ -360,13 +356,6 @@
 <!--Custom JavaScript -->
 <asset:javascript src="dist/js/custom.min.js"/>
 <!--This page JavaScript -->
-<!--chartis chart-->
-<asset:javascript src="chartist/dist/chartist.min.js"/>
-<asset:javascript src="chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"/>
-<!--c3 charts -->
-<asset:javascript src="extra-libs/c3/d3.min.js"/>
-<asset:javascript src="extra-libs/c3/c3.min.js"/>
-<!--chartjs -->
 <asset:javascript src="raphael/raphael.min.js"/>
 <asset:javascript src="morris.js/morris.min.js"/>
 
