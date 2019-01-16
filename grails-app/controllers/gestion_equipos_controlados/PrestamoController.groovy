@@ -149,7 +149,7 @@ class PrestamoController {
 
     }
 
-    def recibirParcialProblema(long prestamoDetalle) {
+    def recibirParcialProblema(long prestamoDetalle, boolean perdido) {
 
         try {
             def prestamoDetalleTmp = PrestamoDetalle.findById(prestamoDetalle)
@@ -159,7 +159,12 @@ class PrestamoController {
             def salidaEquipo = new Movimiento()
 
             equipoSerialTmp.prestado = false
-            equipoSerialTmp.estadoEquipo = EstadoEquipo.findByCodigo(EstadoEquipo.DANADO)
+            if (!perdido){
+                equipoSerialTmp.estadoEquipo = EstadoEquipo.findByCodigo(EstadoEquipo.DANADO)
+            }
+            else {
+                equipoSerialTmp.estadoEquipo = EstadoEquipo.findByCodigo(EstadoEquipo.PERDIDO)
+            }
             prestamoDetalleTmp.entregado = true
             prestamoDetalleTmp.usuarioRecibo =  (User) springSecurityService.getCurrentUser()
 

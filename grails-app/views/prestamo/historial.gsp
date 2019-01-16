@@ -31,6 +31,7 @@
                                 <th class="border-top-0">Estado del Préstamo</th>
                                 <th class="border-top-0">Renovado</th>
                                 <th class="border-top-0">Habilitado</th>
+                                <th class="border-top-0">Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -64,6 +65,7 @@
                                         <label class="label label-danger">Deshabilitado</label>
                                     </g:else>
                                 </td>
+                                <td><a class="btn btn-info" href="/prestamo/recibir/?prestamo=${prestamo.id}">Ver</a></td>
                                 </tr>
                             </g:each>
                             </tbody>
@@ -76,6 +78,7 @@
                                 <th class="border-top-0">Estado del Préstamo</th>
                                 <th class="border-top-0">Renovado</th>
                                 <th class="border-top-0">Habilitado</th>
+                                <th class="border-top-0">Acciones</th>
                             </tr>
                             </tfoot>
                         </table>
