@@ -232,6 +232,13 @@
     <asset:javascript src="sweetalert2/dist/sweetalert2.all.min.js"/>
     <asset:javascript src="sweetalert2/sweet-alert.init.js"/>
     <asset:javascript src="inputmask/dist/min/jquery.inputmask.bundle.min.js"/>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#matriculaEstudiante").inputmask("9999-9999")
+        })
+    </script>
+
     <script type="text/javascript">
         var dataPrestamo = [];
 
@@ -395,11 +402,8 @@
             }
         })
     </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#matriculaEstudiante").inputmask("9999-9999")
-        })
-    </script>
+
+
 </content>
 </body>
 </html>
