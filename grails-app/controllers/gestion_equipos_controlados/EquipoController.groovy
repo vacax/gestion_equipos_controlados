@@ -15,17 +15,6 @@ class EquipoController {
     def save(Equipo equipo) {
         try {
             equipo.save(flush: true, failOnError: true)
-            def movimiento = new Movimiento()
-            movimiento.equipo = equipo
-            movimiento.cantidad = params.cantidadTotal as int
-            equipo.cantidadDisponible = equipo.cantidadTotal
-            movimiento.tipoMovimiento = Movimiento.TipoMovimiento.ENTRADA
-            if (equipo.serial && params.serial != null) {
-                params.serial.each {
-                    new EquipoSerial(equipo: equipo, serial: it).save(flush: true, failOnError: true)
-                }
-            }
-            movimiento.save(flush:true, failOnError: true)
             redirect(controller: 'equipo', action: 'index')
         } catch (ValidationException e) {
             println equipo.errors
