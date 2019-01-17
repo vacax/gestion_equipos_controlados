@@ -27,7 +27,7 @@
                                    placeholder="Username" value="" required>
 
                             <div id="username-valido" style="color: red; display: none;">
-                                * Username no disponible!
+                                * Username no disponible o no válido.
                             </div>
                             <br>
                         </div>
@@ -51,7 +51,7 @@
                             <input type="email" class="form-control" id="email" name="email"
                                    placeholder="Correo Electrónico" value="" required>
 
-                            <div id="email-valido" style="color: #ffc025; display: none;">
+                            <div id="email-valido" style="color: red; display: none;">
                                 * Correo no disponible!
                             </div>
                             <br>
@@ -86,6 +86,10 @@
                                     <option value="${rol.id}">${rol.authority}</option>
                                 </g:each>
                             </select>
+
+                            <div id="roles-valido" style="color: red; display: none;">
+                                * Debe seleccionar al menos un rol.
+                            </div>
                         </div>
                     </div>
                 </g:form>
@@ -96,9 +100,9 @@
     </div>
 </content>
 <content tag="js">
-    <asset:javascript src="select2/dist/js/select2.full.min.js" />
-    <asset:javascript src="select2/dist/js/select2.min.js" />
-    <asset:javascript src="dist/js/pages/forms/select2/select2.init.js" />
+    <asset:javascript src="select2/dist/js/select2.full.min.js"/>
+    <asset:javascript src="select2/dist/js/select2.min.js"/>
+    <asset:javascript src="dist/js/pages/forms/select2/select2.init.js"/>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#roles").select2({
@@ -110,18 +114,39 @@
                 if ($("#password").val() && $("#password").val() === $("#verify-pass").val()) {
                     $("#pass-valido").css('display', 'none');
                     var username = $("#username").val();
-                    $.ajax({
-                        url: "/usuario/verificarUsernameDisponible/",
-                        data: {data: username},
-                        success: function (data) {
-                            if (data === 'true') {
-                                $("#username-valido").css('display', 'none');
-                                $(".form").submit();
-                            } else {
-                                $("#username-valido").css('display', 'block');
+                    if (username) {
+                        $.ajax({
+                            url: "/usuario/verificarUsernameDisponible/",
+                            data: {data: username},
+                            success: function (data) {
+                                if (data === 'true') {
+                                    $("#username-valido").css('display', 'none');
+                                    var nombre = $("#name").val();
+                                    var correo = $("#email").val();
+                                    if (nombre) {
+                                        $("#nombre-valido").css('display', 'none');
+                                        if (correo) {
+                                            $("#email-valido").css('display', 'none');
+                                            if ($('#roles').val().length > 0) {
+                                                $("#roles-valido").css('display', 'none');
+                                                $(".form").submit();
+                                            } else {
+                                                $("#roles-valido").css('display', 'block')
+                                            }
+                                        } else {
+                                            $("#email-valido").css('display', 'block')
+                                        }
+                                    } else {
+                                        $("#nombre-valido").css('display', 'block')
+                                    }
+                                } else {
+                                    $("#username-valido").css('display', 'block');
+                                }
                             }
-                        }
-                    });
+                        });
+                    } else {
+                        $("#username-valido").css('display', 'block');
+                    }
                 } else {
                     $("#pass-valido").css('display', 'block');
                 }
