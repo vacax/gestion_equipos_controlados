@@ -229,6 +229,7 @@
     <asset:javascript src="pickadate/lib/translations/es_ES.js"/>
     <asset:javascript src="sweetalert2/dist/sweetalert2.all.min.js"/>
     <asset:javascript src="sweetalert2/sweet-alert.init.js"/>
+    <asset:javascript src="inputmask/dist/min/jquery.inputmask.bundle.min.js"/>
     <script type="text/javascript">
         var dataPrestamo = [];
 
@@ -389,24 +390,9 @@
         })
     </script>
     <script type="text/javascript">
-        (function ($) {
-            $.fn.inputFilter = function (inputFilter) {
-                return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function () {
-                    if (inputFilter(this.value)) {
-                        this.oldValue = this.value;
-                        this.oldSelectionStart = this.selectionStart;
-                        this.oldSelectionEnd = this.selectionEnd;
-                    } else if (this.hasOwnProperty("oldValue")) {
-                        this.value = this.oldValue;
-                        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
-                    }
-                });
-            };
-        }(jQuery));
-
-        $("#matriculaEstudiante").inputFilter(function (value) {
-            return /^-?\d*$/.test(value);
-        });
+        $(document).ready(function () {
+            $("#matriculaEstudiante").inputmask("9999-9999")
+        })
     </script>
 </content>
 </body>
