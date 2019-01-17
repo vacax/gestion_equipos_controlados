@@ -13,6 +13,13 @@ class BootStrap {
 
         Equipo.findOrSaveWhere(nombre: 'Equipo 1', cantidadDisponible: 10l, cantidadTotal: 10l, categoriaEquipo: CategoriaEquipo.first(), serial: true)
         Equipo.findOrSaveWhere(nombre: 'Equipo 2', cantidadDisponible: 10l, cantidadTotal: 10l, categoriaEquipo: CategoriaEquipo.first())
+        Equipo.findOrSaveWhere(nombre: 'Equipo 3', cantidadDisponible: 10l, cantidadTotal: 10l, categoriaEquipo: CategoriaEquipo.first())
+        Equipo.findOrSaveWhere(nombre: 'Equipo 4', cantidadDisponible: 10l, cantidadTotal: 10l, categoriaEquipo: CategoriaEquipo.first())
+        Equipo.findOrSaveWhere(nombre: 'Equipo 5', cantidadDisponible: 10l, cantidadTotal: 10l, categoriaEquipo: CategoriaEquipo.first())
+        Equipo.findOrSaveWhere(nombre: 'Equipo 6', cantidadDisponible: 10l, cantidadTotal: 10l, categoriaEquipo: CategoriaEquipo.first())
+        Equipo.findOrSaveWhere(nombre: 'Equipo 7', cantidadDisponible: 10l, cantidadTotal: 10l, categoriaEquipo: CategoriaEquipo.first())
+        Equipo.findOrSaveWhere(nombre: 'Equipo 8', cantidadDisponible: 10l, cantidadTotal: 10l, categoriaEquipo: CategoriaEquipo.first())
+
 
         EstadoPrestamo.findOrSaveWhere(codigo: EstadoPrestamo.DEVUELTO, estado: "DEVUELTO")
         EstadoPrestamo.findOrSaveWhere(codigo: EstadoPrestamo.PRESTADO, estado: "PRESTADO")
@@ -35,7 +42,7 @@ class BootStrap {
         EquipoSerial.findOrSaveWhere(equipo: Equipo.findByNombre("Equipo 2"), serial: "GENERADO2", estadoEquipo: EstadoEquipo.findByCodigo(EstadoEquipo.BUENO), generado: true)
         EquipoSerial.findOrSaveWhere(equipo: Equipo.findByNombre("Equipo 2"), serial: "GENERADO3", estadoEquipo: EstadoEquipo.findByCodigo(EstadoEquipo.BUENO), generado: true)
 
-        Prestamo.findOrSaveWhere(nombreEstudiante: "Stanley De Moya", matriculaEstudiante: "2012-0412", fechaSolicitud: new Date(), fechaEntrega: new Date(), estadoPrestamo: EstadoPrestamo.findByCodigo(EstadoPrestamo.PRESTADO))
+        Prestamo.findOrSaveWhere(nombreEstudiante: "Stanley De Moya", matriculaEstudiante: "2012-0412", fechaSolicitud: new Date(), fechaEntrega: new Date(2019, 1, 12), estadoPrestamo: EstadoPrestamo.findByCodigo(EstadoPrestamo.PRESTADO))
         PrestamoDetalle.findOrSaveWhere(prestamo: Prestamo.findByNombreEstudiante("Stanley De Moya"), cantidadPrestado: 1, equipoSerial: EquipoSerial.findBySerial("6789-SDFEA"), usuarioEntrega: User.findById(1))
         PrestamoDetalle.findOrSaveWhere(prestamo: Prestamo.findByNombreEstudiante("Stanley De Moya"), cantidadPrestado: 1, equipoSerial: EquipoSerial.findBySerial("GENERADO2"), usuarioEntrega: User.findById(1))
         PrestamoDetalle.findOrSaveWhere(prestamo: Prestamo.findByNombreEstudiante("Stanley De Moya"), cantidadPrestado: 1, equipoSerial: EquipoSerial.findBySerial("GENERADO1"), usuarioEntrega: User.findById(1))

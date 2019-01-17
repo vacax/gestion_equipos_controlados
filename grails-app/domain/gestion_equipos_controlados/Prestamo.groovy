@@ -31,4 +31,14 @@ class Prestamo {
         }
         return prestamosVen
     }
+
+    static prestamosVencidos(){
+        def prestamos = findAllByHabilitadoAndEstadoPrestamo(true, EstadoPrestamo.findByCodigo(EstadoPrestamo.PRESTADO))
+        def prestamosVen = []
+        prestamos.each {
+            if (it.fechaEntrega > new Date())
+                prestamosVen.add(it)
+        }
+        return prestamosVen.take(5)
+    }
 }
