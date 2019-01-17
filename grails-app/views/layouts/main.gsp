@@ -364,8 +364,8 @@
 <asset:javascript src="chartist/dist/chartist.min.js"/>
 <asset:javascript src="chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"/>
 <!--c3 charts -->
-<asset:javascript src="extra-libs/c3/d3.min.js"/>
-<asset:javascript src="extra-libs/c3/c3.min.js"/>
+<asset:javascript src="c3/d3.min.js"/>
+<asset:javascript src="c3/c3.min.js"/>
 <!--chartjs -->
 <asset:javascript src="raphael/raphael.min.js"/>
 <asset:javascript src="morris.js/morris.min.js"/>

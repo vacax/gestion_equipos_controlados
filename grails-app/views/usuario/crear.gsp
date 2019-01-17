@@ -5,7 +5,7 @@
     <meta charset="UTF-8" name="layout" content="main"/>
     <content tag="title">Crear Usuario</content>
     <content tag="css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+        <asset:stylesheet src="select2/dist/css/select2.min.css"/>
     </content>
 </head>
 
@@ -96,12 +96,13 @@
     </div>
 </content>
 <content tag="js">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <asset:javascript src="select2/dist/js/select2.full.min.js" />
+    <asset:javascript src="select2/dist/js/select2.min.js" />
+    <asset:javascript src="dist/js/pages/forms/select2/select2.init.js" />
     <script type="text/javascript">
         $(document).ready(function () {
             $("#roles").select2({
-                    placeholder: 'Seleccione al menos un rol',
-                    theme: "classic",
+                    placeholder: 'Seleccione al menos un rol'
                 }
             );
 
