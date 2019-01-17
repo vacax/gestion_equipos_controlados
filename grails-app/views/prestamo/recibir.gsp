@@ -1,4 +1,4 @@
-<%@ page import="gestion_equipos_controlados.EstadoPrestamo" %>
+<%@ page import="gestion_equipos_controlados.EstadoPrestamo; gestion_equipos_controlados.EstadoEquipo;" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +11,7 @@
 </head>
 
 <body>
+<content tag="content_title">Detalle de Prestamo</content>
 <content tag="content">
     <g:if test="${prestamo.estadoPrestamo.codigo == EstadoPrestamo.DEVUELTO}">
         <div id="divPrestamoCompleto">
@@ -32,9 +33,9 @@
                 <div class="card-body">
                     <h4 class="card-title">Prestamo del estudiante: ${prestamo.nombreEstudiante}</h4>
                     <h5 class="card-subtitle">Detalles</h5>
-                    <h5 class="card-title"><pre>Estado:         <b>${prestamo.estadoPrestamo.estado}</b></pre></h5>
-                    <h5 class="card-title"><pre>Fecha Solicitud:         <b>${prestamo.fechaSolicitud}</b></pre></h5>
-                    <h5 class="card-title"><pre>Fecha Límite:    <b>${prestamo.fechaEntrega}</b></pre></h5>
+                    <h5 class="card-title"><pre>Estado:                 <b>${prestamo.estadoPrestamo.estado}</b></pre></h5>
+                    <h5 class="card-title"><pre>Fecha Solicitud:        <b>${prestamo.fechaSolicitud}</b></pre></h5>
+                    <h5 class="card-title"><pre>Fecha Límite:           <b>${prestamo.fechaEntrega}</b></pre></h5>
                     <br>
                     <div class="row">
                         <div class="col-md-2">
@@ -86,6 +87,13 @@
                                         <a class="btn btn-danger"
                                            href="#" onclick="recibirAnomalia('${prestamoDetalle.id}', '${prestamoDetalle.prestamo.id}')">Anomalía</a>
                                     </g:if>
+                                    <g:elseif test="${prestamoDetalle.equipoSerial.estadoEquipo.codigo == EstadoEquipo.DANADO}">
+                                        EQUIPO SE RECIBIO DANADO
+                                    </g:elseif>
+                                    <g:elseif test="${prestamoDetalle.equipoSerial.estadoEquipo.codigo == EstadoEquipo.PERDIDO}">
+                                        EQUIPO PERDIDO
+                                    </g:elseif>
+
                                 </td>
                                 </tr>
                             </g:each>
@@ -155,14 +163,14 @@
                 cancelButtonText: 'Está Dañado'
             }).then(function (result) {
                 if (result.value) {
-                    $.get(path, function (data, status) {
+                    $.get(path_dano, function (data, status) {
                         if (status === 'success') {
                             window.location.href = '/prestamo/recibir/?prestamo=' + idPrestamo;
                         }
                     });
                 }
                 else if (result.dismiss === Swal.DismissReason.cancel){
-                    $.get(path_dano, function (data, status) {
+                    $.get(path, function (data, status) {
                         if (status === 'success') {
                             window.location.href = '/prestamo/recibir/?prestamo=' + idPrestamo;
                         }
