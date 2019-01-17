@@ -240,13 +240,12 @@
                 minimumResultsForSearch: 1
             });
             $("#zero_config").DataTable();
-            var pickerInput = $("#fechaEntrega").pickadate({
-                format: 'dd/mm/yyyy',
-                today: false
-            });
 
-            var picker = pickerInput.pickadate('picker');
-            picker.set('min', new Date())
+            $("#fechaEntrega").pickadate({
+                format: 'dd/mm/yyyy',
+                today: false,
+                min: new Date()
+            });
 
         });
 
