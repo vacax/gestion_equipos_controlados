@@ -31,11 +31,9 @@
                         <table id="zero_config" class="table table-striped table-bordered">
                             <thead>
                             <tr>
-                                <th class="border-top-0">Nombre del Estudiante</th>
-                                <th class="border-top-0">Matrícula del Estudiante</th>
-                                <th class="border-top-0">Fecha de Entrega</th>
-                                <th class="border-top-0">Fecha Solicitud</th>
-                                <th class="border-top-0">Estado del Préstamo</th>
+                                <th class="border-top-0">Estudiante</th>
+                                <th class="border-top-0">Matrícula</th>
+                                <th class="border-top-0">Fecha Límite</th>
                                 <th class="border-top-0">Renovado</th>
                                 <th class="border-top-0">Habilitado</th>
                                 <th class="border-top-0">Acciones</th>
@@ -53,8 +51,6 @@
                                 </td>
                                 <td>${prestamo.matriculaEstudiante}</td>
                                 <td>${prestamo.fechaEntrega}</td>
-                                <td>${prestamo.fechaSolicitud}</td>
-                                <td>${prestamo.estadoPrestamo.estado}</td>
                                 <td>
                                     <g:if test="${prestamo.prestamoRenovado}">
                                         <a class="btn btn-primary"
@@ -72,17 +68,16 @@
                                         <label class="label label-danger">Deshabilitado</label>
                                     </g:else>
                                 </td>
-                                <td><a class="btn btn-info" href="/prestamo/recibir/?prestamo=${prestamo.id}">Recibir</a></td>
+                                <td><a class="btn btn-info" href="/prestamo/recibir/?prestamo=${prestamo.id}">Recibir</a>
+                                <a class="btn btn-info" href="/prestamo/recibir/?prestamo=${prestamo.id}">Ver</a></td>
                                 </tr>
                             </g:each>
                             </tbody>
                             <tfoot>
                             <tr>
-                                <th class="border-top-0">Nombre del Estudiante</th>
-                                <th class="border-top-0">Matrícula del Estudiante</th>
-                                <th class="border-top-0">Fecha de Entrega</th>
-                                <th class="border-top-0">Fecha Solicitud</th>
-                                <th class="border-top-0">Estado del Préstamo</th>
+                                <th class="border-top-0">Estudiante</th>
+                                <th class="border-top-0">Matrícula</th>
+                                <th class="border-top-0">Fecha Límite</th>
                                 <th class="border-top-0">Renovado</th>
                                 <th class="border-top-0">Habilitado</th>
                                 <th class="border-top-0">Acciones</th>
