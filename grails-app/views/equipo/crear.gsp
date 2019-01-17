@@ -68,7 +68,8 @@
 <content tag="js">
     <asset:javascript src="select2/dist/js/select2.full.min.js"/>
     <asset:javascript src="select2/dist/js/select2.min.js"/>
-    <asset:javascript src="dist/js/pages/forms/select2/select2.init.js"/>    <script type="text/javascript">
+    <asset:javascript src="dist/js/pages/forms/select2/select2.init.js"/>
+    <script type="text/javascript">
     $(document).ready(function () {
 
         $(".select").select2({

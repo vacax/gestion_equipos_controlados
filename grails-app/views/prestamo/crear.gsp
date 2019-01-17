@@ -6,7 +6,7 @@
     <title></title>
     <content tag="title">Préstamos</content>
     <content tag="css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+        <asset:stylesheet src="select2/dist/css/select2.min.css"/>
         <asset:stylesheet src="datatables.net-bs4/css/dataTables.bootstrap4.css"/>
         <asset:stylesheet src="pickadate/lib/themes/default.css"/>
         <asset:stylesheet src="pickadate/lib/themes/default.date.css"/>
@@ -219,7 +219,9 @@
 
 </content>
 <content tag="js">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <asset:javascript src="select2/dist/js/select2.full.min.js"/>
+    <asset:javascript src="select2/dist/js/select2.min.js"/>
+    <asset:javascript src="dist/js/pages/forms/select2/select2.init.js"/>
     <asset:javascript src="DataTables/datatables.min.js"/>
     <asset:javascript src="dist/js/pages/datatable/datatable-basic.init.js"/>
     <asset:javascript src="pickadate/lib/compressed/picker.js"/>
