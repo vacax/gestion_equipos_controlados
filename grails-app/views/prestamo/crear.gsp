@@ -240,9 +240,14 @@
                 minimumResultsForSearch: 1
             });
             $("#zero_config").DataTable();
-            $("#fechaEntrega").pickadate({
-                format: 'dd/mm/yyyy'
+            var pickerInput = $("#fechaEntrega").pickadate({
+                format: 'dd/mm/yyyy',
+                today: false
             });
+
+            var picker = pickerInput.pickadate('picker');
+            picker.set('min', new Date())
+
         });
 
         function cambiarEquipoSeleccionado(id, nombre) {
