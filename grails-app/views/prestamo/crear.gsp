@@ -78,6 +78,7 @@
                             <tbody>
                             <tr>
                             <g:each in="${Equipo.findAllByHabilitado(true)}" var="equipo">
+                                <input id="cantDisponible_${equipo.id}" value="${equipo.cantidadDisponible}" hidden>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div class="">
@@ -99,6 +100,7 @@
                                     <g:if test="${equipo.serial}">
                                         <button type="button" class="btn btn-primary" data-toggle="modal"
                                                 data-target="#modal"
+                                                onclick="cambiarEquipoSeleccionado('${equipo.id}', '${equipo.nombre}')"
                                                 data-whatever="${equipo.id}">Agregar</button>
                                     </g:if>
                                     <g:else>
@@ -166,7 +168,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="modalLabel1">Buscar Equipo Serial</h4>
+                    <h4 class="modal-title" id="modalLabel1">Buscar <span class="equipoSeleccionadoSpan">*aqui*</span> por Serial</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
@@ -194,7 +196,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="modalNoSerialLabel1">
-                        Cantidad de <span id="equipoSeleccionadoSpan">*aqui*</span> a agregar</h4>
+                        Cantidad de <span class="equipoSeleccionadoSpan" id="equipoSeleccionadoSpan">*aqui*</span> a agregar</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
@@ -202,7 +204,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="cantidadEquipoNoSerial" class="control-label">Cantidad:</label>
-                        <input type="text" class="form-control" id="cantidadEquipoNoSerial">
+                        <input type="number" class="form-control" id="cantidadEquipoNoSerial" min="1">
                     </div>
                 </div>
 
@@ -235,14 +237,6 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#matriculaEstudiante").inputmask("9999-9999")
-        })
-    </script>
-
-    <script type="text/javascript">
-        var dataPrestamo = [];
-
-        $(document).ready(function () {
             $(".select").select2({
                 placeholder: "Seleccione una categoría",
                 allowClear: true,
@@ -256,69 +250,124 @@
                 min: new Date()
             });
 
+            $("#matriculaEstudiante").inputmask("9999-9999")
+
         });
+    </script>
+
+    <script type="text/javascript">
+        var dataPrestamo = [];
+        var diccionarioEquiposAgregados = {};
 
         function cambiarEquipoSeleccionado(id, nombre) {
             $("#equipoSeleccionado").val(id);
-            $("#equipoSeleccionadoSpan").text(nombre);
+            $(".equipoSeleccionadoSpan").text(nombre);
         }
 
         function buscarEquipoSerial() {
-            $.ajax({
-                url: "/equipoSerial/buscarEquipoSerial/",
-                data: {data: $("#equipoSerialInput").val()},
-                method: 'GET',
-                success: function (data) {
-                    if (data.ok == true) {
-                        var nuevaData = {
-                            idEquipo: data.equipo.id,
-                            idEquipoSerial: data.equipoSerial.id,
-                            nombre: data.equipo.nombre,
-                            cantidad: data.cantidad,
-                            serial: data.equipoSerial.serial
-                        };
-                        refrescarData(nuevaData);
-                        $('#modal').modal('toggle');
-                    } else {
-                        swal({
-                            title: "¡ATENCIÓN!",
-                            text: "¡El equipo no existe o ya esta prestado!",
-                            type: "warning",
-                            closeOnConfirm: false
-                        });
+            var equipoId = $("#equipoSeleccionado").val();
+
+            if (verificarDisponibildadCantidadEquipo(equipoId, 1)) {
+                $.ajax({
+                    url: "/equipoSerial/buscarEquipoSerial/",
+                    data: {data: $("#equipoSerialInput").val()},
+                    method: 'GET',
+                    success: function (data) {
+                        if (data.ok == true) {
+                            var nuevaData = {
+                                idEquipo: data.equipo.id,
+                                idEquipoSerial: data.equipoSerial.id,
+                                nombre: data.equipo.nombre,
+                                cantidad: data.cantidad,
+                                serial: data.equipoSerial.serial
+                            };
+                            refrescarData(nuevaData);
+                            $('#modal').modal('toggle');
+                        } else {
+                            swal({
+                                title: "¡ATENCIÓN!",
+                                text: "¡El equipo no existe o ya esta prestado!",
+                                type: "warning",
+                                closeOnConfirm: false
+                            });
+                        }
                     }
+                });
+            } else {
+                swal({
+                    title: "¡ATENCIÓN!",
+                    text: "Está intentando agregar más equipos de los disponibles.",
+                    type: "warning",
+                    closeOnConfirm: false
+                });
+            }
+
+        }
+
+        function verificarDisponibildadCantidadEquipo(equipoId, cantidad) {
+            var ok = false;
+
+            if (equipoId in diccionarioEquiposAgregados) {
+                var objetoActual = diccionarioEquiposAgregados[equipoId];
+                if (objetoActual.cantMax >= parseInt(cantidad) + objetoActual.cantidadActual) {
+                    diccionarioEquiposAgregados[equipoId].cantidadActual += parseInt(cantidad);
+                    ok = true
                 }
-            });
+            } else {
+                var max = parseInt($("#cantDisponible_" + equipoId).val());
+                diccionarioEquiposAgregados[equipoId] = {cantMax: max, cantidadActual: parseInt(cantidad)};
+                ok = true
+            }
+
+            return ok
         }
 
         function agregarEquipoNoSerial() {
             var cantidad = $("#cantidadEquipoNoSerial").val();
             var equipoId = $("#equipoSeleccionado").val();
-            $.ajax({
-                url: "/equipoSerial/agregarEquipoNoSerial/",
-                data: {cantidadEquipo: cantidad, equipoId: equipoId},
-                method: 'GET',
-                success: function (data) {
-                    if (data.ok == true) {
-                        refrescarData({
-                            idEquipo: data.equipo.id,
-                            idEquipoSerial: null,
-                            nombre: data.equipo.nombre,
-                            cantidad: data.cantidad,
-                            serial: 'N/A'
-                        });
-                        //Cerrar el modal.
-                        $('#modalNoSerial').modal('toggle');
-                    } else {
-                        swal({
-                            title: "¡ATENCIÓN!",
-                            text: "Hubo un problema al agregar el equipo. Puede que la cantidad requerida no este disponible.",
-                            type: "warning",
-                            closeOnConfirm: false
-                        });
-                    }
+            if (parseInt(cantidad) > 0) {
+                if (verificarDisponibildadCantidadEquipo(equipoId, cantidad)) {
+                    $.ajax({
+                        url: "/equipoSerial/agregarEquipoNoSerial/",
+                        data: {cantidadEquipo: cantidad, equipoId: equipoId},
+                        method: 'GET',
+                        success: function (data) {
+                            if (data.ok == true) {
+                                refrescarData({
+                                    idEquipo: data.equipo.id,
+                                    idEquipoSerial: null,
+                                    nombre: data.equipo.nombre,
+                                    cantidad: data.cantidad,
+                                    serial: 'N/A'
+                                });
+                                //Cerrar el modal.
+                                $('#modalNoSerial').modal('toggle');
+                            } else {
+                                swal({
+                                    title: "¡ATENCIÓN!",
+                                    text: "Hubo un problema al agregar el equipo. Puede que la cantidad requerida no este disponible.",
+                                    type: "warning",
+                                    closeOnConfirm: false
+                                });
+                            }
+                        }
+                    })
+                } else {
+                    swal({
+                        title: "¡ATENCIÓN!",
+                        text: "Está intentando agregar más equipos de los disponibles.",
+                        type: "warning",
+                        closeOnConfirm: false
+                    });
                 }
-            })
+            } else {
+                swal({
+                    title: "¡ATENCIÓN!",
+                    text: "No puede agregar una cantidad de cero (0) equipos.",
+                    type: "warning",
+                    closeOnConfirm: false
+                });
+            }
         }
 
         function refrescarData(nuevaData) {
@@ -371,7 +420,6 @@
                         },
                         dataType: "json",
                         success: function (result) {
-                            console.log(result);
                             if (result == true) {
                                 window.location.href = "/prestamo/index";
                             } else {
@@ -402,7 +450,6 @@
             }
         })
     </script>
-
 
 </content>
 </body>
