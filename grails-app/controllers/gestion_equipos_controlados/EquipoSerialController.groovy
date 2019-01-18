@@ -44,8 +44,6 @@ class EquipoSerialController {
             ok = false
         }
         resp['ok'] = ok
-
-        println resp
         render resp as JSON
     }
 }

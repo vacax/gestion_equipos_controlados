@@ -319,9 +319,6 @@
                 ok = true
             }
 
-            console.log(diccionarioEquiposAgregados);
-            console.log(ok);
-
             return ok
         }
 
@@ -336,7 +333,6 @@
                         method: 'GET',
                         success: function (data) {
                             if (data.ok == true) {
-                                console.log('Data:', data.ok);
                                 refrescarData({
                                     idEquipo: data.equipo.id,
                                     idEquipoSerial: null,
@@ -424,7 +420,6 @@
                         },
                         dataType: "json",
                         success: function (result) {
-                            console.log(result);
                             if (result == true) {
                                 window.location.href = "/prestamo/index";
                             } else {
