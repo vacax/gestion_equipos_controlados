@@ -8,6 +8,7 @@ class Prestamo {
     String matriculaEstudiante
     Date fechaSolicitud = new Date()
     Date fechaEntrega = new Date()
+    //TODO: incluir un comentario u observación
 
     EstadoPrestamo estadoPrestamo
     Prestamo prestamoRenovado
