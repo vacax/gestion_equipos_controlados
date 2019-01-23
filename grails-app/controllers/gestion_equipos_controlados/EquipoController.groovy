@@ -6,6 +6,8 @@ import grails.validation.ValidationException
 @Secured(['ROLE_ADMIN'])
 class EquipoController {
 
+    EquipoService equipoService
+
     def index() {}
 
     def crear() {
@@ -14,7 +16,7 @@ class EquipoController {
 
     def save(Equipo equipo) {
         try {
-            equipo.save(flush: true, failOnError: true)
+            equipoService.save(equipo)
             redirect(controller: 'equipo', action: 'index')
         } catch (ValidationException e) {
             println equipo.errors
@@ -26,22 +28,15 @@ class EquipoController {
         render Equipo.findByNombre(params.data as String) ? true : false
     }
 
-    def edit(long equipo){
+    def edit(long equipo) {
         def equipoTmp = Equipo.findById(equipo)
         [equipo: equipoTmp]
     }
 
-    def modificarEquipo(long idEquipo, String nombre, long categoriaEquipo){
+    def modificarEquipo(long idEquipo, String nombre, long categoriaEquipo) {
 
         withForm {
-            def equipoTmp = Equipo.findById(idEquipo)
-            def categoriaTmp = CategoriaEquipo.findById(categoriaEquipo)
-            equipoTmp.nombre = nombre
-            equipoTmp.categoriaEquipo = categoriaTmp
-
-            equipoTmp.save(flush: true, failsOnError: true)
-
-
+            equipoService.update(idEquipo, nombre, categoriaEquipo)
         }.invalidToken {
             println("Doble posteo detectado...")
         }

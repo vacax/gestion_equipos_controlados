@@ -6,6 +6,7 @@
     <content tag="title">Movimientos</content>
     <content tag="css">
         <asset:stylesheet src="datatables.net-bs4/css/dataTables.bootstrap4.css"/>
+        <asset:stylesheet src="sweetalert2/dist/sweetalert2.min.css"/>
     </content>
 </head>
 
@@ -18,6 +19,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Registrar Nueva Salida</h4>
                     <h5 class="card-subtitle">Listado de Equipos</h5>
+
                     <div class="table-responsive">
                         <table id="zero_config" class="table table-striped table-bordered">
                             <thead>
@@ -70,6 +72,8 @@
     <!--This page plugins -->
     <asset:javascript src="DataTables/datatables.min.js"/>
     <asset:javascript src="dist/js/pages/datatable/datatable-basic.init.js"/>
+    <asset:javascript src="sweetalert2/dist/sweetalert2.all.min.js"/>
+    <asset:javascript src="sweetalert2/sweet-alert.init.js"/>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -79,20 +83,27 @@
     <script>
         function seleccionarEquipo(id, nombre, serial) {
             var equipo = id;
-
-            var aceptar = confirm("Seguro de Eliminar el " + nombre + " con serial: " + serial);
-            if (aceptar == true){
-                $.ajax({
-                    type: "post",
-                    url: "/movimiento/guardarSalida/",
-                    data: {data: equipo},
-                    success: function () {
-                        window.location = "/movimiento/index/"
-                    }
-                });
-            }
-
-
+            swal({
+                title: '¡ATENCIÓN!',
+                text: "Seguro de Eliminar el " + nombre + " con serial: " + serial,
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: 'Cancelar'
+            }).then(function (result) {
+                if (result.value) {
+                    $.ajax({
+                        type: "post",
+                        url: "/movimiento/guardarSalida/",
+                        data: {data: equipo},
+                        success: function () {
+                            window.location = "/movimiento/index/"
+                        }
+                    });
+                }
+            });
         }
     </script>
 </content>
