@@ -6,6 +6,8 @@ import org.springframework.security.access.annotation.Secured
 @Secured(['ROLE_ADMIN'])
 class CategoriaEquipoController {
 
+    CategoriaEquipoService categoriaEquipoService
+
     def index() {}
 
     def crear() {
@@ -14,10 +16,10 @@ class CategoriaEquipoController {
 
     def save(CategoriaEquipo categoriaEquipo) {
         try {
-            if (categoriaEquipo.id != null){
+            if (categoriaEquipo.id != null) {
                 categoriaEquipo.habilitado = params.habilitado == 'on'
             }
-            categoriaEquipo.save(flush: true, failOnError: true)
+            categoriaEquipoService.save(categoriaEquipo)
             redirect(controller: 'categoriaEquipo', action: 'index')
         } catch (ValidationException e) {
             println categoriaEquipo.errors

@@ -6,7 +6,7 @@
     <title></title>
     <content tag="title">Préstamos</content>
     <content tag="css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+        <asset:stylesheet src="select2/dist/css/select2.min.css"/>
         <asset:stylesheet src="datatables.net-bs4/css/dataTables.bootstrap4.css"/>
         <asset:stylesheet src="pickadate/lib/themes/default.css"/>
         <asset:stylesheet src="pickadate/lib/themes/default.date.css"/>
@@ -78,6 +78,7 @@
                             <tbody>
                             <tr>
                             <g:each in="${Equipo.findAllByHabilitado(true)}" var="equipo">
+                                <input id="cantDisponible_${equipo.id}" value="${equipo.cantidadDisponible}" hidden>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div class="">
@@ -99,6 +100,7 @@
                                     <g:if test="${equipo.serial}">
                                         <button type="button" class="btn btn-primary" data-toggle="modal"
                                                 data-target="#modal"
+                                                onclick="cambiarEquipoSeleccionado('${equipo.id}', '${equipo.nombre}')"
                                                 data-whatever="${equipo.id}">Agregar</button>
                                     </g:if>
                                     <g:else>
@@ -166,7 +168,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="modalLabel1">Buscar Equipo Serial</h4>
+                    <h4 class="modal-title" id="modalLabel1">Buscar <span class="equipoSeleccionadoSpan">*aqui*</span> por Serial</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
@@ -194,7 +196,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="modalNoSerialLabel1">
-                        Cantidad de <span id="equipoSeleccionadoSpan">*aqui*</span> a agregar</h4>
+                        Cantidad de <span class="equipoSeleccionadoSpan" id="equipoSeleccionadoSpan">*aqui*</span> a agregar</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
@@ -202,7 +204,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="cantidadEquipoNoSerial" class="control-label">Cantidad:</label>
-                        <input type="text" class="form-control" id="cantidadEquipoNoSerial">
+                        <input type="number" class="form-control" id="cantidadEquipoNoSerial" min="1">
                     </div>
                 </div>
 
@@ -219,7 +221,9 @@
 
 </content>
 <content tag="js">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <asset:javascript src="select2/dist/js/select2.full.min.js"/>
+    <asset:javascript src="select2/dist/js/select2.min.js"/>
+    <asset:javascript src="dist/js/pages/forms/select2/select2.init.js"/>
     <asset:javascript src="DataTables/datatables.min.js"/>
     <asset:javascript src="dist/js/pages/datatable/datatable-basic.init.js"/>
     <asset:javascript src="pickadate/lib/compressed/picker.js"/>
@@ -229,9 +233,9 @@
     <asset:javascript src="pickadate/lib/translations/es_ES.js"/>
     <asset:javascript src="sweetalert2/dist/sweetalert2.all.min.js"/>
     <asset:javascript src="sweetalert2/sweet-alert.init.js"/>
-    <script type="text/javascript">
-        var dataPrestamo = [];
+    <asset:javascript src="inputmask/dist/min/jquery.inputmask.bundle.min.js"/>
 
+    <script type="text/javascript">
         $(document).ready(function () {
             $(".select").select2({
                 placeholder: "Seleccione una categoría",
@@ -239,72 +243,131 @@
                 minimumResultsForSearch: 1
             });
             $("#zero_config").DataTable();
+
             $("#fechaEntrega").pickadate({
-                format: 'dd/mm/yyyy'
+                format: 'dd/mm/yyyy',
+                today: false,
+                min: new Date()
             });
+
+            $("#matriculaEstudiante").inputmask("9999-9999")
+
         });
+    </script>
+
+    <script type="text/javascript">
+        var dataPrestamo = [];
+        var diccionarioEquiposAgregados = {};
 
         function cambiarEquipoSeleccionado(id, nombre) {
             $("#equipoSeleccionado").val(id);
-            $("#equipoSeleccionadoSpan").text(nombre);
+            $(".equipoSeleccionadoSpan").text(nombre);
         }
 
         function buscarEquipoSerial() {
-            $.ajax({
-                url: "/equipoSerial/buscarEquipoSerial/",
-                data: {data: $("#equipoSerialInput").val()},
-                method: 'GET',
-                success: function (data) {
-                    if (data.ok == true) {
-                        var nuevaData = {
-                            idEquipo: data.equipo.id,
-                            idEquipoSerial: data.equipoSerial.id,
-                            nombre: data.equipo.nombre,
-                            cantidad: data.cantidad,
-                            serial: data.equipoSerial.serial
-                        };
-                        refrescarData(nuevaData);
-                        $('#modal').modal('toggle');
-                    } else {
-                        swal({
-                            title: "¡ATENCIÓN!",
-                            text: "¡El equipo no existe o ya esta prestado!",
-                            type: "warning",
-                            closeOnConfirm: false
-                        });
+            var equipoId = $("#equipoSeleccionado").val();
+
+            if (verificarDisponibildadCantidadEquipo(equipoId, 1)) {
+                $.ajax({
+                    url: "/equipoSerial/buscarEquipoSerial/",
+                    data: {data: $("#equipoSerialInput").val()},
+                    method: 'GET',
+                    success: function (data) {
+                        if (data.ok == true) {
+                            var nuevaData = {
+                                idEquipo: data.equipo.id,
+                                idEquipoSerial: data.equipoSerial.id,
+                                nombre: data.equipo.nombre,
+                                cantidad: data.cantidad,
+                                serial: data.equipoSerial.serial
+                            };
+                            refrescarData(nuevaData);
+                            $('#modal').modal('toggle');
+                        } else {
+                            swal({
+                                title: "¡ATENCIÓN!",
+                                text: "¡El equipo no existe o ya esta prestado!",
+                                type: "warning",
+                                closeOnConfirm: false
+                            });
+                        }
                     }
+                });
+            } else {
+                swal({
+                    title: "¡ATENCIÓN!",
+                    text: "Está intentando agregar más equipos de los disponibles.",
+                    type: "warning",
+                    closeOnConfirm: false
+                });
+            }
+
+        }
+
+        function verificarDisponibildadCantidadEquipo(equipoId, cantidad) {
+            var ok = false;
+
+            if (equipoId in diccionarioEquiposAgregados) {
+                var objetoActual = diccionarioEquiposAgregados[equipoId];
+                if (objetoActual.cantMax >= parseInt(cantidad) + objetoActual.cantidadActual) {
+                    diccionarioEquiposAgregados[equipoId].cantidadActual += parseInt(cantidad);
+                    ok = true
                 }
-            });
+            } else {
+                var max = parseInt($("#cantDisponible_" + equipoId).val());
+                diccionarioEquiposAgregados[equipoId] = {cantMax: max, cantidadActual: parseInt(cantidad)};
+                ok = true
+            }
+
+            return ok
         }
 
         function agregarEquipoNoSerial() {
             var cantidad = $("#cantidadEquipoNoSerial").val();
             var equipoId = $("#equipoSeleccionado").val();
-            $.ajax({
-                url: "/equipoSerial/agregarEquipoNoSerial/",
-                data: {cantidadEquipo: cantidad, equipoId: equipoId},
-                method: 'GET',
-                success: function (data) {
-                    if (data.ok == true) {
-                        refrescarData({
-                            idEquipo: data.equipo.id,
-                            idEquipoSerial: null,
-                            nombre: data.equipo.nombre,
-                            cantidad: data.cantidad,
-                            serial: 'N/A'
-                        });
-                        //Cerrar el modal.
-                        $('#modalNoSerial').modal('toggle');
-                    } else {
-                        swal({
-                            title: "¡ATENCIÓN!",
-                            text: "Hubo un problema al agregar el equipo. Puede que la cantidad requerida no este disponible.",
-                            type: "warning",
-                            closeOnConfirm: false
-                        });
-                    }
+            if (parseInt(cantidad) > 0) {
+                if (verificarDisponibildadCantidadEquipo(equipoId, cantidad)) {
+                    $.ajax({
+                        url: "/equipoSerial/agregarEquipoNoSerial/",
+                        data: {cantidadEquipo: cantidad, equipoId: equipoId},
+                        method: 'GET',
+                        success: function (data) {
+                            if (data.ok == true) {
+                                refrescarData({
+                                    idEquipo: data.equipo.id,
+                                    idEquipoSerial: null,
+                                    nombre: data.equipo.nombre,
+                                    cantidad: data.cantidad,
+                                    serial: 'N/A'
+                                });
+                                //Cerrar el modal.
+                                $('#modalNoSerial').modal('toggle');
+                            } else {
+                                swal({
+                                    title: "¡ATENCIÓN!",
+                                    text: "Hubo un problema al agregar el equipo. Puede que la cantidad requerida no este disponible.",
+                                    type: "warning",
+                                    closeOnConfirm: false
+                                });
+                            }
+                        }
+                    })
+                } else {
+                    swal({
+                        title: "¡ATENCIÓN!",
+                        text: "Está intentando agregar más equipos de los disponibles.",
+                        type: "warning",
+                        closeOnConfirm: false
+                    });
                 }
-            })
+            } else {
+                swal({
+                    title: "¡ATENCIÓN!",
+                    text: "No puede agregar una cantidad de cero (0) equipos.",
+                    type: "warning",
+                    closeOnConfirm: false
+                });
+            }
         }
 
         function refrescarData(nuevaData) {
@@ -357,7 +420,6 @@
                         },
                         dataType: "json",
                         success: function (result) {
-                            console.log(result);
                             if (result == true) {
                                 window.location.href = "/prestamo/index";
                             } else {
@@ -388,26 +450,7 @@
             }
         })
     </script>
-    <script type="text/javascript">
-        (function ($) {
-            $.fn.inputFilter = function (inputFilter) {
-                return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function () {
-                    if (inputFilter(this.value)) {
-                        this.oldValue = this.value;
-                        this.oldSelectionStart = this.selectionStart;
-                        this.oldSelectionEnd = this.selectionEnd;
-                    } else if (this.hasOwnProperty("oldValue")) {
-                        this.value = this.oldValue;
-                        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
-                    }
-                });
-            };
-        }(jQuery));
 
-        $("#matriculaEstudiante").inputFilter(function (value) {
-            return /^-?\d*$/.test(value);
-        });
-    </script>
 </content>
 </body>
 </html>

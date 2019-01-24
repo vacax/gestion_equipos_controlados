@@ -3,8 +3,8 @@ package gestion_equipos_controlados
 class Equipo {
 
     String nombre
-    long cantidadTotal
-    long cantidadDisponible
+    long cantidadTotal = 0
+    long cantidadDisponible = 0
     CategoriaEquipo categoriaEquipo
     boolean serial = false
     boolean habilitado = true
