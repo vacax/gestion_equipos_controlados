@@ -98,6 +98,7 @@ class PrestamoController {
      * @param id
      */
     def imprimirPrestamo(long id) {
+        println("Imprimiendo prestamo: $id")
         def documento = reportesService.generarReportePrestamoPdf(id)
         Utilidades.descargaArchivo(documento, "Prestamo_$id", "pdf", response, false)
     }

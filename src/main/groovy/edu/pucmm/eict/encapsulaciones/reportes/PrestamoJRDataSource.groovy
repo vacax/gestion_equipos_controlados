@@ -11,7 +11,7 @@ import net.sf.jasperreports.engine.JRField
 class PrestamoJRDataSource implements JRDataSource {
 
     private Prestamo prestamo
-    private int indice=0
+    private int indice=-1
 
     PrestamoJRDataSource(Prestamo prestamo){
         this.prestamo = prestamo
