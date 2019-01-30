@@ -163,6 +163,17 @@
         </div>
     </div>
 
+    <div class="form-row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Observaciones:</h4>
+                    <textarea name="observacion" id="observacion" style="width: 100%" rows="5" placeholder="Observaciones"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="modal" tabindex="-1" role="dialog"
          aria-labelledby="modalLabel1">
         <div class="modal-dialog" role="document">
@@ -407,7 +418,10 @@
             var nombreEstudiante = $("#nombreEstudiante").val();
             var matriculaEstudiante = $("#matriculaEstudiante").val();
             var fechaEntrega = $("#fechaEntrega").val();
-            var dataEstudiante = {nombre: nombreEstudiante, matricula: matriculaEstudiante, fechaEntrega: fechaEntrega};
+            var obsercacion = $("#observacion").val();
+
+            var dataEstudiante = {nombre: nombreEstudiante, matricula: matriculaEstudiante,
+                fechaEntrega: fechaEntrega, observacion: obsercacion};
 
             if (nombreEstudiante && matriculaEstudiante && fechaEntrega && dataEstudiante) {
                 if (dataPrestamo.length > 0) {
