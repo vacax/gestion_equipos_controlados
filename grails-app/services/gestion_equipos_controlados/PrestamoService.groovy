@@ -64,6 +64,7 @@ class PrestamoService {
                 it.entregado = true
                 it.equipoSerial.prestado = false
                 it.usuarioRecibo = currentUser
+                it.fechaRecibo = new Date()
 
                 equipo.save(flush: true, failOnError: true)
                 it.save(flush: true, failOnError: true)
@@ -81,6 +82,7 @@ class PrestamoService {
         equipoSerialTmp.prestado = false
         prestamoDetalle.entregado = true
         prestamoDetalle.usuarioRecibo = currentUser
+        prestamoDetalle.fechaRecibo = new Date()
 
         equipo.save(flush: true, failOnError: true)
         equipoSerialTmp.save(flush: true, failOnError: true)
@@ -102,11 +104,14 @@ class PrestamoService {
         equipoSerialTmp.prestado = false
         if (!perdido) {
             equipoSerialTmp.estadoEquipo = EstadoEquipo.findByCodigo(EstadoEquipo.DANADO)
+            prestamoDetalle.nota = "DAÑADO"
         } else {
             equipoSerialTmp.estadoEquipo = EstadoEquipo.findByCodigo(EstadoEquipo.PERDIDO)
+            prestamoDetalle.nota = "PERDIDO"
         }
         prestamoDetalle.entregado = true
         prestamoDetalle.usuarioRecibo = currentUser
+        prestamoDetalle.fechaRecibo = new Date()
 
         equipoSerialTmp.save(flush: true, failOnError: true)
         prestamoDetalle.save(flush: true, failOnError: true)
