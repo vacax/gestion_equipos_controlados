@@ -16,6 +16,7 @@ class PrestamoService {
         prestamo.matriculaEstudiante = dataEstudiante['matricula']
         prestamo.fechaEntrega = sdf.parse(dataEstudiante['fechaEntrega'] as String)
         prestamo.estadoPrestamo = EstadoPrestamo.findByCodigo(EstadoPrestamo.PRESTADO)
+        prestamo.observacion = dataEstudiante['observacion'] != "" ? dataEstudiante['observacion'] : " "
         prestamo.save(flush: true, failOnError: true)
         prestamo.listaPrestamoDetalle = new HashSet<>()
 

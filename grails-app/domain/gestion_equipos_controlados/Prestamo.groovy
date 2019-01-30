@@ -8,8 +8,7 @@ class Prestamo {
     String matriculaEstudiante
     Date fechaSolicitud = new Date()
     Date fechaEntrega = new Date()
-    //TODO: incluir un comentario u observación
-
+    String observacion = " "
     EstadoPrestamo estadoPrestamo
     Prestamo prestamoRenovado
     boolean habilitado = true
@@ -21,6 +20,7 @@ class Prestamo {
 
     static constraints = {
         prestamoRenovado nullable: true
+        observacion maxSize: 400
     }
 
     static prestamosVenciendo() {
