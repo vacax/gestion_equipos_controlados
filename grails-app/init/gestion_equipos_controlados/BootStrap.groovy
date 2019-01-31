@@ -3,10 +3,16 @@ package gestion_equipos_controlados
 import gestion_equipos_controlados.auth.Role
 import gestion_equipos_controlados.auth.User
 import gestion_equipos_controlados.auth.UserRole
+import grails.util.Environment
 
 class BootStrap {
 
     def init = { servletContext ->
+
+        def ambiente = Environment.current
+        if(ambiente == Environment.DEVELOPMENT){
+          //TODO: completar
+        }
 
         CategoriaEquipo.findOrSaveWhere(categoria: 'Categoria 1')
         CategoriaEquipo.findOrSaveWhere(categoria: 'Categoria 2')
@@ -20,7 +26,7 @@ class BootStrap {
         Equipo.findOrSaveWhere(nombre: 'Equipo 7', cantidadDisponible: 10l, cantidadTotal: 10l, categoriaEquipo: CategoriaEquipo.first())
         Equipo.findOrSaveWhere(nombre: 'Equipo 8', cantidadDisponible: 10l, cantidadTotal: 10l, categoriaEquipo: CategoriaEquipo.first())
 
-
+        //TODO: parte de la aplicación.
         EstadoPrestamo.findOrSaveWhere(codigo: EstadoPrestamo.DEVUELTO, estado: "DEVUELTO")
         EstadoPrestamo.findOrSaveWhere(codigo: EstadoPrestamo.PRESTADO, estado: "PRESTADO")
 
