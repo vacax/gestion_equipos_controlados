@@ -70,7 +70,7 @@
                                 </td>
                                 %{-- TODO: no es la forma correcta, usar g.link--}%
                                 <td><a class="btn btn-info" href="/prestamo/recibir/?prestamo=${prestamo.id}">Recibir</a>  |
-                                <g:link class="btn btn-info" target="_blank" controller="prestamo" action="imprimirPrestamo" id="${prestamo.id}">Imprimir</g:link></td>
+                                <g:link class="btn btn-info" target="_blank" controller="prestamo" action="imprimirPrestamo" id="${prestamo.id}" params="[recibir: false]">Imprimir</g:link></td>
 
                                 </tr>
                             </g:each>

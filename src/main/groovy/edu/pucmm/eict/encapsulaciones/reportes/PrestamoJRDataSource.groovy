@@ -50,6 +50,9 @@ class PrestamoJRDataSource implements JRDataSource {
             case "estadoEquipo":
                 tmp = prestamo.listaPrestamoDetalle.getAt(indice).entregado ? "Entregado" : "Pendiente"
                 break
+            case "nota":
+                tmp = prestamo.listaPrestamoDetalle.getAt(indice).nota
+                break
         }
 
         println("La consulta campo: ${jrField.name} valor: ${tmp}")

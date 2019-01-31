@@ -19,12 +19,19 @@ class ReportesService {
 
     /**
      * 
-     * @param prestamoId
+     * @param prestamoId, recibir
      * @return
      */
-    JasperPrint generarReportePrestamoRaw(long prestamoId){
+    JasperPrint generarReportePrestamoRaw(long prestamoId, boolean recibir){
         //Cargando el reporte desde la carpeta recurso.
-        JasperReport reporte = (JasperReport) JRLoader.loadObject(this.getClass().getResourceAsStream("/reportes/prestamos/prestamo.jasper"))
+          //  JasperReport reporte = (JasperReport) JRLoader.loadObject(this.getClass().getResourceAsStream("/reportes/prestamos/prestamo.jasper"))
+        def path = ""
+        if (!recibir)
+            path = "/reportes/prestamos/prestamo.jasper"
+        else
+            path = "/reportes/prestamos/recibirPrestamo.jasper"
+        JasperReport reporte = (JasperReport) JRLoader.loadObject(this.getClass().getResourceAsStream(path))
+
         //Parametros.
         HashMap<String, Object> parametros=new HashMap<>();
         parametros.put("logo_reporte", this.getClass().getResourceAsStream("/logopucmm.png")) //
@@ -55,7 +62,7 @@ class ReportesService {
      * @param prestamoId
      * @return
      */
-    FileInputStream generarReportePrestamoPdf(long prestamoId){
-        return convertirReporteaPdf(generarReportePrestamoRaw(prestamoId))
+    FileInputStream generarReportePrestamoPdf(long prestamoId, boolean recibir){
+        return convertirReporteaPdf(generarReportePrestamoRaw(prestamoId, recibir))
     }
 }

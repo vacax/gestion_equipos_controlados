@@ -44,6 +44,9 @@
                                    onclick="recibirTodo('${prestamo.id}')">Entregar Todo</a>
                             </g:if>
                         </div>
+                        <div class="col-md-2">
+                            <g:link class="btn btn-info" target="_blank" controller="prestamo" action="imprimirPrestamo" id="${prestamo.id}" params="[recibir : true]">Imprimir</g:link>
+                        </div>
                     </div>
                     <br>
 
@@ -87,12 +90,10 @@
                                         <a class="btn btn-danger"
                                            href="#" onclick="recibirAnomalia('${prestamoDetalle.id}', '${prestamoDetalle.prestamo.id}')">Anomalía</a>
                                     </g:if>
-                                    <g:elseif test="${prestamoDetalle.equipoSerial.estadoEquipo.codigo == EstadoEquipo.DANADO}">
-                                        EQUIPO SE RECIBIO DANADO
-                                    </g:elseif>
-                                    <g:elseif test="${prestamoDetalle.equipoSerial.estadoEquipo.codigo == EstadoEquipo.PERDIDO}">
-                                        EQUIPO PERDIDO
-                                    </g:elseif>
+                                    <g:else>
+                                        ${prestamoDetalle.nota}
+                                    </g:else>
+
 
                                 </td>
                                 </tr>

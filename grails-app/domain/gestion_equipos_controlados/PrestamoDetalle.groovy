@@ -11,12 +11,15 @@ class PrestamoDetalle {
     User usuarioRecibo
     boolean entregado = false
     boolean habilitado = true
+    String nota
 
+    Date fechaRecibo
     Date dateCreated
     Date lastUpdated
 
     static constraints = {
         usuarioRecibo nullable: true
-
+        fechaRecibo nullable: true
+        nota nullable: true
     }
 }
