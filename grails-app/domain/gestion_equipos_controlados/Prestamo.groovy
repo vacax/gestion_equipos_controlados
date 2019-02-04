@@ -36,8 +36,9 @@ class Prestamo {
     static prestamosVencidos(){
         def prestamos = findAllByHabilitadoAndEstadoPrestamo(true, EstadoPrestamo.findByCodigo(EstadoPrestamo.PRESTADO))
         def prestamosVen = []
+        def fechaActual = new Date()
         prestamos.each {
-            if (it.fechaEntrega > new Date())
+            if (it.fechaEntrega < fechaActual)
                 prestamosVen.add(it)
         }
         return prestamosVen.take(5)

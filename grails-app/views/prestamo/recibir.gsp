@@ -36,6 +36,7 @@
                     <h5 class="card-title"><pre>Estado:                 <b>${prestamo.estadoPrestamo.estado}</b></pre></h5>
                     <h5 class="card-title"><pre>Fecha Solicitud:        <b>${prestamo.fechaSolicitud}</b></pre></h5>
                     <h5 class="card-title"><pre>Fecha Límite:           <b>${prestamo.fechaEntrega}</b></pre></h5>
+                    <h5 class="card-title"><pre>Entregado Por:          <b>${prestamo.listaPrestamoDetalle.first().usuarioEntrega.name}</b></pre></h5>
                     <br>
                     <div class="row">
                         <div class="col-md-2">
@@ -58,8 +59,8 @@
                                 <th class="border-top-0">Serial</th>
                                 <th class="border-top-0">Cantidad</th>
                                 <th class="border-top-0">Estado</th>
-                                <th class="border-top-0">Entregado Por:</th>
                                 <th class="border-top-0">Recibido Por:</th>
+                                <th class="border-top-0">Fecha: </th>
                                 <th class="border-top-0">Acciones</th>
                             </tr>
                             </thead>
@@ -77,10 +78,14 @@
                                         <label class="label label-danger">Pendiente</label>
                                     </g:else>
                                 </td>
-                                <td>${prestamoDetalle.usuarioEntrega.name}</td>
                                 <td>
                                     <g:if test="${prestamoDetalle.usuarioRecibo}">
                                         ${prestamoDetalle.usuarioRecibo.name}
+                                    </g:if>
+                                </td>
+                                <td>
+                                    <g:if test="${prestamoDetalle.fechaRecibo}">
+                                        ${prestamoDetalle.fechaRecibo}
                                     </g:if>
                                 </td>
                                 <td>
@@ -105,7 +110,6 @@
                                 <th class="border-top-0">Serial</th>
                                 <th class="border-top-0">Cantidad</th>
                                 <th class="border-top-0">Estado</th>
-                                <th class="border-top-0">Entregado Por:</th>
                                 <th class="border-top-0">Recibido Por:</th>
                                 <th class="border-top-0">Acciones</th>
                             </tr>

@@ -8,6 +8,7 @@ class CategoriaEquipo {
     Date dateCreated
     Date lastUpdated
 
+
     static constraints = {
         categoria unique: true
     }
