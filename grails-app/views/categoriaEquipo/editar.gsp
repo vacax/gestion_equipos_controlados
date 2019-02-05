@@ -38,6 +38,7 @@
                         </div>
                     </div>
                     <button id="aceptarBtn" class="btn btn-primary">Aceptar</button>
+                    <g:link class="btn btn-info" controller="categoriaEquipo" action="index">Volver</g:link>
                 </g:form>
             </div>
         </div>

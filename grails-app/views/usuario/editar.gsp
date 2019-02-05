@@ -112,6 +112,7 @@
 
                 </g:form>
                 <button id="aceptarBtn" class="btn btn-primary">Aceptar</button>
+                <g:link class="btn btn-info" controller="usuario" action="index">Volver</g:link>
             </div>
         </div>
     </div>

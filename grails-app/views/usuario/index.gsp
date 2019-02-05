@@ -51,7 +51,7 @@
                                             <label class="label label-danger">Deshabilitado</label>
                                         </g:else>
                                     </td>
-                                    <td><a class="btn btn-info" href="/usuario/editar/${user.id}">Editar</a></td>
+                                    <td><g:link class="btn btn-info" controller="usuario" action="editar" id="${user.id}">Editar</g:link> </td>
                                 </tr>
                             </g:each>
                             </tbody>
