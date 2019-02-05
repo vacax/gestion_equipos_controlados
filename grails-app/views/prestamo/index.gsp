@@ -15,7 +15,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <a class="btn btn-info" href="/prestamo/crear">Hacer Nuevo Préstamo</a>
+            <g:link class="btn btn-info" controller="prestamo" action="crear">Hacer Nuevo Préstamo</g:link>
         </div>
     </div>
     <br>
@@ -53,8 +53,7 @@
                                 <td>${prestamo.fechaEntrega}</td>
                                 <td>
                                     <g:if test="${prestamo.prestamoRenovado}">
-                                        <a class="btn btn-primary"
-                                           href="/prestamo/verRenovado/${prestamo.prestamoRenovado.id}">Ver Nuevo Préstamo</a>
+                                        <g:link class="btn btn-primary" controller="prestamo" action="verRenovado" id="${prestamo.prestamoRenovado.id}">Ver</g:link>
                                     </g:if>
                                     <g:else>
                                         No
@@ -69,7 +68,9 @@
                                     </g:else>
                                 </td>
                                 %{-- TODO: no es la forma correcta, usar g.link--}%
-                                <td><a class="btn btn-info" href="/prestamo/recibir/?prestamo=${prestamo.id}">Recibir</a>  |
+                                <td>
+                                    <g:link class="btn btn-info" controller="prestamo" action="recibir" id="${prestamo.id}">Recibir</g:link>
+                                    |
                                 <g:link class="btn btn-info" target="_blank" controller="prestamo" action="imprimirPrestamo" id="${prestamo.id}" params="[recibir: false]">Imprimir</g:link></td>
 
                                 </tr>

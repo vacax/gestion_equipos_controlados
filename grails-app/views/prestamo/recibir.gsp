@@ -57,10 +57,10 @@
                             <tr>
                                 <th class="border-top-0">Equipo</th>
                                 <th class="border-top-0">Serial</th>
-                                <th class="border-top-0">Cantidad</th>
+                                <th class="border-top-0">Cant</th>
                                 <th class="border-top-0">Estado</th>
-                                <th class="border-top-0">Recibido Por:</th>
-                                <th class="border-top-0">Fecha: </th>
+                                <th class="border-top-0">Recibido Por</th>
+                                <th class="border-top-0">Fecha</th>
                                 <th class="border-top-0">Acciones</th>
                             </tr>
                             </thead>
@@ -85,13 +85,12 @@
                                 </td>
                                 <td>
                                     <g:if test="${prestamoDetalle.fechaRecibo}">
-                                        ${prestamoDetalle.fechaRecibo}
+                                        <g:formatDate format="dd-MM-yyyy" date="${prestamoDetalle.fechaRecibo}"/>
                                     </g:if>
                                 </td>
                                 <td>
                                     <g:if test="${!prestamoDetalle.entregado}">
-                                        <a class="btn btn-info"
-                                           href="/prestamo/recibirParcial?prestamoDetalle=${prestamoDetalle.id}">Entregar</a>
+                                        <g:link class="btn btn-info" controller="prestamo" action="recibirParcial" id="${prestamoDetalle.id}">Entregar</g:link>
                                         <a class="btn btn-danger"
                                            href="#" onclick="recibirAnomalia('${prestamoDetalle.id}', '${prestamoDetalle.prestamo.id}')">Anomalía</a>
                                     </g:if>
@@ -108,9 +107,10 @@
                             <tr>
                                 <th class="border-top-0">Equipo</th>
                                 <th class="border-top-0">Serial</th>
-                                <th class="border-top-0">Cantidad</th>
+                                <th class="border-top-0">Cant</th>
                                 <th class="border-top-0">Estado</th>
-                                <th class="border-top-0">Recibido Por:</th>
+                                <th class="border-top-0">Recibido Por</th>
+                                <th class="border-top-0">Fecha</th>
                                 <th class="border-top-0">Acciones</th>
                             </tr>
                             </tfoot>
@@ -170,14 +170,14 @@
                 if (result.value) {
                     $.get(path_dano, function (data, status) {
                         if (status === 'success') {
-                            window.location.href = '/prestamo/recibir/?prestamo=' + idPrestamo;
+                            window.location.href = '/prestamo/recibir/' +idPrestamo;
                         }
                     });
                 }
                 else if (result.dismiss === Swal.DismissReason.cancel){
                     $.get(path, function (data, status) {
                         if (status === 'success') {
-                            window.location.href = '/prestamo/recibir/?prestamo=' + idPrestamo;
+                            window.location.href = '/prestamo/recibir/' + idPrestamo;
                         }
                     });
                 }

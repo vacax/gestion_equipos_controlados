@@ -6,6 +6,7 @@
     <content tag="title">Movimientos</content>
     <content tag="css">
         <asset:stylesheet src="datatables.net-bs4/css/dataTables.bootstrap4.css"/>
+        <asset:stylesheet src="sweetalert2/dist/sweetalert2.min.css"/>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
     </content>
 </head>
@@ -19,7 +20,7 @@
             <button class="btn btn-info" id="registrarEntradaBtn">Registrar Entrada</button>
         </div>
         <div class="col-md-3">
-            <a class="btn btn-info" href="/movimiento/crearSalida">Registrar Salida</a>
+            <g:link class="btn btn-info" controller="movimiento" action="crearSalida">Registrar Salida</g:link>
         </div>
     </div>
     <br>
@@ -56,6 +57,13 @@
             <button id="registrarBtn" class="btn btn-success disabled">Registrar</button>
         </div>
         </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <label for="comentario">Comentario</label>
+                        <textarea type="text" class="form-control" id="comentario" name="comentario"
+                                  placeholder="Comentario" rows="2"></textarea>
+                    </div>
+                </div>
         </div>
         </div>
         </div>
@@ -94,7 +102,16 @@
                                 <td>${movimiento.equipo.nombre}</td>
                                 <td>${movimiento.cantidad}</td>
                                 <td>${movimiento.dateCreated}</td>
-                                <td><a class="btn btn-info" href="#">Editar</a></td>
+                                <td><a class="btn btn-info" href="#"
+                                       onclick="verMovimiento(
+                                           '${movimiento.tipoMovimiento.toString()}',
+                                           '${movimiento.equipo.nombre}',
+                                           '${movimiento.cantidad}',
+                                           '${movimiento.dateCreated}',
+                                           '${movimiento.comentario}',
+                                           '${movimiento.creadoPor.name}'
+                                       )
+                                       ">Ver</a></td>
                                 </tr>
                             </g:each>
                             </tbody>
@@ -119,6 +136,8 @@
     <!--This page plugins -->
     <asset:javascript src="DataTables/datatables.min.js"/>
     <asset:javascript src="dist/js/pages/datatable/datatable-basic.init.js"/>
+    <asset:javascript src="sweetalert2/dist/sweetalert2.all.min.js"/>
+    <asset:javascript src="sweetalert2/sweet-alert.init.js"/>
     <script type="text/javascript">
         $(document).ready(function () {
             $(".table").DataTable();
@@ -163,6 +182,23 @@
             });
 
         })
+    </script>
+    <script type="text/javascript">
+
+        function verMovimiento(tipo, equipo, cantidad, fecha, comentario, usuario) {
+
+            swal({
+                title: '' + tipo,
+                html:
+                'Equipo: '+ equipo + '<br/>' +
+                'Cantidad: ' + cantidad + '<br/>' +
+                'Fecha: ' + fecha + '<br/>' +
+                'Usuario: ' + usuario + '<br/>',
+                type: 'info',
+                footer: 'Comentario: ' + comentario
+            })
+        }
+
     </script>
 </content>
 </body>

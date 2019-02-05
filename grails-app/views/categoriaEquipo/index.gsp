@@ -15,7 +15,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <a class="btn btn-info" href="/categoriaEquipo/crear">Crear Categoría</a>
+            <g:link class="btn btn-info" controller="categoriaEquipo" action="crear">Crear Categoría</g:link>
         </div>
     </div>
     <br>
@@ -52,7 +52,7 @@
                                     <g:else>
                                         <label class="label label-danger">Deshabilitado</label>
                                     </g:else></td>
-                                <td><a class="btn btn-info" href="editar/${categoria.id}">Editar</a></td>
+                                <td><g:link class="btn btn-info" controller="categoriaEquipo" action="editar" id="${categoria.id}">Editar</g:link></td>
                                 </tr>
                             </g:each>
                             </tbody>

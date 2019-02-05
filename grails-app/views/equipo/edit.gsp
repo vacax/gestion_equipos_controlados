@@ -45,7 +45,7 @@
             </div>
         </div>
         <button id="aceptarBtn" class="btn btn-primary" type="submit">Guardar</button>
-        <a class="btn btn-info" href="/equipo/index">Atrás</a>
+        <g:link class="btn btn-info" controller="equipo" action="index">Volver</g:link>
     </g:form>
 
 

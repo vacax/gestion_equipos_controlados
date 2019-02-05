@@ -1,11 +1,13 @@
 package gestion_equipos_controlados
 
+import gestion_equipos_controlados.auth.User
 import grails.plugin.springsecurity.annotation.Secured
 
 @Secured(['ROLE_ADMIN'])
 class MovimientoController {
 
     MovimientoService movimientoService
+    def springSecurityService
 
     def index() {
         def listadoMovimientos = Movimiento.findAllByHabilitado(true)
@@ -26,8 +28,9 @@ class MovimientoController {
     def guardarEntrada() {
         def movimiento = null
         try {
+            def currentUser = (User) springSecurityService.getCurrentUser()
             movimiento = movimientoService.guardarEntrada(params.equipo as long,
-                    params.cantidad as int, params.serial)
+                    params.cantidad as int, params.serial, params.comentario, currentUser)
             redirect(controller: 'movimiento', action: 'index')
         }
         catch (Exception e) {

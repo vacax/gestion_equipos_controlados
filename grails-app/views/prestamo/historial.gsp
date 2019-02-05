@@ -65,7 +65,7 @@
                                         <label class="label label-danger">Deshabilitado</label>
                                     </g:else>
                                 </td>
-                                <td><a class="btn btn-info" href="/prestamo/recibir/?prestamo=${prestamo.id}">Ver</a></td>
+                                <td><g:link class="btn btn-info" controller="prestamo" action="recibir" id="${prestamo.id}">Ver</g:link></td>
                                 </tr>
                             </g:each>
                             </tbody>

@@ -43,8 +43,16 @@
                         <label for="registrarBtn">.</label>
                         <button id="registrarBtn" class="btn btn-success disabled">Registrar</button>
                     </div>
-                </g:form>
             </div>
+
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <label for="comentario">Comentario</label>
+                        <textarea type="text" class="form-control" id="comentario" name="comentario"
+                                  placeholder="Comentario" rows="2"></textarea>
+                    </div>
+                </div>
+                </g:form>
         </div>
     </div>
     </div>

@@ -1,11 +1,12 @@
 package gestion_equipos_controlados
 
+import gestion_equipos_controlados.auth.User
 import grails.gorm.transactions.Transactional
 
 @Transactional
 class MovimientoService {
 
-    def guardarEntrada(long equipoId, int cantidad, def serial) {
+    def guardarEntrada(long equipoId, int cantidad, def serial, String comentario, User currentUser) {
         def equipo = Equipo.findById(equipoId as long)
         def movimiento = new Movimiento()
         def estadoEquipo = EstadoEquipo.findByCodigo(EstadoEquipo.BUENO)
@@ -14,6 +15,8 @@ class MovimientoService {
             movimiento.equipo = equipo
             movimiento.cantidad = cantidad
             movimiento.tipoMovimiento = Movimiento.TipoMovimiento.ENTRADA
+            movimiento.comentario = comentario
+            movimiento.creadoPor = currentUser
 
             cantidad.times {
                 if (serial != '') {

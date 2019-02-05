@@ -106,9 +106,11 @@ class PrestamoService {
         if (!perdido) {
             equipoSerialTmp.estadoEquipo = EstadoEquipo.findByCodigo(EstadoEquipo.DANADO)
             prestamoDetalle.nota = "DAÑADO"
+            salidaEquipo.comentario = "Salida por DAÑO"
         } else {
             equipoSerialTmp.estadoEquipo = EstadoEquipo.findByCodigo(EstadoEquipo.PERDIDO)
             prestamoDetalle.nota = "PERDIDO"
+            salidaEquipo.comentario = "Salida por PERDIDA"
         }
         prestamoDetalle.entregado = true
         prestamoDetalle.usuarioRecibo = currentUser
@@ -120,6 +122,8 @@ class PrestamoService {
         salidaEquipo.equipo = equipo
         salidaEquipo.cantidad = 1
         salidaEquipo.tipoMovimiento = Movimiento.TipoMovimiento.SALIDA
+        salidaEquipo.creadoPor = currentUser
+
         salidaEquipo.save(flush: true, failOnError: true)
 
         equipo.cantidadTotal -= 1

@@ -46,8 +46,8 @@ class PrestamoController {
         ['prestamos': Prestamo.findAll()]
     }
 
-    def recibir(long prestamo) {
-        def prestamoTmp = Prestamo.findById(prestamo)
+    def recibir(long id) {
+        def prestamoTmp = Prestamo.findById(id)
         /*
         prestamo.estadoPrestamo = EstadoPrestamo.findByCodigo(EstadoPrestamo.PENDIENTE)
         prestamo.listaPrestamoDetalle.each {
@@ -66,15 +66,15 @@ class PrestamoController {
         } catch (Exception e) {
             println e.message
         }
-        redirect(controller: 'prestamo', action: 'recibir', params: [prestamo: prestamo])
+        redirect(controller: 'prestamo', action: 'recibir', params: [id: prestamo])
     }
 
-    def recibirParcial() {
+    def recibirParcial(long id) {
         try {
             def currentUser = (User) springSecurityService.getCurrentUser()
-            def prestamoDetalleTmp = PrestamoDetalle.findById(params.prestamoDetalle as long)
+            def prestamoDetalleTmp = PrestamoDetalle.findById(id)
             prestamoService.recibirParcial(prestamoDetalleTmp, currentUser)
-            redirect(controller: 'prestamo', action: 'recibir', params: [prestamo: prestamoDetalleTmp.prestamo.id])
+            redirect(controller: 'prestamo', action: 'recibir', params: [id: prestamoDetalleTmp.prestamo.id])
         } catch (Exception e) {
             println e.message
         }
@@ -86,7 +86,7 @@ class PrestamoController {
             def currentUser = (User) springSecurityService.getCurrentUser()
             def prestamoDetalleTmp = PrestamoDetalle.findById(prestamoDetalle)
             prestamoService.recibirParcialProblema(prestamoDetalleTmp, currentUser, perdido)
-            redirect(controller: 'prestamo', action: 'recibir', params: [prestamo: prestamoDetalleTmp.prestamo.id])
+            redirect(controller: 'prestamo', action: 'recibir', params: [id: prestamoDetalleTmp.prestamo.id])
         }
         catch (Exception e) {
             println e.message
