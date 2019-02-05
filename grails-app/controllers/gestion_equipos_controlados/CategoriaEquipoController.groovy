@@ -1,5 +1,6 @@
 package gestion_equipos_controlados
 
+import gestion_equipos_controlados.auth.User
 import grails.validation.ValidationException
 import org.springframework.security.access.annotation.Secured
 
@@ -7,6 +8,7 @@ import org.springframework.security.access.annotation.Secured
 class CategoriaEquipoController {
 
     CategoriaEquipoService categoriaEquipoService
+    def springSecurityService
 
     def index() {}
 
@@ -16,6 +18,7 @@ class CategoriaEquipoController {
 
     def save(CategoriaEquipo categoriaEquipo) {
         try {
+            def currentUser = (User) springSecurityService.getCurrentUser()
             if (categoriaEquipo.id != null) {
                 categoriaEquipo.habilitado = params.habilitado == 'on'
             }

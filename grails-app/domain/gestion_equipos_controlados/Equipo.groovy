@@ -1,5 +1,7 @@
 package gestion_equipos_controlados
 
+import gestion_equipos_controlados.auth.User
+
 class Equipo {
 
     String nombre
@@ -7,6 +9,8 @@ class Equipo {
     long cantidadDisponible = 0
     CategoriaEquipo categoriaEquipo
     boolean serial = false
+    User creadoPor
+    User modificadoPor
     boolean habilitado = true
 
     Date dateCreated
@@ -14,5 +18,7 @@ class Equipo {
 
     static constraints = {
         nombre unique: true
+        creadoPor nullable: true
+        modificadoPor nullable: true
     }
 }

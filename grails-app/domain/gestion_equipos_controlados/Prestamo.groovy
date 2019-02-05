@@ -11,6 +11,8 @@ class Prestamo {
     String observacion = " "
     EstadoPrestamo estadoPrestamo
     Prestamo prestamoRenovado
+    User creadoPor
+    User modificadoPor
     boolean habilitado = true
 
     static hasMany = [listaPrestamoDetalle: PrestamoDetalle]
@@ -21,6 +23,8 @@ class Prestamo {
     static constraints = {
         prestamoRenovado nullable: true
         observacion maxSize: 400
+        creadoPor nullable: true
+        modificadoPor nullable: true
     }
 
     static prestamosVenciendo() {
