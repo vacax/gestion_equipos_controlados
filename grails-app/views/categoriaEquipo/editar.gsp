@@ -22,7 +22,7 @@
                         <div class="col-md-12">
                             <label for="categoria">Nombre Categoría</label>
                             <input type="text" class="form-control" id="categoria" name="categoria"
-                                   placeholder="Nombre Categoría" value="${categoria.categoria}" required disabled>
+                                   placeholder="Nombre Categoría" value="${categoria.categoria}" required>
                             <br>
                         </div>
 

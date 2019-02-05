@@ -42,6 +42,16 @@
                     </div>
                 </div>
                 <br>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="habilitado"
+                                   name="habilitado" <g:if
+                                           test="${equipo.habilitado}">checked</g:if>/>
+                            <label class="custom-control-label" for="habilitado">Habilitado</label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <button id="aceptarBtn" class="btn btn-primary" type="submit">Guardar</button>

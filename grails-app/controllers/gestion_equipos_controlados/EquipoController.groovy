@@ -28,15 +28,15 @@ class EquipoController {
         render Equipo.findByNombre(params.data as String) ? true : false
     }
 
-    def edit(long equipo) {
-        def equipoTmp = Equipo.findById(equipo)
+    def edit(long id) {
+        def equipoTmp = Equipo.findById(id)
         [equipo: equipoTmp]
     }
 
-    def modificarEquipo(long idEquipo, String nombre, long categoriaEquipo) {
+    def modificarEquipo(long idEquipo, String nombre, long categoriaEquipo, boolean habilitado) {
 
         withForm {
-            equipoService.update(idEquipo, nombre, categoriaEquipo)
+            equipoService.update(idEquipo, nombre, categoriaEquipo, habilitado)
         }.invalidToken {
             println("Doble posteo detectado...")
         }

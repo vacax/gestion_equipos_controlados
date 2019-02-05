@@ -31,8 +31,8 @@
                             <tr>
                                 <th class="border-top-0">Nombre</th>
                                 <th class="border-top-0">Categoría</th>
-                                <th class="border-top-0">Cantidad de Equipos Disponibles</th>
-                                <th class="border-top-0">Cantidad de Equipos Total</th>
+                                <th class="border-top-0">Cant Disponible</th>
+                                <th class="border-top-0">Cant Total</th>
                                 <th class="border-top-0">Serial</th>
                                 <th class="border-top-0">Habilitado</th>
                                 <th class="border-top-0">Acciones</th>
@@ -63,7 +63,7 @@
                                     <g:else>
                                         <label class="label label-danger">Deshabilitado</label>
                                     </g:else></td>
-                                <td><a class="btn btn-info" href="/equipo/edit/?equipo=${equipo.id}">Editar</a></td>
+                                <td><g:link class="btn btn-info" controller="equipo" action="edit" id="${equipo.id}">Editar</g:link></td>
                                 </tr>
                             </g:each>
                             </tbody>
@@ -71,8 +71,8 @@
                             <tr>
                                 <th class="border-top-0">Nombre</th>
                                 <th class="border-top-0">Categoría</th>
-                                <th class="border-top-0">Cantidad de Equipos Disponibles</th>
-                                <th class="border-top-0">Cantidad de Equipos Total</th>
+                                <th class="border-top-0">Cant Disponible</th>
+                                <th class="border-top-0">Cant Total</th>
                                 <th class="border-top-0">Serial</th>
                                 <th class="border-top-0">Habilitado</th>
                                 <th class="border-top-0">Acciones</th>

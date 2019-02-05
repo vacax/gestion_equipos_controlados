@@ -9,11 +9,12 @@ class EquipoService {
         equipo.save(flush: true, failOnError: true)
     }
 
-    def update(long idEquipo, String nombre, long categoriaEquipo){
+    def update(long idEquipo, String nombre, long categoriaEquipo, boolean habilitado){
         def equipoTmp = Equipo.findById(idEquipo)
         def categoriaTmp = CategoriaEquipo.findById(categoriaEquipo)
         equipoTmp.nombre = nombre
         equipoTmp.categoriaEquipo = categoriaTmp
+        equipoTmp.habilitado = habilitado
 
         equipoTmp.save(flush: true, failsOnError: true)
 
