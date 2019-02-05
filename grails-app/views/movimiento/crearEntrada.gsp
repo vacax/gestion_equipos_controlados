@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-md-1">
                         <label for="registrarBtn">.</label>
-                        <button id="registrarBtn" class="btn btn-success disabled">Registrar</button>
+                        <button id="registrarBtn" class="btn btn-success">Registrar</button>
                     </div>
             </div>
 
