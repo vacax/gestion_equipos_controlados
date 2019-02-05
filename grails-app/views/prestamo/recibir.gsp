@@ -147,7 +147,7 @@
                 if (result.value) {
                     $.get(path, function (data, status) {
                         if (status === 'success') {
-                            window.location.href = '/prestamo/recibir/?prestamo=' + idPrestamo;
+                            window.location.href = '/prestamo/recibir/' + idPrestamo;
                         }
                     });
                 }
