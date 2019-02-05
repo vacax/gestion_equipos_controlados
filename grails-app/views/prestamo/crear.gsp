@@ -294,6 +294,7 @@
                             };
                             refrescarData(nuevaData);
                             $('#modal').modal('toggle');
+                            $("#equipoSerialInput").val('');
                         } else {
                             swal({
                                 title: "¡ATENCIÓN!",
@@ -353,6 +354,7 @@
                                 });
                                 //Cerrar el modal.
                                 $('#modalNoSerial').modal('toggle');
+                                $("#cantidadEquipoNoSerial").val('');
                             } else {
                                 swal({
                                     title: "¡ATENCIÓN!",
