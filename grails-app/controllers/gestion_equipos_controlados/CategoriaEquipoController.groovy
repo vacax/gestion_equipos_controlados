@@ -22,7 +22,7 @@ class CategoriaEquipoController {
             if (categoriaEquipo.id != null) {
                 categoriaEquipo.habilitado = params.habilitado == 'on'
             }
-            categoriaEquipoService.save(categoriaEquipo)
+            categoriaEquipoService.save(categoriaEquipo, currentUser)
             redirect(controller: 'categoriaEquipo', action: 'index')
         } catch (ValidationException e) {
             println categoriaEquipo.errors

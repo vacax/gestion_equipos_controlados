@@ -1,5 +1,6 @@
 package gestion_equipos_controlados
 
+import gestion_equipos_controlados.auth.User
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 
@@ -7,6 +8,7 @@ import grails.validation.ValidationException
 class EquipoController {
 
     EquipoService equipoService
+    def springSecurityService
 
     def index() {}
 
@@ -16,7 +18,8 @@ class EquipoController {
 
     def save(Equipo equipo) {
         try {
-            equipoService.save(equipo)
+            def currentUser = (User) springSecurityService.getCurrentUser()
+            equipoService.save(equipo, currentUser)
             redirect(controller: 'equipo', action: 'index')
         } catch (ValidationException e) {
             println equipo.errors
@@ -34,9 +37,10 @@ class EquipoController {
     }
 
     def modificarEquipo(long idEquipo, String nombre, long categoriaEquipo, boolean habilitado) {
+        def currentUser = (User) springSecurityService.getCurrentUser()
 
         withForm {
-            equipoService.update(idEquipo, nombre, categoriaEquipo, habilitado)
+            equipoService.update(idEquipo, nombre, categoriaEquipo, habilitado, currentUser)
         }.invalidToken {
             println("Doble posteo detectado...")
         }
