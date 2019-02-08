@@ -8,7 +8,7 @@
 	</queryString>
 	<field name="nombreEstudiante" class="java.lang.String"/>
 	<field name="matriculaEstudiante" class="java.lang.String"/>
-	<field name="fechaEntrega" class="java.sql.Date"/>
+	<field name="fechaEntrega" class="java.sql.Timestamp"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>

@@ -8,19 +8,19 @@ import net.sf.jasperreports.engine.JRField
 /**
  *
  */
-class PrestamoJRDataSource implements JRDataSource {
+class PrestamosVencidosJRDataSource implements JRDataSource {
 
-    private Prestamo prestamo
-    private int indice=-1
+    private List<Prestamo> prestamos
+    private int indice = -1
 
-    PrestamoJRDataSource(Prestamo prestamo){
-        this.prestamo = prestamo
+    PrestamosVencidosJRDataSource(List<Prestamo> prestamos) {
+        this.prestamos = prestamos
     }
 
     @Override
     boolean next() throws JRException {
         indice++
-        return indice < prestamo.listaPrestamoDetalle.size()
+        return indice < prestamos.size()
     }
 
     @Override
@@ -28,30 +28,21 @@ class PrestamoJRDataSource implements JRDataSource {
         Object tmp = null
 
         //buscando el valor de la propiedad de frente
-        tmp = prestamo.properties.get(jrField.name)
-        if(!tmp){
-           tmp = prestamo.listaPrestamoDetalle.getAt(indice).properties.get(jrField.name)
+        tmp = prestamos.properties.get(jrField.name)
+        if (!tmp) {
+            tmp = prestamos.getAt(indice).properties.get(jrField.name)
         }
 
         //si la propiedad no existe en el objeto la busco.
-        switch (jrField.name){
-            case "estadoPrestamo":
-                tmp = prestamo.estadoPrestamo.estado
+        switch (jrField.name) {
+            case "nombreEstudiante":
+                tmp = prestamos.getAt(indice).nombreEstudiante
                 break
-            case "equipo":
-                tmp = prestamo.listaPrestamoDetalle.getAt(indice).equipoSerial.equipo.nombre
+            case "matriculaEstudiante":
+                tmp = prestamos.getAt(indice).matriculaEstudiante
                 break
-            case "serial":
-                tmp = prestamo.listaPrestamoDetalle.getAt(indice).equipoSerial.serial
-                break
-            case "cantidad":
-                tmp = prestamo.listaPrestamoDetalle.getAt(indice).cantidadPrestado
-                break
-            case "estadoEquipo":
-                tmp = prestamo.listaPrestamoDetalle.getAt(indice).entregado ? "Entregado" : "Pendiente"
-                break
-            case "nota":
-                tmp = prestamo.listaPrestamoDetalle.getAt(indice).nota
+            case "fechaEntrega":
+                tmp = prestamos.getAt(indice).fechaEntrega
                 break
         }
 
@@ -59,5 +50,5 @@ class PrestamoJRDataSource implements JRDataSource {
         return tmp
     }
 
-    
+
 }

@@ -1,6 +1,7 @@
 package gestion_equipos_controlados
 
 import edu.pucmm.eict.encapsulaciones.reportes.PrestamoJRDataSource
+import edu.pucmm.eict.encapsulaciones.reportes.PrestamosVencidosJRDataSource
 import grails.gorm.transactions.Transactional
 import net.sf.jasperreports.engine.JasperExportManager
 import net.sf.jasperreports.engine.JasperFillManager
@@ -12,19 +13,19 @@ import java.nio.file.Files
 import java.nio.file.Path
 
 /**
- * 
+ *
  */
 @Transactional
 class ReportesService {
 
     /**
-     * 
-     * @param prestamoId, recibir
+     *
+     * @param prestamoId , recibir
      * @return
      */
-    JasperPrint generarReportePrestamoRaw(long prestamoId, boolean recibir){
+    JasperPrint generarReportePrestamoRaw(long prestamoId, boolean recibir) {
         //Cargando el reporte desde la carpeta recurso.
-          //  JasperReport reporte = (JasperReport) JRLoader.loadObject(this.getClass().getResourceAsStream("/reportes/prestamos/prestamo.jasper"))
+        //  JasperReport reporte = (JasperReport) JRLoader.loadObject(this.getClass().getResourceAsStream("/reportes/prestamos/prestamo.jasper"))
         def path = ""
         if (!recibir)
             path = "/reportes/prestamos/prestamo.jasper"
@@ -33,7 +34,7 @@ class ReportesService {
         JasperReport reporte = (JasperReport) JRLoader.loadObject(this.getClass().getResourceAsStream(path))
 
         //Parametros.
-        HashMap<String, Object> parametros=new HashMap<>();
+        HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("logo_reporte", this.getClass().getResourceAsStream("/logopucmm.png")) //
         //
         PrestamoJRDataSource p = new PrestamoJRDataSource(Prestamo.get(prestamoId))
@@ -43,15 +44,30 @@ class ReportesService {
         return print;
     }
 
+    JasperPrint generarReportePrestamosVencidosRaw() {
+        def path = "/reportes/prestamos_vencidos/prestamos_vencidos.jasper"
+        JasperReport reporte = (JasperReport) JRLoader.loadObject(this.getClass().getResourceAsStream(path))
 
+        //Parametros.
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("logo_reporte", this.getClass().getResourceAsStream("/logopucmm.png")) //
+
+        def prestamos = Prestamo.prestamosVencidos()
+
+        PrestamosVencidosJRDataSource p = new PrestamosVencidosJRDataSource(prestamos as List<Prestamo>)
+        //Mandando a ejecutar el proyecto.
+        JasperPrint print = JasperFillManager.fillReport(reporte, parametros, p);
+
+        return print;
+    }
 
     /**
-     * 
+     *
      * @param jasperPrint
      * @return
      */
-    FileInputStream convertirReporteaPdf(JasperPrint jasperPrint){
-        File archivoTemp = File.createTempFile("gec_",".pdf")
+    FileInputStream convertirReporteaPdf(JasperPrint jasperPrint) {
+        File archivoTemp = File.createTempFile("gec_", ".pdf")
         byte[] archivoArreglo = JasperExportManager.exportReportToPdf(jasperPrint)
         Path path = Files.write(archivoTemp.toPath(), archivoArreglo)
         new FileInputStream(archivoTemp)
@@ -62,7 +78,11 @@ class ReportesService {
      * @param prestamoId
      * @return
      */
-    FileInputStream generarReportePrestamoPdf(long prestamoId, boolean recibir){
+    FileInputStream generarReportePrestamoPdf(long prestamoId, boolean recibir) {
         return convertirReporteaPdf(generarReportePrestamoRaw(prestamoId, recibir))
+    }
+
+    FileInputStream generarReportePrestamosVencidosPdf() {
+        return convertirReporteaPdf(generarReportePrestamosVencidosRaw())
     }
 }

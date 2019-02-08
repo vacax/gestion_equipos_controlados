@@ -16,6 +16,7 @@
     <div class="row">
         <div class="col-md-12">
             <g:link class="btn btn-info" controller="prestamo" action="crear">Hacer Nuevo Préstamo</g:link>
+            <g:link class="btn btn-primary" controller="prestamo" action="imprimirPrestamosVencidos">Imprimir préstamos vencidos</g:link>
         </div>
     </div>
     <br>
