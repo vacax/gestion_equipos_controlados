@@ -31,7 +31,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Lista de Préstamos</h4>
-                    <h5 class="card-subtitle">Listado de todos los préstamos activos</h5>
+                    <h5 class="card-subtitle">Listado de todos los préstamos activos y vencidos</h5>
 
                     <div class="table-responsive">
                         <table id="zero_config" class="table table-striped table-bordered">
