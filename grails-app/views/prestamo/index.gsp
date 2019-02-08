@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-md-12">
             <g:link class="btn btn-info" controller="prestamo" action="crear">Hacer Nuevo Préstamo</g:link>
-            <g:link class="btn btn-primary" controller="prestamo" action="imprimirPrestamos"
+            <g:link target="_blank" class="btn btn-primary" controller="prestamo" action="imprimirPrestamos"
                     params="[vencidos: false]">Imprimir préstamos activos</g:link>
             <g:if test="${Prestamo.prestamosVencidos().size() > 0}">
                 <g:link class="btn btn-danger" controller="prestamo" action="imprimirPrestamos"

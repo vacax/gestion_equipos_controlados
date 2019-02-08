@@ -4,7 +4,7 @@ import gestion_equipos_controlados.auth.User
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 
-@Secured(['ROLE_ADMIN', 'ROLE_GESTIONAR EQUIPO'])
+@Secured(['ROLE_ADMIN', 'ROLE_GESTIONAR_EQUIPO'])
 class EquipoController {
 
     EquipoService equipoService
