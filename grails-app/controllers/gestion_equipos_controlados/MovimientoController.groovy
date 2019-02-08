@@ -42,7 +42,8 @@ class MovimientoController {
         def movimiento = null
 
         try {
-            movimiento = movimientoService.guardarSalida(params.data as long)
+            def currentUser = (User) springSecurityService.getCurrentUser()
+            movimiento = movimientoService.guardarSalida(params.data as long, currentUser)
             movimiento.save(flush: true, failOnError: true)
             redirect(controller: 'movimiento', action: 'index')
         }

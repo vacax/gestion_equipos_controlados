@@ -20,10 +20,10 @@ class MovimientoService {
 
             cantidad.times {
                 if (serial != '') {
-                    new EquipoSerial(equipo: equipo, serial: serial, estadoEquipo: estadoEquipo).save(flush: true, failOnError: true)
+                    new EquipoSerial(equipo: equipo, serial: serial, estadoEquipo: estadoEquipo, creadoPor: currentUser).save(flush: true, failOnError: true)
                 } else {
                     def serialGenerado = "GECP-" + equipo.nombre.toUpperCase().take(4) + "-" + EquipoSerial.last().id
-                    new EquipoSerial(equipo: equipo, serial: serialGenerado, generado: true, estadoEquipo: estadoEquipo).save(flush: true, failOnError: true)
+                    new EquipoSerial(equipo: equipo, serial: serialGenerado, generado: true, estadoEquipo: estadoEquipo, creadoPor: currentUser).save(flush: true, failOnError: true)
                 }
             }
 
@@ -35,7 +35,7 @@ class MovimientoService {
         }
     }
 
-    def guardarSalida(long equipoSerialId) {
+    def guardarSalida(long equipoSerialId, User currentUser) {
         def equipoSerial = EquipoSerial.findById(equipoSerialId)
         def equipo = Equipo.findById(equipoSerial.equipo.id)
 
@@ -43,12 +43,14 @@ class MovimientoService {
         movimiento.equipo = equipo
         movimiento.cantidad = 1
         movimiento.tipoMovimiento = Movimiento.TipoMovimiento.SALIDA
+        movimiento.creadoPor = currentUser
 
         equipo.cantidadTotal -= 1
         equipo.cantidadDisponible -= 1
+        equipo.modificadoPor = currentUser
 
         equipoSerial.habilitado = false
-
+        equipoSerial.modificadoPor = currentUser
         equipoSerial.save(flush: true, failOnError: true)
         equipo.save(flush: true, failOnError: true)
 
