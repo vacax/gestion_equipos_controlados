@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,59 +15,64 @@
 <content tag="content">
 
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-12">
             <button class="btn btn-info" id="registrarEntradaBtn">Registrar Entrada</button>
-        </div>
-        <div class="col-md-3">
             <g:link class="btn btn-info" controller="movimiento" action="crearSalida">Registrar Salida</g:link>
         </div>
     </div>
     <br>
-    <div id="formRegistrarEntrada" style="display:none;">
-    <g:form class="needs-validation form" controller="movimiento" action="guardarEntrada" method="post" id="registrarEntrada">
-        <div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Nueva Entrada Equipo</h4>
-    <div class="form-row">
-        <div class="col-md-5">
-            <label for="equipo">Equipo</label>
-            <select class="select" style="width: 100%" id="equipo" name="equipo" required>
-                <option></option>
-        <g:each in="${listadoEquipos}" var="equipo">
-            <option value="${equipo.id}">${equipo.nombre}</option>
-        </g:each>
-        </select>
-    </div>
 
-        <div class="col-md-1">
-            <label for="cantidad">Cantidad</label>
-            <input type="number" min="1" step="1" class="form-control" id="cantidad" name="cantidad"
-                   placeholder="Cantidad" value="1" required>
-        </div>
-        <div id="campoSerial" name="campoSerial" style="display: none;">
-            <label for="cantidad" id="labelSerial">Serial</label>
-            <input type="text" class="form-control" id="serial" name="serial"
-                   placeholder="Digite Serial">
-        </div>
-        <div class="col-md-1">
-            <label for="registrarBtn">.</label>
-            <button id="registrarBtn" class="btn btn-success disabled">Registrar</button>
-        </div>
-        </div>
-                <div class="form-row">
-                    <div class="col-md-6">
-                        <label for="comentario">Comentario</label>
-                        <textarea type="text" class="form-control" id="comentario" name="comentario"
-                                  placeholder="Comentario" rows="2"></textarea>
+    <div id="formRegistrarEntrada" style="display:none;">
+        <g:form class="needs-validation form" controller="movimiento" action="guardarEntrada" method="post"
+                id="registrarEntrada">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Nueva Entrada Equipo</h4>
+
+                            <div class="form-row">
+                                <div class="col-md-5">
+                                    <label for="equipo">Equipo</label>
+                                    <select class="select" style="width: 100%" id="equipo" name="equipo" required>
+                                        <option></option>
+                                        <g:each in="${listadoEquipos}" var="equipo">
+                                            <option value="${equipo.id}">${equipo.nombre}</option>
+                                        </g:each>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <label for="cantidad">Cantidad</label>
+                                    <input type="number" min="1" step="1" class="form-control" id="cantidad"
+                                           name="cantidad"
+                                           placeholder="Cantidad" value="1" required>
+                                </div>
+
+                                <div id="campoSerial" name="campoSerial" style="display: none;">
+                                    <label for="cantidad" id="labelSerial">Serial</label>
+                                    <input type="text" class="form-control" id="serial" name="serial"
+                                           placeholder="Digite Serial">
+                                </div>
+
+                                <div class="col-md-5" style="margin-top: 8px;">
+                                    <br>
+                                    <button id="registrarBtn" class="btn btn-primary">Registrar</button>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="comentario">Comentario</label>
+                                    <textarea type="text" class="form-control" id="comentario" name="comentario"
+                                              placeholder="Comentario" rows="2"></textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-        </div>
-        </div>
-        </div>
-        </div>
-    </g:form>
+            </div>
+        </g:form>
     </div>
 
     <div class="row">
@@ -77,6 +81,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Registro de Movimientos</h4>
                     <h5 class="card-subtitle">Listado de Movimientos</h5>
+
                     <div class="table-responsive">
                         <table id="zero_config" class="table table-striped table-bordered">
                             <thead>
@@ -190,10 +195,10 @@
             swal({
                 title: '' + tipo,
                 html:
-                'Equipo: '+ equipo + '<br/>' +
-                'Cantidad: ' + cantidad + '<br/>' +
-                'Fecha: ' + fecha + '<br/>' +
-                'Usuario: ' + usuario + '<br/>',
+                    'Equipo: ' + equipo + '<br/>' +
+                    'Cantidad: ' + cantidad + '<br/>' +
+                    'Fecha: ' + fecha + '<br/>' +
+                    'Usuario: ' + usuario + '<br/>',
                 type: 'info',
                 footer: 'Comentario: ' + comentario
             })

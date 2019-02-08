@@ -3,15 +3,10 @@ package gestion_equipos_controlados
 import edu.pucmm.eict.util.Utilidades
 import gestion_equipos_controlados.auth.User
 import grails.converters.JSON
-import grails.plugin.springsecurity.SpringSecurityService
-import net.sf.jasperreports.engine.JasperExportManager
-import net.sf.jasperreports.engine.JasperPrintManager
 import org.springframework.security.access.annotation.Secured
 
-import java.nio.file.Files
-import java.text.SimpleDateFormat
 
-@Secured(['ROLE_ADMIN'])
+@Secured(['ROLE_ADMIN', 'ROLE_GESTIONAR_PRESTAMO'])
 class PrestamoController {
 
     def springSecurityService

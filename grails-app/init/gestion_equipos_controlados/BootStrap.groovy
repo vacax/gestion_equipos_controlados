@@ -18,7 +18,11 @@ class BootStrap {
 
         def user = User.findOrSaveWhere(username: 'admin', name: 'Admin', password: 'admin', email: 'admin@admin.com')
         def role = Role.findOrSaveWhere(authority: 'ROLE_ADMIN')
-        def role2 = Role.findOrSaveWhere(authority: 'ROLE_STAFF')
+        Role.findOrSaveWhere(authority: 'ROLE_GESTIONAR_EQUIPO')
+        Role.findOrSaveWhere(authority: 'ROLE_GESTIONAR_CATEGORIA_EQUIPO')
+        Role.findOrSaveWhere(authority: 'ROLE_GESTIONAR_MOVIMIENTO')
+        Role.findOrSaveWhere(authority: 'ROLE_GESTIONAR_USUARIO')
+        Role.findOrSaveWhere(authority: 'ROLE_GESTIONAR_PRESTAMO')
 
         UserRole.findOrSaveWhere(user: user, role: role)
 

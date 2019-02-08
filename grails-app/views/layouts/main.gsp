@@ -180,101 +180,109 @@
                                 <a href="/logout" title="Logout" class="btn btn-circle btn-sm">
                                     <i class="ti-power-off"></i>
                                 </a>
-
-                                <div class="dropdown-menu animated flipInY" aria-labelledby="Userdd">
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
-
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
-
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-                                </div>
                             </div>
                         </div>
                         <!-- End User Profile-->
                     </li>
                     <!-- User Profile-->
                     <hr>
-                    <li class="sidebar-item"><a class="sidebar-link has-arrow waves-effect waves-dark"
-                                                href="javascript:void(0)" aria-expanded="false"><i
-                                class="icon-Car-Wheel"></i><span class="hide-menu">Prestamos</span></a>
-                        <ul aria-expanded="false" class="collapse  first-level">
-                            <li class="sidebar-item"><a href="/prestamo/crear" class="sidebar-link"><i
-                                    class="mdi mdi-adjust"></i><span class="hide-menu">Nuevo Prestamo</span></a></li>
-                            <li class="sidebar-item"><a href="/prestamo/index" class="sidebar-link"><i
-                                    class="mdi mdi-adjust"></i><span class="hide-menu">Prestamos Activos</span></a></li>
-                            <li class="sidebar-item"><a href="/prestamo/historial" class="sidebar-link"><i
-                                    class="mdi mdi-adjust"></i><span class="hide-menu">Historial Prestamos</span></a>
-                            </li>
-                        </ul>
-                    </li>
+                    <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_GESTIONAR_PRESTAMO">
+                        <li class="sidebar-item"><a class="sidebar-link has-arrow waves-effect waves-dark"
+                                                    href="javascript:void(0)" aria-expanded="false"><i
+                                    class="icon-Car-Wheel"></i><span class="hide-menu">Prestamos</span></a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item"><a href="/prestamo/crear" class="sidebar-link"><i
+                                        class="mdi mdi-adjust"></i><span class="hide-menu">Nuevo Prestamo</span></a>
+                                </li>
+                                <li class="sidebar-item"><a href="/prestamo/index" class="sidebar-link"><i
+                                        class="mdi mdi-adjust"></i><span class="hide-menu">Prestamos Activos</span></a>
+                                </li>
+                                <li class="sidebar-item"><a href="/prestamo/historial" class="sidebar-link"><i
+                                        class="mdi mdi-adjust"></i><span class="hide-menu">Historial Prestamos</span>
+                                </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </sec:ifAnyGranted>
+
+
+
 
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark"
                            href="javascript:void(0)" aria-expanded="false">
                             <i class="icon-Increase-Inedit"></i><span class="hide-menu">Gestión</span>
                         </a>
+
                         <ul aria-expanded="false" class="collapse first-level">
-                            <li class="sidebar-item">
-                                <a class="has-arrow sidebar-link" href="javascript:void(0)" aria-expanded="false">
-                                    <i class="mdi mdi-playlist-plus"></i> <span class="hide-menu">Movimientos</span>
-                                </a>
-                                <ul aria-expanded="false" class="collapse second-level">
-                                    <li class="sidebar-item">
-                                        <a href="/movimiento/index" class="sidebar-link">
-                                            <i class="mdi mdi-octagram"></i>
-                                            <span class="hide-menu">Movimientos Hechos</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item"><a href="/movimiento/crearEntrada" class="sidebar-link"><i
-                                            class="mdi mdi-octagram"></i><span
-                                            class="hide-menu">Registrar Entrada</span></a>
-                                    </li>
-                                    <li class="sidebar-item"><a href="/movimiento/crearSalida" class="sidebar-link"><i
-                                            class="mdi mdi-octagram"></i><span
-                                            class="hide-menu">Registrar Salida</span></a>
-                                    </li>
-                                </ul>
-                            </li>
+                            <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_GESTIONAR_MOVIMIENTO">
+                                <li class="sidebar-item">
+                                    <a class="has-arrow sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                                        <i class="mdi mdi-playlist-plus"></i> <span class="hide-menu">Movimientos</span>
+                                    </a>
+                                    <ul aria-expanded="false" class="collapse second-level">
+                                        <li class="sidebar-item">
+                                            <a href="/movimiento/index" class="sidebar-link">
+                                                <i class="mdi mdi-octagram"></i>
+                                                <span class="hide-menu">Movimientos Hechos</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item"><a href="/movimiento/crearEntrada"
+                                                                    class="sidebar-link"><i
+                                                    class="mdi mdi-octagram"></i><span
+                                                    class="hide-menu">Registrar Entrada</span></a>
+                                        </li>
+                                        <li class="sidebar-item"><a href="/movimiento/crearSalida"
+                                                                    class="sidebar-link"><i
+                                                    class="mdi mdi-octagram"></i><span
+                                                    class="hide-menu">Registrar Salida</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </sec:ifAnyGranted>
+
                             <li class="sidebar-item"><a class="has-arrow sidebar-link" href="javascript:void(0)"
                                                         aria-expanded="false"><i
                                         class="mdi mdi-playlist-plus"></i> <span class="hide-menu">Equipos</span></a>
                                 <ul aria-expanded="false" class="collapse second-level">
-                                    <li class="sidebar-item"><a href="/equipo/index" class="sidebar-link"><i
-                                            class="mdi mdi-octagram"></i><span class="hide-menu">Ver Equipos</span></a>
-                                    </li>
-                                    <li class="sidebar-item"><a href="/equipo/crear" class="sidebar-link"><i
-                                            class="mdi mdi-octagram"></i><span class="hide-menu">Crear Equipo</span></a>
-                                    </li>
-                                    <li class="sidebar-item"><a href="/categoriaEquipo/index" class="sidebar-link"><i
-                                            class="mdi mdi-octagram"></i><span
-                                            class="hide-menu">Categorías Equipos</span></a>
-                                    </li>
+                                    <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_GESTIONAR_EQUIPO">
+                                        <li class="sidebar-item"><a href="/equipo/index" class="sidebar-link"><i
+                                                class="mdi mdi-octagram"></i><span class="hide-menu">Ver Equipos</span>
+                                        </a>
+                                        </li>
+                                        <li class="sidebar-item"><a href="/equipo/crear" class="sidebar-link"><i
+                                                class="mdi mdi-octagram"></i><span class="hide-menu">Crear Equipo</span>
+                                        </a>
+                                        </li>
+                                    </sec:ifAnyGranted>
+
+                                    <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_GESTIONAR_CATEGORIA_EQUIPO">
+                                        <li class="sidebar-item"><a href="/categoriaEquipo/index"
+                                                                    class="sidebar-link"><i
+                                                    class="mdi mdi-octagram"></i><span
+                                                    class="hide-menu">Categorías Equipos</span></a>
+                                        </li>
+                                    </sec:ifAnyGranted>
                                 </ul>
                             </li>
 
-                            <li class="sidebar-item"><a class="has-arrow sidebar-link" href="javascript:void(0)"
-                                                        aria-expanded="false"><i
-                                        class="mdi mdi-playlist-plus"></i> <span class="hide-menu">Usuarios</span></a>
-                                <ul aria-expanded="false" class="collapse second-level">
-                                    <li class="sidebar-item"><a href="/usuario/index" class="sidebar-link"><i
-                                            class="mdi mdi-octagram"></i><span
-                                            class="hide-menu">Ver Usuarios</span></a>
-                                    </li>
-                                    <li class="sidebar-item"><a href="/usuario/crear" class="sidebar-link"><i
-                                            class="mdi mdi-octagram"></i><span
-                                            class="hide-menu">Crear Usuario</span></a>
-                                    </li>
-                                </ul>
-                            </li>
+                            <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_GESTIONAR_USUARIO">
+                                <li class="sidebar-item"><a class="has-arrow sidebar-link" href="javascript:void(0)"
+                                                            aria-expanded="false"><i
+                                            class="mdi mdi-playlist-plus"></i> <span class="hide-menu">Usuarios</span>
+                                </a>
+                                    <ul aria-expanded="false" class="collapse second-level">
+                                        <li class="sidebar-item"><a href="/usuario/index" class="sidebar-link"><i
+                                                class="mdi mdi-octagram"></i><span
+                                                class="hide-menu">Ver Usuarios</span></a>
+                                        </li>
+                                        <li class="sidebar-item"><a href="/usuario/crear" class="sidebar-link"><i
+                                                class="mdi mdi-octagram"></i><span
+                                                class="hide-menu">Crear Usuario</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </sec:ifAnyGranted>
                         </ul>
                     </li>
                 </ul>

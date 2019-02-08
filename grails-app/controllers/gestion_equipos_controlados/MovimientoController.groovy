@@ -3,7 +3,7 @@ package gestion_equipos_controlados
 import gestion_equipos_controlados.auth.User
 import grails.plugin.springsecurity.annotation.Secured
 
-@Secured(['ROLE_ADMIN'])
+@Secured(['ROLE_ADMIN', 'ROLE_GESTIONAR_MOVIMIENTO'])
 class MovimientoController {
 
     MovimientoService movimientoService
