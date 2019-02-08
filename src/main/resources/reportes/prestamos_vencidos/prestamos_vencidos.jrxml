@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prestamos_vencidos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="210dd8cb-4829-470c-8a3f-1984f737a25a">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="logo_reporte" class="java.io.InputStream" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nombreEstudiante" class="java.lang.String"/>
+	<field name="matriculaEstudiante" class="java.lang.String"/>
+	<field name="fechaEntrega" class="java.sql.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image hAlign="Center">
+				<reportElement x="0" y="-1" width="95" height="80" uuid="0c39cb1e-63d3-4b86-8c99-8a38f8de5795"/>
+				<imageExpression><![CDATA[$P{logo_reporte}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="95" y="0" width="460" height="20" uuid="43a14675-de23-4143-9193-26b310b3e959">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pontificia Universidad Católica Madre y Maestra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="21" width="460" height="19" uuid="71206e7b-9158-458b-bb62-a98e5a9a5bb4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Escuela en Ingeniería en Computación y Telecomunicaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="40" width="460" height="15" uuid="6252e66f-263c-4d0b-86e5-ba38f23ba4ff"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Préstamo de Equipos Controlados]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="66" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="554" height="25" uuid="80c513b5-025d-4254-8f86-026be903a65f"/>
+				<textElement textAlignment="Left">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prestamos Vencidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="46" width="250" height="20" uuid="c87bf255-59d0-4bf5-b17d-db93f462c197">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aabbb822-3713-4e25-b7cb-0d96c3249261"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estudiante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="46" width="160" height="20" uuid="3623993e-ea26-4c4b-87db-72b24f82700d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9a0afc52-90ea-4327-86d9-5ac04db40180"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Matricula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="46" width="144" height="20" uuid="07814c56-8f14-4ed5-b251-524493ee6c4a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0174285a-696e-4336-ba6c-50ed4fcd7c9e"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Entrega]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<textField>
+				<reportElement x="250" y="0" width="160" height="36" uuid="8f8041e6-30e9-4135-84bf-e691f89c7420">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9a0afc52-90ea-4327-86d9-5ac04db40180"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{matriculaEstudiante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="0" width="144" height="36" uuid="2da0efeb-8963-4a8e-bae3-5159d2fd44fb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0174285a-696e-4336-ba6c-50ed4fcd7c9e"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fechaEntrega}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="250" height="36" uuid="516596d6-44c8-424e-8a0d-0c3513bcb30c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aabbb822-3713-4e25-b7cb-0d96c3249261"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombreEstudiante}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField pattern="dd/MM/yy h:mm a">
+				<reportElement x="60" y="24" width="111" height="30" uuid="f77e6594-613b-497d-aa99-bad8875467dd"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="24" width="60" height="30" uuid="41ff5b9b-06d6-4353-90bc-2ed4d7467f11"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Generado: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="24" width="114" height="30" uuid="385272f0-3cc9-4b38-bcfc-3048b6c86e17"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" de "+$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
