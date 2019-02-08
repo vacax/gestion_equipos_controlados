@@ -44,15 +44,25 @@ class ReportesService {
         return print;
     }
 
-    JasperPrint generarReportePrestamosVencidosRaw() {
-        def path = "/reportes/prestamos_vencidos/prestamos_vencidos.jasper"
+    JasperPrint generarReportePrestamosVencidosRaw(boolean vencidos) {
+        def path = "/reportes/prestamos/prestamos_list.jasper"
         JasperReport reporte = (JasperReport) JRLoader.loadObject(this.getClass().getResourceAsStream(path))
 
         //Parametros.
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("logo_reporte", this.getClass().getResourceAsStream("/logopucmm.png")) //
 
-        def prestamos = Prestamo.prestamosVencidos()
+        vencidos ? parametros.put("titulo", 'Préstamos Vencidos') : parametros.put("titulo", 'Préstamos Activos')
+
+        def prestamos
+        if (vencidos) {
+            parametros.put("titulo", 'Préstamos Vencidos')
+            prestamos = Prestamo.prestamosVencidosAll()
+        } else {
+            parametros.put("titulo", 'Préstamos Activos')
+            prestamos = Prestamo.prestamosActivos()
+        }
+
 
         PrestamosVencidosJRDataSource p = new PrestamosVencidosJRDataSource(prestamos as List<Prestamo>)
         //Mandando a ejecutar el proyecto.
@@ -82,7 +92,7 @@ class ReportesService {
         return convertirReporteaPdf(generarReportePrestamoRaw(prestamoId, recibir))
     }
 
-    FileInputStream generarReportePrestamosVencidosPdf() {
-        return convertirReporteaPdf(generarReportePrestamosVencidosRaw())
+    FileInputStream generarReportePrestamosVencidosPdf(boolean vencidos) {
+        return convertirReporteaPdf(generarReportePrestamosVencidosRaw(vencidos))
     }
 }

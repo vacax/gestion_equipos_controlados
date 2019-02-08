@@ -98,9 +98,13 @@ class PrestamoController {
         Utilidades.descargaArchivo(documento, "Prestamo_$id", "pdf", response, false)
     }
 
-    def imprimirPrestamosVencidos() {
+    /**
+     *
+     * @param vencidos
+     */
+    def imprimirPrestamos(boolean vencidos) {
         println("Imprimiendo prestamos vencidos")
-        def documento = reportesService.generarReportePrestamosVencidosPdf()
+        def documento = reportesService.generarReportePrestamosVencidosPdf(vencidos)
         Utilidades.descargaArchivo(documento, "Prestamos_Vencidos", "pdf", response, false)
     }
 }

@@ -16,7 +16,12 @@
     <div class="row">
         <div class="col-md-12">
             <g:link class="btn btn-info" controller="prestamo" action="crear">Hacer Nuevo Préstamo</g:link>
-            <g:link class="btn btn-primary" controller="prestamo" action="imprimirPrestamosVencidos">Imprimir préstamos vencidos</g:link>
+            <g:link class="btn btn-primary" controller="prestamo" action="imprimirPrestamos"
+                    params="[vencidos: false]">Imprimir préstamos activos</g:link>
+            <g:if test="${Prestamo.prestamosVencidos().size() > 0}">
+                <g:link class="btn btn-danger" controller="prestamo" action="imprimirPrestamos"
+                        params="[vencidos: true]">Imprimir préstamos vencidos</g:link>
+            </g:if>
         </div>
     </div>
     <br>
@@ -54,7 +59,8 @@
                                 <td>${prestamo.fechaEntrega}</td>
                                 <td>
                                     <g:if test="${prestamo.prestamoRenovado}">
-                                        <g:link class="btn btn-primary" controller="prestamo" action="verRenovado" id="${prestamo.prestamoRenovado.id}">Ver</g:link>
+                                        <g:link class="btn btn-primary" controller="prestamo" action="verRenovado"
+                                                id="${prestamo.prestamoRenovado.id}">Ver</g:link>
                                     </g:if>
                                     <g:else>
                                         No
@@ -68,11 +74,14 @@
                                         <label class="label label-danger">Deshabilitado</label>
                                     </g:else>
                                 </td>
-                                %{-- TODO: no es la forma correcta, usar g.link--}%
+                            %{-- TODO: no es la forma correcta, usar g.link--}%
                                 <td>
-                                    <g:link class="btn btn-info" controller="prestamo" action="recibir" id="${prestamo.id}">Recibir</g:link>
+                                    <g:link class="btn btn-info" controller="prestamo" action="recibir"
+                                            id="${prestamo.id}">Recibir</g:link>
                                     |
-                                <g:link class="btn btn-info" target="_blank" controller="prestamo" action="imprimirPrestamo" id="${prestamo.id}" params="[recibir: false]">Imprimir</g:link></td>
+                                    <g:link class="btn btn-info" target="_blank" controller="prestamo"
+                                            action="imprimirPrestamo" id="${prestamo.id}"
+                                            params="[recibir: false]">Imprimir</g:link></td>
 
                                 </tr>
                             </g:each>
