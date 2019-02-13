@@ -16,7 +16,6 @@
         <g:pageProperty name="page.title"/>
     </title>
     <!-- Custom CSS -->
-    <asset:stylesheet src="chartist/dist/chartist.min.css"/>
     <asset:stylesheet src="extra-libs/c3/c3.min.css"/>
     <asset:stylesheet src="morris.js/morris.css"/>
     <!-- Custom CSS -->

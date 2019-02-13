@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
-        classpath "org.grails.plugins:hibernate5:${gormVersion-".RELEASE"}"
+        classpath "org.grails.plugins:hibernate5:${gormVersion - ".RELEASE"}"
         classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.14.8"
     }
 }
@@ -13,12 +13,12 @@ buildscript {
 version "0.1"
 group "gestion_equipos_controlados"
 
-apply plugin:"eclipse"
-apply plugin:"idea"
-apply plugin:"war"
-apply plugin:"org.grails.grails-web"
-apply plugin:"asset-pipeline"
-apply plugin:"org.grails.grails-gsp"
+apply plugin: "eclipse"
+apply plugin: "idea"
+apply plugin: "war"
+apply plugin: "org.grails.grails-web"
+apply plugin: "asset-pipeline"
+apply plugin: "org.grails.grails-gsp"
 
 repositories {
     mavenLocal()
@@ -64,7 +64,7 @@ dependencies {
 
     //libreria de Jasperreport:
     // https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports
-    compile('net.sf.jasperreports:jasperreports:6.6.0'){
+    compile('net.sf.jasperreports:jasperreports:6.6.0') {
         exclude group: 'com.lowagie', module: 'itext' //existe un bug en la librería.
     }
     // https://mvnrepository.com/artifact/com.lowagie/itext
@@ -72,7 +72,14 @@ dependencies {
     // https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-fonts
     compile group: 'net.sf.jasperreports', name: 'jasperreports-fonts', version: '6.0.0'
 
+    // https://mvnrepository.com/artifact/com.itextpdf/itextpdf
+    compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.12'
+    compile "org.grails.plugins:export:2.0.0"
+    compile 'org.grails.plugins:rendering:2.0.3'
 
+    // https://mvnrepository.com/artifact/org.jxls/jxls
+    compile group: 'org.jxls', name: 'jxls', version: '2.4.6'
+    runtime 'net.sourceforge.jexcelapi:jxl:2.6.12'
 
 }
 
