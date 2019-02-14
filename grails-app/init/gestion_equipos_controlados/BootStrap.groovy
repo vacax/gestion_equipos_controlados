@@ -38,20 +38,20 @@ class BootStrap {
 
             println("Aplicación en modo desarrollo")
 
-            Equipo.findOrSaveWhere(nombre: 'Equipo 1', categoriaEquipo: CategoriaEquipo.first(), serial: true)
-            Equipo.findOrSaveWhere(nombre: 'Equipo 2', categoriaEquipo: CategoriaEquipo.first())
-            Equipo.findOrSaveWhere(nombre: 'Equipo 3', categoriaEquipo: CategoriaEquipo.first(), serial: true)
-            Equipo.findOrSaveWhere(nombre: 'Equipo 4', categoriaEquipo: CategoriaEquipo.first())
+            Equipo.findOrSaveWhere(nombre: 'Equipo 1', categoriaEquipo: CategoriaEquipo.first(), serial: true, cantidadDisponible: 0l, cantidadTotal: 2l)
+            Equipo.findOrSaveWhere(nombre: 'Equipo 2', categoriaEquipo: CategoriaEquipo.first(), cantidadDisponible: 1l, cantidadTotal: 3l)
+            Equipo.findOrSaveWhere(nombre: 'Equipo 3', categoriaEquipo: CategoriaEquipo.first(), serial: true, cantidadDisponible: 1l, cantidadTotal: 1l)
+            Equipo.findOrSaveWhere(nombre: 'Equipo 4', categoriaEquipo: CategoriaEquipo.first(), cantidadDisponible: 1l, cantidadTotal: 1l)
 
             //pruebas para hacer un prestamo
             Movimiento.findOrSaveWhere(tipoMovimiento: Movimiento.TipoMovimiento.ENTRADA, equipo: Equipo.findByNombre("Equipo 2"), cantidad: 3, creadoPor: user)
-            EquipoSerial.findOrSaveWhere(equipo: Equipo.findByNombre("Equipo 2"), serial: "GENERADO1", estadoEquipo: EstadoEquipo.findByCodigo(EstadoEquipo.BUENO), generado: true)
-            EquipoSerial.findOrSaveWhere(equipo: Equipo.findByNombre("Equipo 2"), serial: "GENERADO2", estadoEquipo: EstadoEquipo.findByCodigo(EstadoEquipo.BUENO), generado: true)
+            EquipoSerial.findOrSaveWhere(equipo: Equipo.findByNombre("Equipo 2"), serial: "GENERADO1", estadoEquipo: EstadoEquipo.findByCodigo(EstadoEquipo.BUENO), generado: true, prestado: true)
+            EquipoSerial.findOrSaveWhere(equipo: Equipo.findByNombre("Equipo 2"), serial: "GENERADO2", estadoEquipo: EstadoEquipo.findByCodigo(EstadoEquipo.BUENO), generado: true, prestado: true)
             EquipoSerial.findOrSaveWhere(equipo: Equipo.findByNombre("Equipo 2"), serial: "GENERADO3", estadoEquipo: EstadoEquipo.findByCodigo(EstadoEquipo.BUENO), generado: true)
 
             Movimiento.findOrSaveWhere(tipoMovimiento: Movimiento.TipoMovimiento.ENTRADA, equipo: Equipo.findByNombre("Equipo 1"), cantidad: 2, creadoPor: user)
-            EquipoSerial.findOrSaveWhere(equipo: Equipo.findByNombre("Equipo 1"), serial: "12345", estadoEquipo: EstadoEquipo.findByCodigo(EstadoEquipo.BUENO))
-            EquipoSerial.findOrSaveWhere(equipo: Equipo.findByNombre("Equipo 1"), serial: "6789", estadoEquipo: EstadoEquipo.findByCodigo(EstadoEquipo.BUENO))
+            EquipoSerial.findOrSaveWhere(equipo: Equipo.findByNombre("Equipo 1"), serial: "12345", estadoEquipo: EstadoEquipo.findByCodigo(EstadoEquipo.BUENO), prestado: true)
+            EquipoSerial.findOrSaveWhere(equipo: Equipo.findByNombre("Equipo 1"), serial: "6789", estadoEquipo: EstadoEquipo.findByCodigo(EstadoEquipo.BUENO), prestado: true)
 
             Movimiento.findOrSaveWhere(tipoMovimiento: Movimiento.TipoMovimiento.ENTRADA, equipo: Equipo.findByNombre("Equipo 3"), cantidad: 1, creadoPor: user)
             EquipoSerial.findOrSaveWhere(equipo: Equipo.findByNombre("Equipo 3"), serial: "54321", estadoEquipo: EstadoEquipo.findByCodigo(EstadoEquipo.BUENO))
@@ -65,22 +65,8 @@ class BootStrap {
             PrestamoDetalle.findOrSaveWhere(prestamo: Prestamo.findByNombreEstudiante("Stanley De Moya"), cantidadPrestado: 1, equipoSerial: EquipoSerial.findBySerial("GENERADO2"), usuarioEntrega: User.findById(1))
             PrestamoDetalle.findOrSaveWhere(prestamo: Prestamo.findByNombreEstudiante("Stanley De Moya"), cantidadPrestado: 1, equipoSerial: EquipoSerial.findBySerial("GENERADO1"), usuarioEntrega: User.findById(1))
 
-            /*def equipo1 = Equipo.findByNombre("Equipo 1")
-            equipo1.cantidadDisponible = 1l
-            equipo1.save(flush: true, failOnError: true)
-
-            def equipo2 = Equipo.findByNombre("Equipo 2")
-            equipo2.cantidadDisponible = 1l
-            equipo2.save(flush: true, failOnError: true)
-
-            def equipo3 = Equipo.findByNombre("Equipo 3")
-            equipo3.cantidadDisponible = 1l
-            equipo3.save(flush: true, failOnError: true)
-
-            def equipo4 = Equipo.findByNombre("Equipo 2")
-            equipo4.cantidadDisponible = 1l
-            equipo4.save(flush: true, failOnError: true)*/
-
+            Prestamo.findOrSaveWhere(nombreEstudiante: "Juan Luis", matriculaEstudiante: "2012-0411", fechaSolicitud: new Date(), fechaEntrega: new Date(118, 1, 12), estadoPrestamo: EstadoPrestamo.findByCodigo(EstadoPrestamo.PRESTADO))
+            PrestamoDetalle.findOrSaveWhere(prestamo: Prestamo.findByNombreEstudiante("Stanley De Moya"), cantidadPrestado: 1, equipoSerial: EquipoSerial.findBySerial("12345"), usuarioEntrega: User.findById(1))
         }
 
     }
