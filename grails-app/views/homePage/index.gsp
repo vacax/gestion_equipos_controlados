@@ -8,14 +8,14 @@
     </content>
 </head>
 <body>
-<content tag="content_title">Gestion de Equipos Controlados, PUCMM</content>
+<content tag="content_title">Gestión de Equipos Controlados - ECT - PUCMM</content>
     <content tag="content">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-subtitle">Cantidad  de Equipos Prestados</h5>
+                            <h5 class="card-subtitle">Cantidad de Equipos Prestados</h5>
                             <div class="table-responsive">
                                     <table id="zero_config" class="table table-striped table-bordered">
                                         <thead>

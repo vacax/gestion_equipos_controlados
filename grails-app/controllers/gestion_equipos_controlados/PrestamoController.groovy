@@ -107,4 +107,5 @@ class PrestamoController {
         def documento = reportesService.generarReportePrestamosVencidosPdf(vencidos)
         Utilidades.descargaArchivo(documento, "Prestamos_Vencidos", "pdf", response, false)
     }
+
 }
