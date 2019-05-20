@@ -12,19 +12,25 @@ class BootStrap {
         def ambiente = Environment.current
 
 
-        //TODO: parte de la aplicación.
         EstadoPrestamo.findOrSaveWhere(codigo: EstadoPrestamo.DEVUELTO, estado: "DEVUELTO")
         EstadoPrestamo.findOrSaveWhere(codigo: EstadoPrestamo.PRESTADO, estado: "PRESTADO")
 
-        def user = User.findOrSaveWhere(username: 'admin', name: 'Admin', password: 'admin', email: 'admin@admin.com')
+        //Comportamiento extraño, cambiando a la forma tradicional
+        def user = User.findByUsername("admin")? User.findByUsername("admin") : new User(username: 'admin', name: 'Admin', password: 'admin', email: 'admin@admin.com').save(failover: true)
         def role = Role.findOrSaveWhere(authority: 'ROLE_ADMIN')
+
         Role.findOrSaveWhere(authority: 'ROLE_GESTIONAR_EQUIPO')
         Role.findOrSaveWhere(authority: 'ROLE_GESTIONAR_CATEGORIA_EQUIPO')
         Role.findOrSaveWhere(authority: 'ROLE_GESTIONAR_MOVIMIENTO')
         Role.findOrSaveWhere(authority: 'ROLE_GESTIONAR_USUARIO')
         Role.findOrSaveWhere(authority: 'ROLE_GESTIONAR_PRESTAMO')
 
-        UserRole.findOrSaveWhere(user: user, role: role)
+        /*def userRole = UserRole.findByUserAndRole(user, role);
+        println "El usuario role: "+userRole?.properties
+        UserRole.findByUserAndRole(user, role) == null ? null : new UserRole(user: user, role: role).save(failover: true)*/
+        //UserRole.findOrSaveWhere(user: user, role: role)
+        //Comportamiento extraño, cambiando a la versión tradicional
+        UserRole.get(user.id, role.id) ? null : new UserRole(user: user, role: role).save(failover: true)
 
         EstadoEquipo.findOrSaveWhere(codigo: EstadoEquipo.BUENO, estado: "BUENO")
         EstadoEquipo.findOrSaveWhere(codigo: EstadoEquipo.PERDIDO, estado: "PERDIDO")
