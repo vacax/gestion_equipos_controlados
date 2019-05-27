@@ -25,25 +25,29 @@ class MovimientoController {
         [listadoEquipos: listadoEquipos]
     }
 
-    def guardarEntrada() {
+    def guardarEntrada(long equipo, int cantidad, String serial, String comentario) {
         def movimiento = null
         try {
             def currentUser = (User) springSecurityService.getCurrentUser()
-            movimiento = movimientoService.guardarEntrada(params.equipo as long,
-                    params.cantidad as int, params.serial, params.comentario, currentUser)
+            movimiento = movimientoService.guardarEntrada(equipo,
+                    cantidad, serial, comentario, currentUser)
             redirect(controller: 'movimiento', action: 'index')
-        }
-        catch (Exception e) {
-            respond movimiento.errors, view: 'crearEntrada'
+        }catch (Exception e) {
+            respond movimiento?.errors, view: 'crearEntrada'
         }
     }
 
-    def guardarSalida() {
+    /**
+     * 
+     * @param data
+     * @return
+     */
+    def guardarSalida(long data) {
         def movimiento = null
 
         try {
             def currentUser = (User) springSecurityService.getCurrentUser()
-            movimiento = movimientoService.guardarSalida(params.data as long, currentUser)
+            movimiento = movimientoService.guardarSalida(data , currentUser)
             movimiento.save(flush: true, failOnError: true)
             redirect(controller: 'movimiento', action: 'index')
         }
@@ -52,8 +56,13 @@ class MovimientoController {
         }
     }
 
-    def verificarNecesitaSerial() {
-        def equipo = Equipo.findById(params.data as long)
+    /**
+     * 
+     * @param data
+     * @return
+     */
+    def verificarNecesitaSerial(long data) {
+        def equipo = Equipo.findById(data)
         if (equipo != null)
             render equipo.serial
         else

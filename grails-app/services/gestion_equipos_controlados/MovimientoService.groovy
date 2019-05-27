@@ -6,7 +6,16 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class MovimientoService {
 
-    def guardarEntrada(long equipoId, int cantidad, def serial, String comentario, User currentUser) {
+    /**
+     * 
+     * @param equipoId
+     * @param cantidad
+     * @param serial
+     * @param comentario
+     * @param currentUser
+     * @return
+     */
+    def guardarEntrada(long equipoId, int cantidad, String serial, String comentario, User currentUser) {
         def equipo = Equipo.findById(equipoId as long)
         def movimiento = new Movimiento()
         def estadoEquipo = EstadoEquipo.findByCodigo(EstadoEquipo.BUENO)
@@ -35,6 +44,12 @@ class MovimientoService {
         }
     }
 
+    /**
+     * 
+     * @param equipoSerialId
+     * @param currentUser
+     * @return
+     */
     def guardarSalida(long equipoSerialId, User currentUser) {
         def equipoSerial = EquipoSerial.findById(equipoSerialId)
         def equipo = Equipo.findById(equipoSerial.equipo.id)
