@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<content tag="content_title">Detalle de Prestamo</content>
+<content tag="content_title">Detalle de Préstamo</content>
 <content tag="content">
     <g:if test="${prestamo.estadoPrestamo.codigo == EstadoPrestamo.DEVUELTO}">
         <div id="divPrestamoCompleto">
@@ -20,7 +20,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h3 class="card-title"
-                                style="text-align: center;">PRESTAMO DEVUELTO SATISFACTORIAMENTE!</h3>
+                                style="text-align: center;">PRÉSTAMO DEVUELTO SATISFACTORIAMENTE!</h3>
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Prestamo del estudiante: ${prestamo.nombreEstudiante}</h4>
+                    <h4 class="card-title">Préstamo del estudiante: ${prestamo.nombreEstudiante}</h4>
                     <h5 class="card-subtitle">Detalles</h5>
                     <h5 class="card-title"><pre>Estado:                 <b>${prestamo.estadoPrestamo.estado}</b></pre></h5>
                     <h5 class="card-title"><pre>Fecha Solicitud:        <b>${prestamo.fechaSolicitud}</b></pre></h5>

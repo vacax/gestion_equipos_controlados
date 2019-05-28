@@ -33,6 +33,7 @@ class MovimientoController {
                     cantidad, serial, comentario, currentUser)
             redirect(controller: 'movimiento', action: 'index')
         }catch (Exception e) {
+            e.printStackTrace()
             respond movimiento?.errors, view: 'crearEntrada'
         }
     }

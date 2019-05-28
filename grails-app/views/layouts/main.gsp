@@ -224,7 +224,7 @@
                                         <li class="sidebar-item">
                                             <a href="/movimiento/index" class="sidebar-link">
                                                 <i class="mdi mdi-octagram"></i>
-                                                <span class="hide-menu">Movimientos Hechos</span>
+                                                <span class="hide-menu">Movimientos Realizados</span>
                                             </a>
                                         </li>
                                         <li class="sidebar-item"><a href="/movimiento/crearEntrada"

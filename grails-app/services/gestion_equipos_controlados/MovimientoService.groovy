@@ -31,7 +31,7 @@ class MovimientoService {
                 if (serial != '') {
                     new EquipoSerial(equipo: equipo, serial: serial, estadoEquipo: estadoEquipo, creadoPor: currentUser).save(flush: true, failOnError: true)
                 } else {
-                    def serialGenerado = "GECP-" + equipo.nombre.toUpperCase().take(4) + "-" + EquipoSerial.last().id
+                    def serialGenerado = "GECP-" + equipo.nombre.toUpperCase().take(4) + "-" + EquipoSerial?.last()?.id
                     new EquipoSerial(equipo: equipo, serial: serialGenerado, generado: true, estadoEquipo: estadoEquipo, creadoPor: currentUser).save(flush: true, failOnError: true)
                 }
             }

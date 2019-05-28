@@ -49,7 +49,7 @@
                     <div class="col-md-6">
                         <label for="comentario">Comentario</label>
                         <textarea type="text" class="form-control" id="comentario" name="comentario"
-                                  placeholder="Comentario" rows="2"></textarea>
+                                  placeholder="Comentario" rows="2" required="required"></textarea>
                     </div>
                 </div>
                 </g:form>
