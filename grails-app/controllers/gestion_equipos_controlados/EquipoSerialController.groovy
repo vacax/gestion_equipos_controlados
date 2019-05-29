@@ -27,13 +27,13 @@ class EquipoSerialController {
         render resp as JSON
     }
 
-    def agregarEquipoNoSerial() {
-
+    def agregarEquipoNoSerial(long equipoId, long cantidadEquipo) {
+        println("Consultando equipoId: $equipoId - Cantidad: $cantidadEquipo")
         def resp = [:]
         def ok = false
         try {
-            def eq = Equipo.findById(params.equipoId as long)
-            if (eq && eq.cantidadDisponible > (params.cantidadEquipo as long)) {
+            def eq = Equipo.findById(equipoId)
+            if (eq && (eq.cantidadDisponible >= cantidadEquipo)) {
                 resp['equipoSerial'] = 'N/A'
                 resp['equipo'] = eq
                 resp['cantidad'] = params.cantidadEquipo as long
@@ -44,6 +44,7 @@ class EquipoSerialController {
             ok = false
         }
         resp['ok'] = ok
+        println("Respuesta validación Equipo No Serial: "+resp)
         render resp as JSON
     }
 }

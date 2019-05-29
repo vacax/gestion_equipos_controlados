@@ -395,6 +395,8 @@
                 }
             }
 
+            delete diccionarioEquiposAgregados[id]
+
             $("#equiposPrestar tbody").html('');
             for (var i = 0; i < dataPrestamo.length; i++) {
                 agregarFilaTablaPrestamos(dataPrestamo[i])

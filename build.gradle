@@ -72,13 +72,13 @@ dependencies {
 
     //libreria de Jasperreport:
     // https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports
-    compile('net.sf.jasperreports:jasperreports:6.6.0'){
+    compile('net.sf.jasperreports:jasperreports:6.8.1'){
         exclude group: 'com.lowagie', module: 'itext' //existe un bug en la librería.
     }
     // https://mvnrepository.com/artifact/com.lowagie/itext
     compile group: 'com.lowagie', name: 'itext', version: '2.1.7'
     // https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-fonts
-    compile group: 'net.sf.jasperreports', name: 'jasperreports-fonts', version: '6.0.0'
+    compile group: 'net.sf.jasperreports', name: 'jasperreports-fonts', version: '6.8.1'
 
 
 
