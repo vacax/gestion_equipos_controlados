@@ -22,7 +22,7 @@ class Prestamo {
 
     static constraints = {
         prestamoRenovado nullable: true
-        observacion maxSize: 400
+        observacion maxSize: 1000
         creadoPor nullable: true
         modificadoPor nullable: true
     }
