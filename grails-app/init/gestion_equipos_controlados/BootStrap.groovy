@@ -62,7 +62,7 @@ class BootStrap {
             Movimiento.findOrSaveWhere(tipoMovimiento: Movimiento.TipoMovimiento.ENTRADA, equipo: Equipo.findByNombre("Equipo 3"), cantidad: 1, creadoPor: user)
             EquipoSerial.findOrSaveWhere(equipo: Equipo.findByNombre("Equipo 3"), serial: "54321", estadoEquipo: EstadoEquipo.findByCodigo(EstadoEquipo.BUENO))
 
-            Movimiento.findOrSaveWhere(tipoMovimiento: Movimiento.TipoMovimiento.ENTRADA, equipo: Equipo.findByNombre("Equipo 4"), cantidad: 1, creadoPor: user)
+            Movimiento.findOrSaveWhere(tipoMovimiento: Movimiento.TipoMovimiento.ENTRADA, equipo: Equipo.findByNombre("Equipo 4"), cantidad: 100, creadoPor: user)
             EquipoSerial.findOrSaveWhere(equipo: Equipo.findByNombre("Equipo 4"), serial: "GENERADO4", estadoEquipo: EstadoEquipo.findByCodigo(EstadoEquipo.BUENO), generado: true)
 
 

@@ -22,19 +22,19 @@ class PrestamoController {
     }
 
     def save() {
-        def ok
+        def ok=[:]
         try {
             def dataEstudiante = JSON.parse(params.estudiante)
             def dataPrestamo = JSON.parse(params.dataPrestamo)
             def currentUser = (User) springSecurityService.getCurrentUser()
-            prestamoService.save(dataEstudiante, dataPrestamo, currentUser)
-            ok = true
+            def p = prestamoService.save(dataEstudiante, dataPrestamo, currentUser)
+            ok = [ok: true, id: p.id]
         } catch (Exception e) {
             println e.message
-            ok = false
+            ok = [ok: false, id: null]
         }
-
-        render ok
+        println("Respuesta de creación: "+(ok as JSON))
+        render ok as JSON
     }
 
     def historial() {
@@ -106,6 +106,10 @@ class PrestamoController {
         println("Imprimiendo prestamos vencidos")
         def documento = reportesService.generarReportePrestamosVencidosPdf(vencidos)
         Utilidades.descargaArchivo(documento, "Prestamos_Vencidos", "pdf", response, false)
+    }
+
+    def equipoPrestado(long id){
+        [equipo: Equipo.get(id), listaPrestamos: prestamoService.listadPrestamosActivosPorEquipo(id)]
     }
 
 }

@@ -36,23 +36,23 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
                             <g:each in="${CategoriaEquipo.list()}" var="categoria">
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="">
-                                            <h4 class="m-b-0 font-16">${categoria.categoria}</h4>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="">
+                                                <h4 class="m-b-0 font-16">${categoria.categoria}</h4>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>${Equipo.findAllByCategoriaEquipo(categoria).size()}</td>
-                                <td><g:if test="${categoria.habilitado}">
-                                    <label class="label label-success">Habilitado</label>
-                                </g:if>
-                                    <g:else>
-                                        <label class="label label-danger">Deshabilitado</label>
-                                    </g:else></td>
-                                <td><g:link class="btn btn-info" controller="categoriaEquipo" action="editar" id="${categoria.id}">Editar</g:link></td>
+                                    </td>
+                                    <td>${Equipo.findAllByCategoriaEquipo(categoria).size()}</td>
+                                    <td><g:if test="${categoria.habilitado}">
+                                        <label class="label label-success">Habilitado</label>
+                                    </g:if>
+                                        <g:else>
+                                            <label class="label label-danger">Deshabilitado</label>
+                                        </g:else></td>
+                                    <td><g:link class="btn btn-info" controller="categoriaEquipo" action="editar" id="${categoria.id}">Editar</g:link></td>
                                 </tr>
                             </g:each>
                             </tbody>

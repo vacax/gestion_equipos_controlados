@@ -374,7 +374,7 @@
 <asset:javascript src="raphael/raphael.min.js"/>
 <asset:javascript src="morris.js/morris.min.js"/>
 
-<asset:javascript src="dist/js/pages/dashboards/dashboard1.js"/>
+%{--<asset:javascript src="dist/js/pages/dashboards/dashboard1.js"/>--}%
 
 <g:pageProperty name="page.js"/>
 

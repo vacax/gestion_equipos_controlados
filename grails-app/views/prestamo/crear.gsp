@@ -76,40 +76,40 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
                             <g:each in="${Equipo.findAllByHabilitado(true)}" var="equipo">
-                                <input id="cantDisponible_${equipo.id}" value="${equipo.cantidadDisponible}" hidden>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="">
-                                            <h4 class="m-b-0 font-16">${equipo.nombre}</h4>
+                                <tr>
+                                    <input id="cantDisponible_${equipo.id}" value="${equipo.cantidadDisponible}" hidden>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="">
+                                                <h4 class="m-b-0 font-16">${equipo.nombre}</h4>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>${equipo.categoriaEquipo.categoria}</td>
-                                <td>${equipo.cantidadDisponible}</td>
-                                <td>
-                                    <g:if test="${equipo.serial}">
-                                        Si
-                                    </g:if>
-                                    <g:else>
-                                        No
-                                    </g:else>
-                                </td>
-                                <td>
-                                    <g:if test="${equipo.serial}">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                data-target="#modal"
-                                                onclick="cambiarEquipoSeleccionado('${equipo.id}', '${equipo.nombre}')"
-                                                data-whatever="${equipo.id}">Agregar</button>
-                                    </g:if>
-                                    <g:else>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                data-target="#modalNoSerial"
-                                                onclick="cambiarEquipoSeleccionado('${equipo.id}', '${equipo.nombre}')"
-                                                data-whatever="${equipo.id}">Agregar</button>
-                                    </g:else>
-                                </td>
+                                    </td>
+                                    <td>${equipo.categoriaEquipo.categoria}</td>
+                                    <td>${equipo.cantidadDisponible}</td>
+                                    <td>
+                                        <g:if test="${equipo.serial}">
+                                            Si
+                                        </g:if>
+                                        <g:else>
+                                            No
+                                        </g:else>
+                                    </td>
+                                    <td>
+                                        <g:if test="${equipo.serial}">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#modal"
+                                                    onclick="cambiarEquipoSeleccionado('${equipo.id}', '${equipo.nombre}')"
+                                                    data-whatever="${equipo.id}">Agregar</button>
+                                        </g:if>
+                                        <g:else>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#modalNoSerial"
+                                                    onclick="cambiarEquipoSeleccionado('${equipo.id}', '${equipo.nombre}')"
+                                                    data-whatever="${equipo.id}">Agregar</button>
+                                        </g:else>
+                                    </td>
                                 </tr>
                             </g:each>
                             </tbody>
@@ -438,8 +438,9 @@
                         },
                         dataType: "json",
                         success: function (result) {
-                            if (result == true) {
-                                window.location.href = "/prestamo/index";
+                            alert("mensaje: "+result);
+                            if (result.ok == true) {
+                                window.location.href = "/prestamo/recibir/"+result.id;
                             } else {
                                 swal({
                                     title: "¡ATENCIÓN!",

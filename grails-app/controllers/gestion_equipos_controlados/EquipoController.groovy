@@ -47,4 +47,5 @@ class EquipoController {
 
         redirect(action: "index")
     }
+
 }

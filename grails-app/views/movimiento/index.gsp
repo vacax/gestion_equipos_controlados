@@ -94,29 +94,29 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
                             <g:each in="${listadoMovimientos}" var="movimiento">
-                                <td>
-                                    <g:if test="${movimiento.tipoMovimiento.toString() == 'ENTRADA'}">
-                                        <label class="label label-success">${movimiento.tipoMovimiento}</label>
-                                    </g:if>
-                                    <g:else>
-                                        <label class="label label-danger">${movimiento.tipoMovimiento}</label>
-                                    </g:else>
-                                </td>
-                                <td>${movimiento.equipo.nombre}</td>
-                                <td>${movimiento.cantidad}</td>
-                                <td>${movimiento.dateCreated}</td>
-                                <td><a class="btn btn-info" href="#"
-                                       onclick="verMovimiento(
-                                           '${movimiento.tipoMovimiento.toString()}',
-                                           '${movimiento.equipo.nombre}',
-                                           '${movimiento.cantidad}',
-                                           '${movimiento.dateCreated}',
-                                           '${movimiento.comentario}',
-                                           '${movimiento.creadoPor.name}'
-                                       )
-                                       ">Ver</a></td>
+                                <tr>
+                                    <td>
+                                        <g:if test="${movimiento.tipoMovimiento.toString() == 'ENTRADA'}">
+                                            <label class="label label-success">${movimiento.tipoMovimiento}</label>
+                                        </g:if>
+                                        <g:else>
+                                            <label class="label label-danger">${movimiento.tipoMovimiento}</label>
+                                        </g:else>
+                                    </td>
+                                    <td>${movimiento.equipo.nombre}</td>
+                                    <td>${movimiento.cantidad}</td>
+                                    <td>${movimiento.dateCreated}</td>
+                                    <td><a class="btn btn-info" href="#"
+                                           onclick="verMovimiento(
+                                               '${movimiento.tipoMovimiento.toString()}',
+                                               '${movimiento.equipo.nombre}',
+                                               '${movimiento.cantidad}',
+                                               '${movimiento.dateCreated}',
+                                               '${movimiento.comentario}',
+                                               '${movimiento.creadoPor.name}'
+                                           )
+                                           ">Ver</a></td>
                                 </tr>
                             </g:each>
                             </tbody>

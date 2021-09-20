@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat
 @Transactional
 class PrestamoService {
 
-    def save(def dataEstudiante, dataPrestamo, User currentUser) {
+    Prestamo save(def dataEstudiante, dataPrestamo, User currentUser) {
         SimpleDateFormat sdf = new SimpleDateFormat('dd/MM/yyyy')
         def prestamo = new Prestamo()
 
@@ -137,4 +137,22 @@ class PrestamoService {
         }
 
     }
+
+    List<PrestamoDetalle> listadPrestamosActivosPorEquipo(long  id){
+        List<PrestamoDetalle> lista = PrestamoDetalle.withCriteria {
+            and {
+                equipoSerial {
+                    and {
+                        equipo {
+                            eq("id", id)
+                        }
+                    }
+                }
+                eq("entregado", false)
+            }
+        }
+        println "La cantidad de elementos: "+lista.size()
+        return lista
+    }
+
 }
